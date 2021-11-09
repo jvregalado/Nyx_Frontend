@@ -45,10 +45,11 @@ const Content = () => {
 
     const handleDownload = () => {
         const nData = state.data;
-        const type = state.conversionType.type;
+        const contype = state.conversionType.type;
         const val = state.conversionType.value;
         const loc = state.locationDrop.value;
         const fileName = state.fileName;
+        console.log(nData)
         if(nData.length <= 0){
             return toast.error('No File uploaded!');
         }
@@ -60,8 +61,7 @@ const Content = () => {
         {
             return toast.error('Please select a Location');
         }
-console.log(fileName);
-        axios.post(`/conversion/${type}/${val}`,{
+        axios.post(`/conversion/${contype}/${val}`,{
             fromFront:nData
         },{
             params:{
