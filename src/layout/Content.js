@@ -61,7 +61,9 @@ const Content = () => {
         {
             return toast.error('Please select a Location');
         }
-        axios.post(`/conversion/${contype}/${val}`,{
+// console.log(fileName);
+        
+        axios.post(`${process.env.REACT_APP_API}conversion/${type}/${val}`,{
             fromFront:nData
         },{
             params:{
