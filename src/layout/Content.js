@@ -68,7 +68,8 @@ const Content = () => {
         },{
             params:{
                 WarehouseID:loc,
-                fileName
+                fileName,
+                valcon:val
             },
             responseType: 'arraybuffer'
             
