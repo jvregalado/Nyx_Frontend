@@ -68,7 +68,7 @@ const Content = () => {
         }
 // console.log(fileName);
         
-        axios.post(`${process.env.REACT_APP_API_DEV}conversion/${contype}/${val}`,{
+        axios.post(`${process.env.REACT_APP_API}conversion/${contype}/${val}`,{
             fromFront:nData
         },{
             params:{
