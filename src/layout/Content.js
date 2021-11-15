@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import {saveAs} from 'file-saver'
 
-
 const Content = () => {
     const [state,setState] = React.useState({
         conversionType:{type:null,value:null},
@@ -15,18 +14,25 @@ const Content = () => {
         fileName:null
     })
 
+    function resetUpload(){
+        document.getElementById('file_upload').value = ''
+    }
     const handleChange = (e) => {
         setState({
             ...state,
-            conversionType:e
+            conversionType:e,
+            data:[]
         })
+        resetUpload()
     }
 
     const locationChange = (e) => {
         setState({
             ...state,
-            locationDrop:e
+            locationDrop:e,
+            data:[]
         })
+        resetUpload()
     }
 
     const getData = (data,fileName) => {
@@ -49,7 +55,6 @@ const Content = () => {
         const val = state.conversionType.value;
         const loc = state.locationDrop.value;
         const fileName = state.fileName;
-        console.log(nData)
         if(nData.length <= 0){
             return toast.error('No File uploaded!');
         }
@@ -63,7 +68,7 @@ const Content = () => {
         }
 // console.log(fileName);
         
-        axios.post(`${process.env.REACT_APP_API}conversion/${type}/${val}`,{
+        axios.post(`${process.env.REACT_APP_API_DEV}conversion/${contype}/${val}`,{
             fromFront:nData
         },{
             params:{
@@ -76,10 +81,18 @@ const Content = () => {
         })
         .then(result => {
             let blob = new Blob([result.data], {type: 'vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'});
-            console.log(blob)
             saveAs(blob,`Generated${fileName}.xlsx`)
-        }).catch(err =>{
-            return toast.error("Error upon downloading. "+err);
+            state.data=[];
+            resetUpload()
+            return toast.success('Download Successful');
+        }).catch(error =>{
+            try{
+            const m = String.fromCharCode.apply(null, new Uint8Array(error.response.data));
+            const msg = JSON.parse(m);
+            toast.error(`${msg.message}`);    }
+            catch(e){
+                toast.error(`${e}`);
+            }
         })
 
 

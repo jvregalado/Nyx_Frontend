@@ -55,6 +55,7 @@ const FileUpload = ({getData}) =>{
       }}>
           <label>File Upload</label>
           <TextField 
+            id='file_upload'
             fullWidth
             size='small'
             type='file'
@@ -66,22 +67,3 @@ const FileUpload = ({getData}) =>{
 
 }
 export default FileUpload
-
-/* <form onSubmit={onSubmit}>
-  <Stack direction="row" alignItems="center" spacing={2}>
-    <div className="custom-file mb-4">
-      <label htmlFor="contained-button-file">
-      <Input accept="image/*" id="contained-button-file" multiple type="file" onChange={onChange}/>
-      <Button variant="contained" component="span"  >
-        Upload
-      </Button>
-      <label htmlFor="customFile" className="contained-button-file">{filename}
-      </label>
-          </label>
-    </div>
-    <label htmlFor="btnUpload">
-      <Button variant="contained">Generate</Button>
-      <Input id='btnUpload' type="submit" value="Upload"/>
-    </label>
-  </Stack>
-</form> */
