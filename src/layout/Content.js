@@ -67,8 +67,18 @@ const Content = () => {
             return toast.error('Please select a Location');
         }
 // console.log(fileName);
+
+let URL;
+
+if(process.env.NODE_ENV === 'development'){
+    URL = process.env.REACT_APP_API_DEV
+    console.log('development')
+}
+else {
+    URL = process.env.REACT_APP_API
+}
         
-        axios.post(`${process.env.REACT_APP_API}conversion/${contype}/${val}`,{
+        axios.post(`${URL}conversion/${contype}/${val}`,{
             fromFront:nData
         },{
             params:{
