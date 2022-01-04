@@ -1,15 +1,14 @@
 
-
 import Header from './Header';
 import Content from './Content';
+import CreateUser from './CreateUser';
 import {Grid} from '@mui/material';
 import {Navigate,Route,Routes} from "react-router-dom"
 
-const body = () => {
+const Body = () => {
   const token = localStorage.getItem('token');
-  console.log(token)  
+  const headerName = localStorage.getItem('keyvalue');
   const isLogin = false;
-    
   if(token == null || token == "" || token=='undefined') { 
     return (
       
@@ -24,10 +23,12 @@ const body = () => {
         <Header/>
       </Grid>
       <Grid item md={12}>
-        <Content/>
+        {(headerName==="Conversion Tool")?<Content/>:
+        (headerName==="Create Account")?<CreateUser/>:
+        null}
       </Grid>
     </Grid>
         )
     }
     
-    export default body
+    export default Body

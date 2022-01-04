@@ -1,7 +1,7 @@
 import React from 'react'
 import {Button, Grid} from '@mui/material';
-import {UploadButton} from '../components/Buttons';
-import {DropDownConversionType,DropDownLocation} from '../components/Dropdown';
+import {UploadButton} from '../../components/Buttons';
+import {DropDownConversionType,DropDownLocation} from '../../components/Dropdown';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import {saveAs} from 'file-saver'
@@ -66,7 +66,6 @@ const Content = () => {
         {
             return toast.error('Please select a Location');
         }
-// console.log(fileName);
 
 let URL;
 

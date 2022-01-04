@@ -1,7 +1,7 @@
 //import logo from './logo.svg';
 import './App.css';
 import {Login} from './layout/login';
-import {Body} from './layout';
+import {Body} from './layout/body';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter,Routes,Route} from "react-router-dom"

@@ -10,7 +10,20 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {Grid,Menu,MenuItem} from '@mui/material'
 import {useNavigate} from "react-router-dom"
 
+const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
 const Header = () => {
+
+const headerName = localStorage.getItem('keyvalue');
+const hdrChk = localStorage.getItem('hdrChk');
+if(headerName===null||headerName=="null")
+{
+  localStorage.setItem('keyvalue',"Conversion Tool");
+}
+  if(hdrChk!==headerName){
+    localStorage.setItem('hdrChk',headerName);
+    window.location.reload(false);
+  }
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   let navigate = useNavigate();
@@ -20,6 +33,8 @@ const Header = () => {
   };
   const handleClose = (e) => {
     const v = e.currentTarget.getAttribute('value');
+    const kv = e.currentTarget.getAttribute('keyvalue');
+    localStorage.setItem('keyvalue',kv)
     navigate(v);
     setAnchorEl(null);
   };
@@ -45,12 +60,16 @@ const Header = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} value="Create Account">Create Account</MenuItem>
-        <MenuItem onClick={handleClose} value="/">Conversion Tool</MenuItem>
+        
+  {userDetails.userAdmin?
+  <><MenuItem onClick={handleClose} value="/" keyvalue="Create Account">Create Account (Admin)</MenuItem>
+  <MenuItem onClick={handleClose} value="/" keyvalue="Reset Password">Reset Password (Admin)</MenuItem></>:null}
+        <MenuItem onClick={handleClose} value="/" keyvalue="Change Password">Change Password</MenuItem>
+        <MenuItem onClick={handleClose} value="/" keyvalue="Conversion Tool">Conversion Tool</MenuItem>
         <MenuItem onClick={handleClose} value="/login">Logout</MenuItem>
       </Menu>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Conversion Tool
+            {headerName}
           </Typography>
         </Toolbar>
       </AppBar>

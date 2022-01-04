@@ -3,8 +3,8 @@ import {Grid,
     Paper,
     Avatar,
     TextField,
-    Checkbox,
-    FormControlLabel,
+    // Checkbox,
+    // FormControlLabel,
     Button} 
 from '@mui/material';
 import LockIcon from '@mui/icons-material/LockOutlined';
@@ -16,8 +16,6 @@ import {Navigate,Route,Routes} from "react-router-dom"
 
 const Login=()=>{
     localStorage.clear()
-    const paperStyle={ padding: 20, height:'70vh', width:280,margin:"20px auto"};
-    const avatarStyle={backgroundColor:"#e0732f"};
     const [email_add,setEmail_add]=React.useState("");
 const [password,setPassword]=React.useState("");
 
@@ -62,15 +60,24 @@ const login = () =>{
         }
         else{
             setLoginStatus(true);
-            localStorage.setItem('token',res.data.token)
-            return toast.success('Successfully login. ');
+            localStorage.setItem('token',res.data.token);
+            localStorage.setItem('userDetails',JSON.stringify(res.data.user));
+            console.log(res.data.user);
+            localStorage.setItem('keyvalue',"Conversion Tool");
+            localStorage.setItem('hdrChk',"Conversion Tool");
+            //return toast.success('Successfully login. ');
         }
     }).catch((err)=>{
         setLoginStatus(false);
+        console.log(err,"login")
         return toast.error('Incorrect email or password. ');
     }
     );    
 };
+
+const paperStyle={ padding: 20, height:'70vh', width:280,margin:"20px auto"};
+const avatarStyle={backgroundColor:"#e0732f"};
+
 return(
     <Grid>
         <Paper elevation={10} style={paperStyle}>
@@ -107,7 +114,7 @@ return(
                     }
                   }}
                 fullWidth required/>
-            <FormControlLabel
+            {/* <FormControlLabel
         control={
           <Checkbox
             name="chbRemember"
@@ -115,7 +122,9 @@ return(
           />
         }
         label="Remember me"
-      />
+      /> */}
+      <br/>
+      <br/>
       <Button type="submit" color="primary" variant="contained" onClick={login} fullWidth>Sign in</Button>
       {loginStatus?<ToConversion/>:null}
         </Paper>
