@@ -48,7 +48,8 @@ const Content = () => {
             return toast.error(e);
         }
     }
-
+    
+    const userDetails = JSON.parse(localStorage.getItem('userDetails'));
     const handleDownload = () => {
         const nData = state.data;
         const contype = state.conversionType.type;
@@ -83,7 +84,8 @@ else {
             params:{
                 WarehouseID:loc,
                 fileName,
-                valcon:val
+                valcon:val,
+                userID:userDetails.id
             },
             responseType: 'arraybuffer'
             

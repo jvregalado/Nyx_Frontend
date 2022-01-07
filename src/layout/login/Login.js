@@ -60,9 +60,8 @@ const login = () =>{
         }
         else{
             setLoginStatus(true);
-            localStorage.setItem('token',res.data.token);
             localStorage.setItem('userDetails',JSON.stringify(res.data.user));
-            console.log(res.data.user);
+            localStorage.setItem('token',res.data.token);
             localStorage.setItem('keyvalue',"Conversion Tool");
             localStorage.setItem('hdrChk',"Conversion Tool");
             //return toast.success('Successfully login. ');

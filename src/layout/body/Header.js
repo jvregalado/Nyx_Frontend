@@ -37,15 +37,40 @@ if(process.env.NODE_ENV === 'development'){
 else {
     URL = process.env.REACT_APP_API
 }
-const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
 const Header = () => {
   
+const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 // to change directory
   let navigate = useNavigate();
 
 
   //events
+  //Change Password
+  const toChangePassword = () =>{
+    
+    const old = passwordState.txtOldPassword;
+    const newPass = passwordState.txtNewPassword;
+    const conf = passwordState.txtConfirmPassword;
+    if(newPass.length<8)
+    return toast.error(`Password must be greater than 8 characters`);
+    if(newPass!==conf)
+    return toast.error(`Mismatched password`);
+    else
+    {
+    Axios.post(`${URL}users/login/changepassword/`,{
+      id: userDetails.id,
+      oldPassword: old,
+      newPassword: newPass
+  }).then((res)=>{
+      changeDialogClose();
+      return toast.success(`Password has been changed!`);
+  }).catch((e)=>{
+      return toast.error(`${e.response.data.message}`);
+  }
+  );
+  }
+}
   //To Reset
   const toResetPassword = () =>{
     Axios.post(`${URL}users/login/resetpassword/`,{
@@ -58,7 +83,24 @@ const Header = () => {
       return toast.error(`${e.response.data.message}`);
   }
   );
-  }
+}
+
+
+  //Change Password Dialog Box
+  const [passwordState,setPasswordState] = React.useState({
+    txtOldPassword:'',
+    txtNewPassword:'',
+    txtConfirmPassword:'',
+})
+  const [changePass, setChangePass] = React.useState(false);
+  const changeDialogClose = () => {
+    setChangePass(false);
+    setPasswordState(
+      {txtOldPassword:'',
+    txtNewPassword:'',
+    txtConfirmPassword:''}
+    );
+  };
   //Reset Password Dialog Box
   const [email, setEmail] = React.useState(null);
   const [resetting, setResetting] = React.useState(false);
@@ -117,6 +159,63 @@ if(headerName===null||headerName=="null")
       
     <Grid item md={12} sx={{ flexGrow: 1 }}>
       
+      <Dialog open={changePass} onClose={changeDialogClose}>
+        <DialogTitle>Change Password</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Enter your desire password
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="txtOldPass"
+            label="Old Password"
+            fullWidth
+            variant="standard"
+            type="password"
+            onChange={(e)=>{
+              setPasswordState({
+                  ...passwordState,
+                  txtOldPassword:e.target.value
+              })
+          }}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="txtNewPass"
+            label="New Password"
+            fullWidth
+            variant="standard"
+            type="password"
+            onChange={(e)=>{
+              setPasswordState({
+                  ...passwordState,
+                  txtNewPassword:e.target.value
+              })
+          }}
+          />
+          <TextField
+            autoFocus
+            margin="dense"
+            id="txtConfirmPass"
+            label="Confirm Password"
+            fullWidth
+            type="password"
+            variant="standard"
+            onChange={(e)=>{
+              setPasswordState({
+                  ...passwordState,
+                  txtConfirmPassword:e.target.value
+              })
+          }}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={changeDialogClose}>Cancel</Button>
+          <Button onClick={toChangePassword}>Change Password</Button>
+        </DialogActions>
+      </Dialog>
       <Dialog open={open} onClose={resetDialogClose}>
         <DialogTitle>Reset Password</DialogTitle>
         <DialogContent>
@@ -178,10 +277,12 @@ if(headerName===null||headerName=="null")
       >
         
   {userDetails.userAdmin?
-  <><MenuItem onClick={handleClose} value="/" keyvalue="Create Account">Create Account (Admin)</MenuItem>
+  <><MenuItem value="/" keyvalue="Create Account">Create Account (Admin)</MenuItem>
   <MenuItem onClick={resetDialogOpen} value="/" keyvalue="Reset Password">Reset Password (Admin)</MenuItem>
   </>:null}
-        <MenuItem onClick={handleClose} value="/" keyvalue="Change Password">Change Password</MenuItem>
+        <MenuItem onClick={(e)=>{
+    setChangePass(true)
+}} value="/" >Change Password</MenuItem>
         <MenuItem onClick={handleClose} value="/" keyvalue="Conversion Tool">Conversion Tool</MenuItem>
         <MenuItem onClick={handleClose} value="/login">Logout</MenuItem>
       </Menu>
