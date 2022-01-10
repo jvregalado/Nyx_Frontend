@@ -278,11 +278,9 @@ if(headerName===null||headerName=="null")
         
   {userDetails.userAdmin?
   <><MenuItem value="/" keyvalue="Create Account">Create Account (Admin)</MenuItem>
-  <MenuItem onClick={resetDialogOpen} value="/" keyvalue="Reset Password">Reset Password (Admin)</MenuItem>
+  <MenuItem onClick={resetDialogOpen} value="/" >Reset Password (Admin)</MenuItem>
   </>:null}
-        <MenuItem onClick={(e)=>{
-    setChangePass(true)
-}} value="/" >Change Password</MenuItem>
+        <MenuItem onClick={(e)=>{setChangePass(true)}} value="/" >Change Password</MenuItem>
         <MenuItem onClick={handleClose} value="/" keyvalue="Conversion Tool">Conversion Tool</MenuItem>
         <MenuItem onClick={handleClose} value="/login">Logout</MenuItem>
       </Menu>
