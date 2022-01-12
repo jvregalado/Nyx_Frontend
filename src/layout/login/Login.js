@@ -69,7 +69,7 @@ const login = () =>{
     }).catch((err)=>{
         setLoginStatus(false);
         console.log(err,"login")
-        return toast.error('Incorrect email or password. ');
+        return toast.error(err.response.data.message);
     }
     );    
 };

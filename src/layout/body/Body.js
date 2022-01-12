@@ -4,6 +4,7 @@ import Content from './Content';
 import CreateUser from './CreateUser';
 import {Grid} from '@mui/material';
 import {Navigate,Route,Routes} from "react-router-dom"
+import EditUser from './EditUser'
 
 const Body = () => {
   const token = localStorage.getItem('token');
@@ -25,6 +26,7 @@ const Body = () => {
       <Grid item md={12}>
         {(headerName==="Conversion Tool")?<Content/>:
         (headerName==="Create Account")?<CreateUser/>:
+        (headerName==="Manage Users")?<EditUser/>:
         null}
       </Grid>
     </Grid>

@@ -37,8 +37,20 @@ if(process.env.NODE_ENV === 'development'){
 else {
     URL = process.env.REACT_APP_API
 }
-
 const Header = () => {
+
+  const headerName = localStorage.getItem('keyvalue');
+  const hdrChk = localStorage.getItem('hdrChk');
+  if(headerName===null||headerName=="null")
+  {
+    localStorage.setItem('keyvalue',"Conversion Tool");
+    console.log(`empty ${headerName}`)
+  }
+    if(hdrChk!==headerName){
+      console.log(`changed ${headerName}`)
+      localStorage.setItem('hdrChk',headerName);
+      window.location.reload(false);
+    }
   
 const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 // to change directory
@@ -144,17 +156,6 @@ const userDetails = JSON.parse(localStorage.getItem('userDetails'));
     setAnchorEl(null);
   };
 
-  //headerName Checker
-const hdrChk = localStorage.getItem('hdrChk');
-const headerName = localStorage.getItem('keyvalue');
-if(headerName===null||headerName=="null")
-{
-  localStorage.setItem('keyvalue',"Conversion Tool");
-}
-  if(hdrChk!==headerName){
-    localStorage.setItem('hdrChk',headerName);
-    window.location.reload(false);
-  }
     return (
       
     <Grid item md={12} sx={{ flexGrow: 1 }}>
@@ -277,8 +278,9 @@ if(headerName===null||headerName=="null")
       >
         
   {userDetails.userAdmin?
-  <><MenuItem value="/" keyvalue="Create Account">Create Account (Admin)</MenuItem>
+  <><MenuItem onClick={handleClose} value="/" keyvalue="Create Account">Create Account (Admin)</MenuItem>
   <MenuItem onClick={resetDialogOpen} value="/" >Reset Password (Admin)</MenuItem>
+  <MenuItem onClick={handleClose} value="/" keyvalue="Manage Users">Manage Users (Admin)</MenuItem>
   </>:null}
         <MenuItem onClick={(e)=>{setChangePass(true)}} value="/" >Change Password</MenuItem>
         <MenuItem onClick={handleClose} value="/" keyvalue="Conversion Tool">Conversion Tool</MenuItem>
