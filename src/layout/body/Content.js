@@ -78,14 +78,15 @@ else {
     URL = process.env.REACT_APP_API
 }
         
-        axios.post(`${URL}conversion/${contype}/${val}`,{
+        axios.post(`${URL}file-converter/file-to-ASN`,{
             fromFront:nData
         },{
             params:{
                 WarehouseID:loc,
                 fileName,
                 valcon:val,
-                userID:userDetails.id
+                userID:userDetails.id,
+                contype:contype
             },
             responseType: 'arraybuffer'
             

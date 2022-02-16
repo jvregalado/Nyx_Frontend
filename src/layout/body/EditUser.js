@@ -31,7 +31,7 @@ const [rows, setRows] = React.useState({});
 
 const searchEngine = () =>{
   const sb = document.getElementById('txtsearchE').value;
-  Axios.post(`${URL}users/login/viewuser/`,{
+  Axios.post(`${URL}user/login/viewuser/`,{
     searchBar: sb
 }).then((res)=>{
     console.log(res.data.searchUser);
@@ -62,7 +62,7 @@ const toUpdateDetails = () =>{
         return toast.error(`Please check for the required fields`);
     }
     else{
-      Axios.post(`${URL}users/login/updateuserdetails/`,{
+      Axios.post(`${URL}user/login/updateuserdetails/`,{
         uEmail_add: stateUpdate.txtEmail,
         uID: stateUpdate.txtID,
         uFirst_name: f,

@@ -7,17 +7,17 @@ import {Navigate,Route,Routes} from "react-router-dom"
 import EditUser from './EditUser'
 
 const Body = () => {
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
   const headerName = localStorage.getItem('keyvalue');
-  const isLogin = false;
-  if(token == null || token == "" || token=='undefined') { 
-    return (
+  // // const isLogin = false;
+  // if(token === null || token === "" || token==='undefined') { 
+  //   return (
       
-      <Routes>
-      <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    )
-  } 
+  //     <Routes>
+  //     <Route path="*" element={<Navigate to="/loginz" replace />} />
+  //     </Routes>
+  //   )
+  // } 
   return (
     <Grid container>
       <Grid item md={12} xs={12}>

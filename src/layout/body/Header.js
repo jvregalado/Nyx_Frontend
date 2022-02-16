@@ -17,15 +17,14 @@ DialogContent,
 DialogContentText,
 TextField,
 DialogActions,
-Button,
-Slide} from '@mui/material'
+Button} from '@mui/material'
 import {useNavigate} from "react-router-dom"
 import { toast } from 'react-toastify';
 import Axios from 'axios';
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+// const Transition = React.forwardRef(function Transition(props, ref) {
+//   return <Slide direction="up" ref={ref} {...props} />;
+// });
 
 Axios.defaults.withCredentials = true;
 
@@ -41,7 +40,7 @@ const Header = () => {
 
   const headerName = localStorage.getItem('keyvalue');
   const hdrChk = localStorage.getItem('hdrChk');
-  if(headerName===null||headerName=="null")
+  if(headerName===null||headerName==="null")
   {
     localStorage.setItem('keyvalue',"Conversion Tool");
     console.log(`empty ${headerName}`)
@@ -70,7 +69,7 @@ const userDetails = JSON.parse(localStorage.getItem('userDetails'));
     return toast.error(`Mismatched password`);
     else
     {
-    Axios.post(`${URL}users/login/changepassword/`,{
+    Axios.post(`${URL}user/login/changepassword/`,{
       id: userDetails.id,
       oldPassword: old,
       newPassword: newPass
@@ -85,7 +84,7 @@ const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 }
   //To Reset
   const toResetPassword = () =>{
-    Axios.post(`${URL}users/login/resetpassword/`,{
+    Axios.post(`${URL}user/login/resetpassword/`,{
       email_add: email,
       id: userDetails.id
   }).then((res)=>{
@@ -277,11 +276,11 @@ const userDetails = JSON.parse(localStorage.getItem('userDetails'));
         onMouseLeave={closeOut}
       >
         
-  {userDetails.userAdmin?
+  {/* {userDetails.userAdmin?
   <><MenuItem onClick={handleClose} value="/" keyvalue="Create Account">Create Account (Admin)</MenuItem>
   <MenuItem onClick={resetDialogOpen} value="/" >Reset Password (Admin)</MenuItem>
   <MenuItem onClick={handleClose} value="/" keyvalue="Manage Users">Manage Users (Admin)</MenuItem>
-  </>:null}
+  </>:null} */}
         <MenuItem onClick={(e)=>{setChangePass(true)}} value="/" >Change Password</MenuItem>
         <MenuItem onClick={handleClose} value="/" keyvalue="Conversion Tool">Conversion Tool</MenuItem>
         <MenuItem onClick={handleClose} value="/login">Logout</MenuItem>

@@ -60,7 +60,7 @@ const [open, setOpen] = React.useState(false);
 const ClickCreateUser=()=>{
     setOpen(false);
     try{
-    Axios.post(`${URL}users/login/createuser/`,{
+    Axios.post(`${URL}user/login/createuser/`,{
         email_add: state.txtUsername,
         first_name:state.txtFirstName,
         suffix: state.txtSuffix,

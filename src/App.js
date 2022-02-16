@@ -1,26 +1,35 @@
-//import logo from './logo.svg';
-import './App.css';
-import {Login} from './layout/login';
-import {Body} from './layout/body';
+import React from 'react';
+import {Routes,Route,useNavigate} from "react-router-dom";
+import {useSelector} from 'react-redux';
+
 import { ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import {BrowserRouter,Routes,Route} from "react-router-dom"
-import axios from 'axios';
 
-axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token')
-
+import { Login } from './views';
+import { Container } from './layout';
+// import {Body} from './layout/body';
 
 function App() {
+
+  const navigate = useNavigate();
+
+  const {email} = useSelector(state => state.auth)
+
+  React.useEffect(() => {
+    if(email === ''){
+      navigate('/login')
+    }
+  },[email, navigate])
+
+  // console.log('email', typeof(email), {"email" : email})
+
   return (
-    <BrowserRouter>
-    <div className="App">
+    <div>
       <Routes>
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/" element={<Body/>}/>
+        <Route path="/login" element={<Login/>} />
+        <Route path='*' element={<Container/>}/>
       </Routes>
       <ToastContainer/>
     </div>
-    </BrowserRouter>
   );
 }
 
