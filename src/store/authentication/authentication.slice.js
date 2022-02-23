@@ -4,7 +4,7 @@ import {signIn,signOut} from './authentication.thunk';
 const slice = createSlice({
 	name:'authentication',
 	initialState:{
-		email:'',
+		user_email:'',
 		token:'',
 		role:''
 	},
@@ -13,13 +13,12 @@ const slice = createSlice({
 	},
 	extraReducers:{
 		[signIn.fulfilled]:(state,action) => {
-			state.email	 = action.payload.email
-			state.token		  = action.payload.token
+			state.user_email = action.payload.user_email
+			state.token = action.payload.token
 		},
 		[signOut.fulfilled]:(state,action) => {
 			
 		}
-
 	}
 })
 

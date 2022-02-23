@@ -54,10 +54,10 @@ function Toolbar({onCreate,onReplan,uploadType,isUpload,isDownloadTemp,label,isC
 
     return (
         <Paper elevation={0} variant='outlined' sx={{
-            paddingLeft:2,
-            paddingRight:2
+            paddingLeft:1,
+            paddingRight:1
         }}> 
-            <MUIToolbar disableGutters>
+            <MUIToolbar >
                 <Typography variant='h6'>{label}</Typography>
                 <div style={{flexGrow: 1}}/>
                 <div >

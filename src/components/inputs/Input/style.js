@@ -1,7 +1,8 @@
 // import {makeStyles} from '@mui/material';
 
 // export default makeStyles(theme => ({
-//     root:{
-//         flexGrow:1
-//     }
+//	 root:{
+//		 paddingLeft:theme.spacing(1),
+//		 paddingRight:theme.spacing(1)
+//	 }
 // }))

@@ -9,21 +9,21 @@ const headers = {
 }
 
 const signIn = createAsyncThunk('authentication/sign-in',
-	async({email,password}, {rejectWithValue}) => {
+	async({user_email,user_password}, {rejectWithValue}) => {
 		try{
 			const response = await API({
 				requestHeaders : {
 					...headers
 				}
 			}).post(`${baseURL}/token`,{
-				email,
-				password
+				user_email,
+				user_password
 			})
 
 			return {
 				token:response.data.token,
 				// modules:response.data.modules,
-				email:email
+				user_email:user_email
 			}
 		}
 		catch(e){
@@ -41,7 +41,7 @@ const signOut = createAsyncThunk('authentication/sign-out',
 		try{
 			await API({
 					requestHeaders:{
-							...headers
+						...headers
 					}
 			})
 			.post(`${baseURL}/sign-out`)
@@ -49,7 +49,7 @@ const signOut = createAsyncThunk('authentication/sign-out',
 		catch(e){
 			console.log(e)
 			if(e.response && e.response.data){
-					toast.error(`${e.response.data.message}`)
+				toast.error(`${e.response.data.message}`)
 			}
 
 			return rejectWithValue(e)

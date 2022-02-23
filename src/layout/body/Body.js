@@ -12,25 +12,25 @@ const Body = () => {
   // // const isLogin = false;
   // if(token === null || token === "" || token==='undefined') { 
   //   return (
-      
-  //     <Routes>
-  //     <Route path="*" element={<Navigate to="/loginz" replace />} />
-  //     </Routes>
+	  
+  //	 <Routes>
+  //	 <Route path="*" element={<Navigate to="/loginz" replace />} />
+  //	 </Routes>
   //   )
   // } 
   return (
-    <Grid container>
-      <Grid item md={12} xs={12}>
-        <Header/>
-      </Grid>
-      <Grid item md={12}>
-        {(headerName==="Conversion Tool")?<Content/>:
-        (headerName==="Create Account")?<CreateUser/>:
-        (headerName==="Manage Users")?<EditUser/>:
-        null}
-      </Grid>
-    </Grid>
-        )
-    }
-    
-    export default Body
+	<Grid container>
+	  <Grid item md={12} xs={12}>
+		<Header/>
+	  </Grid>
+	  <Grid item md={12}>
+		{(headerName==="Conversion Tool")?<Content/>:
+		(headerName==="Create Account")?<CreateUser/>:
+		(headerName==="Manage Users")?<EditUser/>:
+		null}
+	  </Grid>
+	</Grid>
+		)
+	}
+	
+	export default Body

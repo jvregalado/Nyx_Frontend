@@ -21,8 +21,8 @@ function Login() {
 	const dispatch = useDispatch();
 
 	const [state,setState] = React.useState({
-		email:'',
-		password:''
+		user_email:'',
+		user_password:''
 	})
 
 	const handleChange = (e) => {
@@ -34,7 +34,7 @@ function Login() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(signIn({email:state.email, password:state.password}))
+		dispatch(signIn({user_email:state.user_email, user_password:state.user_password}))
 	}
 
 	return(
@@ -68,10 +68,10 @@ function Login() {
 						margin="normal"
 						required
 						fullWidth
-						id="email"
+						id="user_email"
 						label="Email Address"
-						name="email"
-						autoComplete="email"
+						name="user_email"
+						autoComplete="user_email"
 						autoFocus
 						onChange={handleChange}
 					/>
@@ -80,10 +80,10 @@ function Login() {
 						margin="normal"
 						required
 						fullWidth
-						name="password"
+						name="user_password"
 						label="Password"
 						type="password"
-						id="password"
+						id="user_password"
 						autoComplete="current-password"
 						onChange={handleChange}
 					/>

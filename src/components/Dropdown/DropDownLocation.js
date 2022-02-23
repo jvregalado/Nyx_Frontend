@@ -18,24 +18,24 @@ function LocationSelect({
   // };
 
   const options = [
-    {
-      value:"ZEU-CIC",
-      label:"Zeus CIC"
-    },
-    {
-      value:"ZEU-PVM",
-      label:"Zeus PVM"
-    }
+	{
+	  value:"ZEU-CIC",
+	  label:"Zeus CIC"
+	},
+	{
+	  value:"ZEU-PVM",
+	  label:"Zeus PVM"
+	}
   ]
 
   return (
-    <div style={{
-      display:'flex',
-      flexDirection:'column'
-    }}>
-      <label>Location</label>
-      <Select options={options} value={value} onChange={handleChange} isClearable/>
-    </div>
+	<div style={{
+	  display:'flex',
+	  flexDirection:'column'
+	}}>
+	  <label>Location</label>
+	  <Select options={options} value={value} onChange={handleChange} isClearable/>
+	</div>
   );
 }
 

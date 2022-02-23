@@ -5,13 +5,13 @@ import theme from './theme';
 
 function Container(props) {
 
-    return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Header/>
-            <Content/>
-        </ThemeProvider>
-    );
+	return (
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
+			<Header/>
+			<Content/>
+		</ThemeProvider>
+	);
 }
 
 export default Container;
