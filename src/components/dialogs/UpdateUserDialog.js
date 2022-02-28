@@ -5,64 +5,49 @@ import {Button,
 	DialogContent,
 	TextField,
 	Grid,
-	Typography,
 	DialogActions} from '@mui/material';
 import {useDispatch} from 'react-redux';
 import {Spinner} from '../../components';
-import {createUser} from '../../store/user';
-import {useSelector} from 'react-redux'
+import {createUser,getUser} from '../../store/user';
 
 
-const CreateUserDialog = ({
+const UpdateUserDialog = ({
 	isOpen,
-	toggle
+	toggle,
+	user_email
 }) => {
 
 	const dispatch = useDispatch();
 
 	const [state, setState] = React.useState({
-		isEmailError	:false,
-		isNameError		:false,
-		user_email		:'',
-		user_first_name :'',
-		user_middle_name:'',
-		user_last_name	:'',
-		user_contact_no	:''
-	})
+		isNameError:false
+	});
 
-	const {auth} = useSelector(state=> state.auth)
-
-	const handleCreate = () => {
-		let hasEmail = false;
+	const handleUpdate = () => {
 		let hasName = false
-		if(state.user_email.replace(/ /g,'')==='' || !state.user_email.includes('@')){
-			hasEmail = true;
-		}
 		if(state.user_first_name===''){
 			hasName = true
 		}
 
 		setState({
 			...state,
-			isEmailError:hasEmail,
 			isNameError:hasName
 		})
 
-		if(!hasEmail && !hasName){
-			dispatch(createUser({
-				route:'create',
-				data:{
-					user_email		:state.user_email.replace(/ /g,'').toLowerCase(),
-					user_first_name	:state.user_first_name,
-					user_middle_name:state.user_middle_name,
-					user_last_name	:state.user_last_name,
-					user_contact_no	:state.user_contact_no
-				}
-			}))
+		if(!hasName){
+			// dispatch(updateUser({
+			// 	route:'update',
+			// 	data:{
+			// 		user_email		:state.user_email.replace(/ /g,''),
+			// 		user_first_name	:state.user_first_name,
+			// 		user_middle_name:state.user_middle_name,
+			// 		user_last_name	:state.user_last_name,
+			// 		user_contact_no	:state.user_contact_no
+			// 	}
+			// }))
 
 			setState({
 				...state,
-				isEmailError	:false,
 				isNameError		:false,
 				user_email		:'',
 				user_first_name :'',
@@ -81,22 +66,31 @@ const CreateUserDialog = ({
 		})
 	}
 
+	React.useEffect(()=>{
+		const fetchData = dispatch(getUser({
+				route		:	'get',
+				filters		:	{user_email:'dpmanalo@codedisruptors.com'}
+			}))
+
+		console.log('fetchData',fetchData)
+
+	},[toggle])
+
 	return (
 		<Dialog open={isOpen}>
-		<DialogTitle>Create User</DialogTitle>
+		<DialogTitle>Update User</DialogTitle>
 		<DialogContent dividers>
 			<div>
 				<Spinner reducer='user'/>
 				<Grid container spacing={2}>
 					<Grid item container>
 						<TextField
-							required
+							disabled
 							fullWidth
 							name='user_email'
-							error={state.isEmailError}
 							variant='outlined'
 							label='Email Address'
-							value={state.user_email}
+							value={''}
 							onChange={handleChange}
 						/>
 					</Grid>
@@ -108,7 +102,7 @@ const CreateUserDialog = ({
 							error={state.isNameError}
 							variant='outlined'
 							label='First Name'
-							value={state.user_first_name}
+							value={''}
 							onChange={handleChange}
 						/>
 					</Grid>
@@ -118,7 +112,7 @@ const CreateUserDialog = ({
 							name='user_middle_name'
 							variant='outlined'
 							label='Middle Name'
-							value={state.user_middle_name}
+							value={''}
 							onChange={handleChange}
 						 />
 					</Grid>
@@ -130,7 +124,7 @@ const CreateUserDialog = ({
 							error={state.isNameError}
 							variant='outlined'
 							label='Last Name'
-							value={state.user_last_name}
+							value={''}
 							onChange={handleChange}
 						/>
 					</Grid>
@@ -138,24 +132,22 @@ const CreateUserDialog = ({
 						<TextField
 							fullWidth
 							name='user_contact_no'
+							error={state.isNameError}
 							variant='outlined'
 							label='Contact No.'
-							value={state.user_contact_no}
+							value={''}
 							onChange={handleChange}
 						/>
-					</Grid>
-					<Grid>
-						<Typography variant='caption'>*NOTE: default password is kerrylogistikus</Typography>
 					</Grid>
 				</Grid>
 			</div>
 		</DialogContent>
 		<DialogActions>
 			<Button variant='contained' onClick={toggle} color='secondary'>Cancel</Button>
-			<Button variant='contained' onClick={handleCreate}>Save</Button>
+			<Button variant='contained' onClick={handleUpdate}>Save</Button>
 		 </DialogActions>
 	 </Dialog>
 	);
 }
 
-export default CreateUserDialog;
+export default UpdateUserDialog;

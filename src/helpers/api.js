@@ -6,10 +6,11 @@ const API = ({
 	let baseURL
 	let headers = { }
 	const state = JSON.parse(localStorage.getItem('state'))
+	// console.log(state.auth.token.token)
 	if(state.auth.token !== ''){
 		headers = {
 			...headers,
-			'x-access-token':state.auth.token,
+			'x-access-token':state.auth.token.token
 		}
 	}
 

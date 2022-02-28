@@ -7,7 +7,7 @@ const headers = {
 	'Content-Type':'application/json',
 }
 
-export const createUser = createAsyncThunk('user/create',
+const createUser = createAsyncThunk('user/create',
 	async({route,data},{rejectWithValue})=>{
 		try{
 			const res = await API({
@@ -35,7 +35,7 @@ export const createUser = createAsyncThunk('user/create',
 	}
 )
 
-export const getUser = createAsyncThunk('user/get',
+const getUser = createAsyncThunk('user/get',
 	async({route,page,totalPage,orderBy,filters},{rejectWithValue})=>{
 		try{
 			const res = await API({
@@ -61,3 +61,5 @@ export const getUser = createAsyncThunk('user/get',
 		}
 	}
 )
+
+export { getUser, createUser }

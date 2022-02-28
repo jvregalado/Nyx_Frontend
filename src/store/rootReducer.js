@@ -1,10 +1,10 @@
 import {combineReducers} from '@reduxjs/toolkit';
 import authentication from './authentication';
 import user from './user'
+// import filters from './filters';
 // import dataManagement from './data-management/data-management.slice';
 // import contractTariff from './contract-tariff/contract-tariff.slice';
 // import select from './select/select.slice';
-// import filters from './filters/filters.slice';
 // import draftBill from './draft-bill/draft-bill.slice';
 // import dataUpload from './data-upload';
 // import dataDownload from './data-download';

@@ -6,7 +6,7 @@ const modules = [
 		subModules:[
 			{
 				name:'users',
-				route:'/administration/users',
+				route:'/administration/user',
 				label: 'Users'
 			},
 			{

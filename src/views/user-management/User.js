@@ -2,24 +2,16 @@ import React from 'react';
 import {Toolbar} from '../../components/toolbar';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import {Routes,Route,useNavigate,useMatch} from 'react-router-dom';
+import Typography from '@mui/material/Typography'
+import {useNavigate,useMatch} from 'react-router-dom';
 import {Table} from '../../components/table';
 import {useDispatch,useSelector} from 'react-redux';
 import {CreateUserDialog} from '../../components/dialogs';
-
-import {getUser} from '../../store/user';
-
-// import {Button} from '../../components/buttons';
-// import {DateFilter,SelectFilter} from '../../components/table/Filters';
-
+import {getUser} from '../../store/user/user.slice';
 
 const Users = ({routes}) => {
-	// const {path} = useMatch();
-
 	return (
-		// <Routes>
-			<View/>
-		// </Routes>
+		<View/>
 	);
 }
 
@@ -27,24 +19,25 @@ const View = () => {
 	const dispatch = useDispatch();
 	const [trigger,setTrigger] = React.useState(false);
 	const {loading} = useSelector(state => state.user)
-	// const history = useNavigate();
-	// const {url} = useMatch();
+	const navigate = useNavigate();
 	const [createDialog,setCreateDialog] = React.useState(false);
+	const url = useMatch('/administration/user');
 
 	const columns = React.useMemo(()=>[
 		{
 			Header:'Email Address',
 			accessor:'user_email',
 			width:300,
-			// Cell:props => {
-			//	 const onClick = () => {
-			//		 history.push({
-			//			 pathname:`${url}/details`,
-			//			 search:`draft_bill_no=${props.value}`
-			//		 })
-			//	 }
-			//	 return (<Button label={props.value} onClick={onClick}/>)
-			// }
+			Cell:props => {
+				const onClick = () => {
+					// console.log('clicked', props.value)
+					navigate({
+						pathname:`${url.pathname}/details`,
+						search:`user_email=${props.value}`
+					})
+				}
+				return (<Typography onClick={onClick}>{props.value}</Typography>)
+			}
 		},
 		{
 			Header:'Role',
@@ -52,32 +45,25 @@ const View = () => {
 		},
 		{
 			Header:'Status',
-			accessor:'user_status'
+			accessor:'user_status',
+			width:100,
+			Cell:props => {
+				return props.value ? 'Active' : 'Inactive'
+			}
 		},
 		{
 			Header:'First Name',
 			accessor:'user_first_name'
-			//,Filter:props => <SelectFilter column={props.column} label='Category' variant='algo_type'/>
 		},
 		{
 			Header:'Middle Name',
-			accessor:'user_middle_name'
+			accessor:'user_middle_name',
+			width:100
 		},
 		{
 			Header:'Last Name',
 			accessor:'user_last_name'
 		},
-		// {
-		//	 Header:'RDD',
-		//	 accessor:'delivery_date',
-		//	 Filter:props=><DateFilter column={props.column} label='Delivery Date' name='delivery_date'/>
-		//	 Filter:props=><DateRangeFilter column={props.column}/>
-		// },
-		// {
-		//	 Header:'Customer',
-		//	 accessor:'customer',
-		//	 Filter:props=><MasterSelectFilter column={props.column} variant='principal' label='Principal' name='principal'/>
-		// },
 		{
 			Header:'User Remarks',
 			accessor:'user_remarks1'
@@ -100,19 +86,19 @@ const View = () => {
 		}
 	],[])
 
-	// const fetchData = React.useCallback(({pageIndex,pageSize,filters}, callBack) => {
-	// 	dispatch(getUser({
-	// 		route		:	'get',
-	// 		page		:	pageIndex,
-	// 		totalPage	:	pageSize,
-	// 		orderBy		:	'createdAt, DESC',
-	// 		filters		:	filters
-	// 	}))
-	// 	.unwrap()
-	// 	.then(result => {
-	// 		callBack(result)
-	// 	})
-	// },[trigger])
+	const fetchData = React.useCallback(({pageIndex,pageSize,filters}, callBack) => {
+		dispatch(getUser({
+			route		:	'get',
+			page		:	pageIndex,
+			totalPage	:	pageSize,
+			orderBy		:	'createdAt,DESC',
+			filters		:	filters
+		}))
+		.unwrap()
+		.then(result => {
+			callBack(result)
+		})
+	},[trigger])
 
 	const toggleCreateDialog = () => {
 		setCreateDialog(!createDialog)
@@ -136,7 +122,7 @@ const View = () => {
 				<Table
 					loading={loading}
 					columns={columns}
-					// fetchData={fetchData}
+					fetchData={fetchData}
 				/>
 			</Grid>
 		</Grid>

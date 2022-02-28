@@ -12,7 +12,7 @@ import UserMenu from './userMenu';
 
 function Header(props) {
 	// const classes = useStyles();
-	const {email} = useSelector(state => state.auth)
+	const {user_email} = useSelector(state => state.auth)
 	const [isOpen,setDrawer] = React.useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
@@ -37,15 +37,14 @@ function Header(props) {
 						<MenuIcon/>
 					</IconButton>
 					<div style={{width:'100%'}}>
-					  <Box display='flex' justifyContent='flex-end'>
-						<Button sx={{
-							color:'#FF6400'
-						}} onClick={handleMenu}>
-						  {email}
-						  User@administrator.com
-						</Button>
-					  </Box>
-				  </div>
+						<Box display='flex' justifyContent='flex-end'>
+							<Button sx={{
+								color:'#FF6400'
+							}} onClick={handleMenu}>
+								{user_email ? user_email : `notLoggedIn@administrator.com`}
+							</Button>
+						</Box>
+					</div>
 				</Toolbar>
 			</AppBar>
 			<UserMenu anchorEl={anchorEl} open={open} handleClose={handleClose}/>

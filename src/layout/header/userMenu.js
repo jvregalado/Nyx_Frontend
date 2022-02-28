@@ -23,20 +23,20 @@ function UserMenu({anchorEl,open,handleClose}) {
 				id="menu-appbar"
 				anchorEl={anchorEl}
 				anchorOrigin={{
-				  vertical: 'top',
-				  horizontal: 'right',
+					vertical: 'top',
+					horizontal: 'right',
 				}}
 				keepMounted
 				transformOrigin={{
-				  vertical: 'top',
-				  horizontal: 'right',
+					vertical: 'top',
+					horizontal: 'right',
 				}}
 				open={open}
 				onClose={handleClose}
 			>
-				<MenuItem onClick={()=>{toggle() 
+				<MenuItem onClick={()=>{toggle()
 				handleClose()
-				}}>Update Account</MenuItem>
+				}}>Change Password</MenuItem>
 			<MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
 			</Menu>
 		</div>

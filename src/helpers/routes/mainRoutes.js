@@ -1,13 +1,13 @@
-import Users from '../../views/user-management/Users';
+import User from '../../views/user-management/User';
 
 const routes = [
 	{
 		name:'users',
 		label:'Users',
-		route:'/administration/users',
+		route:'/administration/user',
 		module:'Administration',
 		subModule:'Users',
-		component:Users
+		component:User
 	}
 ]
 
