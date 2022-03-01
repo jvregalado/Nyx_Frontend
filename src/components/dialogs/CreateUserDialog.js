@@ -10,8 +10,6 @@ import {Button,
 import {useDispatch} from 'react-redux';
 import {Spinner} from '../../components';
 import {createUser} from '../../store/user';
-import {useSelector} from 'react-redux'
-
 
 const CreateUserDialog = ({
 	isOpen,
@@ -29,8 +27,6 @@ const CreateUserDialog = ({
 		user_last_name	:'',
 		user_contact_no	:''
 	})
-
-	const {auth} = useSelector(state=> state.auth)
 
 	const handleCreate = () => {
 		let hasEmail = false;

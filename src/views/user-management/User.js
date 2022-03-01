@@ -84,6 +84,7 @@ const View = () => {
 			Header:'Updated By',
 			accessor:'UpdateBy'
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	],[])
 
 	const fetchData = React.useCallback(({pageIndex,pageSize,filters}, callBack) => {
@@ -98,6 +99,7 @@ const View = () => {
 		.then(result => {
 			callBack(result)
 		})
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[trigger])
 
 	const toggleCreateDialog = () => {
