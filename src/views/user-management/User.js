@@ -3,10 +3,9 @@ import {Toolbar} from '../../components/toolbar';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography'
-import {useNavigate,useMatch} from 'react-router-dom';
 import {Table} from '../../components/table';
 import {useDispatch,useSelector} from 'react-redux';
-import {CreateUserDialog} from '../../components/dialogs';
+import {CreateUserDialog,UpdateUserDialog} from '../../components/dialogs';
 import {getUser} from '../../store/user/user.slice';
 
 const Users = ({routes}) => {
@@ -19,9 +18,9 @@ const View = () => {
 	const dispatch = useDispatch();
 	const [trigger,setTrigger] = React.useState(false);
 	const {loading} = useSelector(state => state.user)
-	const navigate = useNavigate();
 	const [createDialog,setCreateDialog] = React.useState(false);
-	const url = useMatch('/administration/user');
+	const [updateDialog,setUpdateDialog] = React.useState(false);
+	const [selectedUser,setSelectedUser] = React.useState({user_email:null});
 
 	const columns = React.useMemo(()=>[
 		{
@@ -30,13 +29,13 @@ const View = () => {
 			width:300,
 			Cell:props => {
 				const onClick = () => {
-					// console.log('clicked', props.value)
-					navigate({
-						pathname:`${url.pathname}/details`,
-						search:`user_email=${props.value}`
-					})
+					// console.log('selectedUser_before',selectedUser.user_email)
+					setSelectedUser({
+						...selectedUser,
+						user_email:props.value})
+					toggleUpdateDialog()
 				}
-				return (<Typography onClick={onClick}>{props.value}</Typography>)
+				return (<Typography sx={{ color:'#CC6400' }} onClick={onClick} >{props.value}</Typography>)
 			}
 		},
 		{
@@ -110,6 +109,15 @@ const View = () => {
 		}
 	}
 
+	const toggleUpdateDialog = () => {
+		setUpdateDialog(!updateDialog)
+		
+		if(updateDialog===true){
+			setTrigger(!trigger)
+			setSelectedUser({user_email:null})
+		}
+	}
+
 	return (
 		<Grid container rowSpacing={1}>
 		<Grid item md={12}>
@@ -128,10 +136,8 @@ const View = () => {
 				/>
 			</Grid>
 		</Grid>
-		<CreateUserDialog isOpen={createDialog} toggle={
-			()=>{
-				toggleCreateDialog()
-			}}/>
+		<CreateUserDialog isOpen={createDialog} toggle={()=>{ toggleCreateDialog() }}/>
+		<UpdateUserDialog isOpen={updateDialog} user_email={selectedUser.user_email} toggle={()=>{ toggleUpdateDialog() }}/>
 	</Grid>
 	)
 }

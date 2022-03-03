@@ -8,27 +8,26 @@ const SwitchInput = ({label,name,handleChange,checked,isLabelVisible,isDisabled}
 		<div style={{
 			display:'flex',
 			flexDirection:'column',   
-			paddingTop: isLabelVisible ? theme.spacing(0) : theme.spacing(1),  
+			paddingTop: isLabelVisible ? theme.spacing(0) : theme.spacing(1),
 			paddingLeft:theme.spacing(1),
 			paddingRight:theme.spacing(1)
 		}}>
 			<Typography sx={{
 				display:isLabelVisible ? 'visible' : 'none'
-			}} 
+			}}
 			variant='overline'>
 				{label}
 			</Typography>
-			<FormControlLabel 
+			<FormControlLabel
 				control={
-					<Switch 
+					<Switch
 						name={name}
 						checked={checked}
 						onChange={handleChange}
 						inputProps={{ 'aria-label': 'controlled' }}
 					/>
-				} 
+				}
 			label={label}/>
-			
 		</div>
 	)
 }
@@ -41,6 +40,5 @@ SwitchInput.defaultProps = {
 	checked:false,
 	handleChange:()=>{}
 }
-
 
 export default SwitchInput

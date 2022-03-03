@@ -8,7 +8,8 @@ import {Button,
 	DialogActions} from '@mui/material';
 import {useDispatch} from 'react-redux';
 import {Spinner} from '../../components';
-import {createUser,getUser} from '../../store/user';
+import {Switch} from '../../components/inputs';
+import {getUserDetails,updateUser} from '../../store/user';
 
 
 const UpdateUserDialog = ({
@@ -20,7 +21,12 @@ const UpdateUserDialog = ({
 	const dispatch = useDispatch();
 
 	const [state, setState] = React.useState({
-		isNameError:false
+		isNameError		:false,
+		user_first_name :'',
+		user_middle_name:'',
+		user_last_name	:'',
+		user_contact_no	:'',
+		user_status		:false
 	});
 
 	const handleUpdate = () => {
@@ -28,23 +34,24 @@ const UpdateUserDialog = ({
 		if(state.user_first_name===''){
 			hasName = true
 		}
-
 		setState({
 			...state,
 			isNameError:hasName
 		})
 
 		if(!hasName){
-			// dispatch(updateUser({
-			// 	route:'update',
-			// 	data:{
-			// 		user_email		:state.user_email.replace(/ /g,''),
-			// 		user_first_name	:state.user_first_name,
-			// 		user_middle_name:state.user_middle_name,
-			// 		user_last_name	:state.user_last_name,
-			// 		user_contact_no	:state.user_contact_no
-			// 	}
-			// }))
+			dispatch(updateUser({
+				route:'update',
+				data:{
+					user_id			:state.user_id,
+					user_email		:state.user_email,
+					user_first_name	:state.user_first_name,
+					user_middle_name:state.user_middle_name,
+					user_last_name	:state.user_last_name,
+					user_contact_no	:state.user_contact_no,
+					user_status		:state.user_status
+				}
+			}))
 
 			setState({
 				...state,
@@ -53,7 +60,8 @@ const UpdateUserDialog = ({
 				user_first_name :'',
 				user_middle_name:'',
 				user_last_name	:'',
-				user_contact_no	:''
+				user_contact_no	:'',
+				user_status		:false
 			})
 			toggle();
 		}
@@ -67,14 +75,24 @@ const UpdateUserDialog = ({
 	}
 
 	React.useEffect(()=>{
-		const fetchData = dispatch(getUser({
-				route		:	'get',
-				filters		:	{user_email:'dpmanalo@codedisruptors.com'}
+		console.log('user_email',user_email)
+
+		if(user_email) {
+			dispatch(getUserDetails({
+				route	: 'details',
+				filters	: {user_email}
 			}))
-
-		console.log('fetchData',fetchData)
-
-	},[toggle])
+			.unwrap()
+			.then(result => {
+				setState({
+					...state,
+					...result.data[0]
+				})
+			})
+			console.log('state',state)
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[user_email]);
 
 	return (
 		<Dialog open={isOpen}>
@@ -84,16 +102,21 @@ const UpdateUserDialog = ({
 				<Spinner reducer='user'/>
 				<Grid container spacing={2}>
 					<Grid item container>
-						<TextField
-							disabled
-							fullWidth
-							name='user_email'
-							variant='outlined'
-							label='Email Address'
-							value={''}
-							onChange={handleChange}
-						/>
+						<Grid item md={10} xs={12}>
+							<TextField
+								disabled
+								fullWidth
+								name='user_email'
+								variant='outlined'
+								label='Email Address'
+								defaultValue={user_email || ''}
+							/>
+						</Grid>
+						<Grid item md={2} xs={12}>
+							<Switch isLabelVisible label='Status' name='user_status' checked={state.user_status} handleChange={(e)=>setState({...state, user_status:e.target.checked})}/>
+						</Grid>
 					</Grid>
+
 					<Grid item container>
 						<TextField
 							required
@@ -102,7 +125,7 @@ const UpdateUserDialog = ({
 							error={state.isNameError}
 							variant='outlined'
 							label='First Name'
-							value={''}
+							value={state.user_first_name}
 							onChange={handleChange}
 						/>
 					</Grid>
@@ -112,7 +135,7 @@ const UpdateUserDialog = ({
 							name='user_middle_name'
 							variant='outlined'
 							label='Middle Name'
-							value={''}
+							value={state.user_middle_name}
 							onChange={handleChange}
 						 />
 					</Grid>
@@ -124,7 +147,7 @@ const UpdateUserDialog = ({
 							error={state.isNameError}
 							variant='outlined'
 							label='Last Name'
-							value={''}
+							value={state.user_last_name}
 							onChange={handleChange}
 						/>
 					</Grid>
@@ -132,10 +155,9 @@ const UpdateUserDialog = ({
 						<TextField
 							fullWidth
 							name='user_contact_no'
-							error={state.isNameError}
 							variant='outlined'
 							label='Contact No.'
-							value={''}
+							value={state.user_contact_no}
 							onChange={handleChange}
 						/>
 					</Grid>
@@ -148,6 +170,12 @@ const UpdateUserDialog = ({
 		 </DialogActions>
 	 </Dialog>
 	);
+}
+
+UpdateUserDialog.defaultProps = {
+	isOpen		: false,
+	toggle		: false,
+	user_email	:'unknown email address'
 }
 
 export default UpdateUserDialog;
