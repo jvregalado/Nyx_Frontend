@@ -5,14 +5,16 @@ import {getSelectData} from '../../../store/select/select.slice';
 import {useTheme,Typography} from '@mui/material';
 
 function MasterSelect({
-	label,
 	type,
 	systemType,
-	quickCodeType,
 	name,
 	value,
 	isDisabled,
-	handleChange
+	handleChange,
+	placeholder,
+	label,
+	paddingLeft,
+	paddingRight
 }) {
 	const theme = useTheme()
 	const [options,setOptions] = React.useState([])
@@ -27,8 +29,7 @@ function MasterSelect({
 	}
 
 	React.useEffect(()=>{
-		// console.log(quickCodeType)
-		if(type === ''){
+		if(type === '' || systemType === ''){
 			return setOptions([{
 				label:'default',
 				value:'default'
@@ -36,9 +37,8 @@ function MasterSelect({
 		}
 		else{
 			dispatch(getSelectData({
-				systemType, //wms or tms
-				route:type,
-				type:quickCodeType
+				systemType, //wms or tms or fin or admin
+				type, //type of dropdown
 			}))
 			.unwrap()
 			.then(result => {
@@ -47,20 +47,21 @@ function MasterSelect({
 		}
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[quickCodeType,type])
+	},[type,systemType])
 
 	return (
 		<div style={{
 			display:'flex',
 			flexDirection:'column',
-			paddingLeft:theme.spacing(1),
-			paddingRight:theme.spacing(1)
+			paddingLeft:theme.spacing(paddingLeft),
+			paddingRight:theme.spacing(paddingRight)
+			
 		}}>
-			<Typography variant='overline'>{label}</Typography>
+			{label ? null : <Typography variant='overline'>{label}</Typography>}
 			<Select
 				isDisabled={isDisabled}
 				styles={{menu: provided => ({...provided,zIndex: 9999})}}
-				placeholder={label}
+				placeholder={placeholder}
 				defaultOptions={[]}
 				loadOptions={(inputValue,callBack)=>{
 					setTimeout(() => {
@@ -81,14 +82,14 @@ MasterSelect.defaultProps = {
 	name:'',
 	value:'',
 	isDisabled:false,
-	quickCodeType:'',
-	handleChange:()=>{}
+	handleChange:()=>{},
+	paddingLeft:0,
+	paddingRight:0
 }
 
 /*
 Select Types
 	principal
-
 	whseLocation
 	service_type
 	ship-point

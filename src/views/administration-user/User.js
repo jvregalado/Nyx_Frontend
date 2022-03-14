@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import {Table} from '../../components/table';
 import {useDispatch,useSelector} from 'react-redux';
 import {CreateUserDialog,UpdateUserDialog} from '../../components/dialogs';
-import {getUser} from '../../store/user/user.slice';
+import {getUser} from '../../store/administration-user';
 
 const Users = ({routes}) => {
 	return (
@@ -16,7 +16,8 @@ const Users = ({routes}) => {
 
 const View = () => {
 	const dispatch = useDispatch();
-	const [trigger,setTrigger] = React.useState(false);
+	const [createTrigger,setCreateTrigger] = React.useState(false);
+	const [updateTrigger,setUpdateTrigger] = React.useState(false);
 	const {loading} = useSelector(state => state.user)
 	const [createDialog,setCreateDialog] = React.useState(false);
 	const [updateDialog,setUpdateDialog] = React.useState(false);
@@ -40,7 +41,7 @@ const View = () => {
 		},
 		{
 			Header:'Role',
-			accessor:'role_id'
+			accessor:'role_name'
 		},
 		{
 			Header:'Status',
@@ -81,7 +82,7 @@ const View = () => {
 		},
 		{
 			Header:'Updated By',
-			accessor:'UpdateBy'
+			accessor:'updatedBy'
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	],[])
@@ -99,21 +100,21 @@ const View = () => {
 			callBack(result)
 		})
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[trigger])
+	},[createTrigger,updateTrigger])
 
 	const toggleCreateDialog = () => {
 		setCreateDialog(!createDialog)
 
 		if(createDialog===true){
-			setTrigger(!trigger)
+			setCreateTrigger(!createTrigger)
 		}
 	}
 
 	const toggleUpdateDialog = () => {
 		setUpdateDialog(!updateDialog)
-		
+
 		if(updateDialog===true){
-			setTrigger(!trigger)
+			setUpdateTrigger(!updateTrigger)
 			setSelectedUser({user_email:null})
 		}
 	}

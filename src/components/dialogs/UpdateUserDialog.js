@@ -9,7 +9,8 @@ import {Button,
 import {useDispatch} from 'react-redux';
 import {Spinner} from '../../components';
 import {Switch} from '../../components/inputs';
-import {getUserDetails,updateUser} from '../../store/user';
+import {getUserDetails,updateUser} from '../../store/administration-user';
+import {MasterSelect} from '../../components/select';
 
 
 const UpdateUserDialog = ({
@@ -26,7 +27,8 @@ const UpdateUserDialog = ({
 		user_middle_name:'',
 		user_last_name	:'',
 		user_contact_no	:'',
-		user_status		:false
+		user_status		:false,
+		role			:null
 	});
 
 	const handleUpdate = () => {
@@ -49,7 +51,8 @@ const UpdateUserDialog = ({
 					user_middle_name:state.user_middle_name,
 					user_last_name	:state.user_last_name,
 					user_contact_no	:state.user_contact_no,
-					user_status		:state.user_status
+					user_status		:state.user_status,
+					role_id			:state.role?.value
 				}
 			}))
 
@@ -61,7 +64,8 @@ const UpdateUserDialog = ({
 				user_middle_name:'',
 				user_last_name	:'',
 				user_contact_no	:'',
-				user_status		:false
+				user_status		:false,
+				role			:''
 			})
 			toggle();
 		}
@@ -74,8 +78,15 @@ const UpdateUserDialog = ({
 		})
 	}
 
+	const handleSelectChange = (e,name) => {
+		setState({
+			...state,
+			[name]:e
+		})
+	}
+
 	React.useEffect(()=>{
-		console.log('user_email',user_email)
+		// console.log('user_email',user_email)
 
 		if(user_email) {
 			dispatch(getUserDetails({
@@ -86,10 +97,13 @@ const UpdateUserDialog = ({
 			.then(result => {
 				setState({
 					...state,
-					...result.data[0]
+					...result.data[0],
+					role:{
+						value	:result.data[0].role?.role_id,
+						label	:result.data[0].role?.role_name
+					}
 				})
 			})
-			console.log('state',state)
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[user_email]);
@@ -116,7 +130,17 @@ const UpdateUserDialog = ({
 							<Switch isLabelVisible label='Status' name='user_status' checked={state.user_status} handleChange={(e)=>setState({...state, user_status:e.target.checked})}/>
 						</Grid>
 					</Grid>
-
+					<Grid item xs={12}>
+						<MasterSelect
+							fullWidth
+							placeholder='Role Name'
+							name='role'
+							systemType='admin'
+							type='role'
+							value={state.role}
+							handleChange={handleSelectChange}
+						/>
+					</Grid>
 					<Grid item container>
 						<TextField
 							required

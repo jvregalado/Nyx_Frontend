@@ -9,7 +9,8 @@ import {Button,
 	DialogActions} from '@mui/material';
 import {useDispatch} from 'react-redux';
 import {Spinner} from '../../components';
-import {createUser} from '../../store/user';
+import {createUser} from '../../store/administration-user/user.slice';
+import {MasterSelect} from '../../components/select';
 
 const CreateUserDialog = ({
 	isOpen,
@@ -25,7 +26,8 @@ const CreateUserDialog = ({
 		user_first_name :'',
 		user_middle_name:'',
 		user_last_name	:'',
-		user_contact_no	:''
+		user_contact_no	:'',
+		role			:null
 	})
 
 	const handleCreate = () => {
@@ -52,7 +54,8 @@ const CreateUserDialog = ({
 					user_first_name	:state.user_first_name,
 					user_middle_name:state.user_middle_name,
 					user_last_name	:state.user_last_name,
-					user_contact_no	:state.user_contact_no
+					user_contact_no	:state.user_contact_no,
+					role_id			:state.role?.value
 				}
 			}))
 
@@ -64,7 +67,8 @@ const CreateUserDialog = ({
 				user_first_name :'',
 				user_middle_name:'',
 				user_last_name	:'',
-				user_contact_no	:''
+				user_contact_no	:'',
+				role			:null
 			})
 			toggle();
 		}
@@ -74,6 +78,13 @@ const CreateUserDialog = ({
 		setState({
 			...state,
 			[e.target.name]:e.target.value
+		})
+	}
+
+	const handleSelectChange = (e,name) => {
+		setState({
+			...state,
+			[name]:e
 		})
 	}
 
@@ -94,6 +105,17 @@ const CreateUserDialog = ({
 							label='Email Address'
 							value={state.user_email}
 							onChange={handleChange}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<MasterSelect
+							fullWidth
+							placeholder='Role Name'
+							name='role'
+							systemType='admin'
+							type='role'
+							value={state.role}
+							handleChange={handleSelectChange}
 						/>
 					</Grid>
 					<Grid item container>
@@ -141,7 +163,7 @@ const CreateUserDialog = ({
 						/>
 					</Grid>
 					<Grid>
-						<Typography variant='caption'>*NOTE: default password is kerrylogistikus</Typography>
+						<Typography variant='caption' onClick={()=>{console.log('state',state)}}>*NOTE: default password is kerrylogistikus</Typography>
 					</Grid>
 				</Grid>
 			</div>

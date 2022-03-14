@@ -28,8 +28,23 @@ const modules = [
 			},
 			{
 				name:'roles',
-				route:'/administration/roles',
+				route:'/administration/role',
 				label:'Roles'
+			},
+			{
+				name:'modules',
+				route:'/administration/module',
+				label:'Modules'
+			},
+			{
+				name:'reports',
+				route:'/administration/report',
+				label:'Reports'
+			},
+			{
+				name:'reasoncodes',
+				route:'/administration/reasoncode',
+				label:'ReasonCodes'
 			}
 		]
 	}

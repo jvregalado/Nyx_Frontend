@@ -8,17 +8,17 @@ const headers = {
 }
 
 const getSelectData = createAsyncThunk('select/get',
-	async({route,systemType,type},{rejectWithValue}) => {
+	async({systemType,type},{rejectWithValue}) => {
 		try{
 			const res = await API({
 				requestHeaders:{
 					...headers
 				}
-			}).get(`${baseURL}/${route}`,{
-				params:{
-					systemType,
-					type
-				}
+			}).get(`${baseURL}/${systemType}/${type}`,{
+				// params:{
+				// 	systemType,
+				// 	type
+				// }
 			})
 
 			return res.data

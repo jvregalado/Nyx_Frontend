@@ -4,7 +4,6 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {useDispatch,useSelector} from 'react-redux';
 import {MasterSelect} from '../../../components/select'
-// import {getUser} from '../../store/user/user.slice';
 
 const ReportHub_wms = ({routes}) => {
 	return (

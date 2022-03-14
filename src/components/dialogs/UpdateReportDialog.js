@@ -1,0 +1,230 @@
+import React from 'react';
+import {Button,
+	Dialog,
+	DialogTitle,
+	DialogContent,
+	TextField,
+	Grid,
+	DialogActions} from '@mui/material';
+import {useDispatch} from 'react-redux';
+import {Spinner} from '..';
+import {Switch} from '../inputs';
+import {getReportDetails,updateReport} from '../../store/administration-report';
+import {MasterSelect} from '../select';
+
+
+const UpdateReportDialog = ({
+	isOpen,
+	toggle,
+	report_code
+}) => {
+
+	const dispatch = useDispatch();
+
+	const [state, setState] = React.useState({
+		isReportError		:false,
+		report_code			:'',
+		report_name			:'',
+		report_system_type	:'',
+		report_type			:'',
+		report_desc			:'',
+		report_min_access_wt:0,
+		report_remarks1		:''
+	});
+
+	const handleUpdate = () => {
+		let hasCodeAndName = false
+		if(state.report_first_name===''){
+			hasCodeAndName = true
+		}
+		setState({
+			...state,
+			isNameError:hasCodeAndName
+		})
+
+		if(!hasCodeAndName){
+			dispatch(updateReport({
+				route:'update',
+				data:{
+					report_id			:state.report_id,
+					report_code			:state.report_code.replace(/\s\s+/g,' ').trim(),
+					report_name			:state.report_name.replace(/\s\s+/g,' ').trim(),
+					report_system_type	:state.report_system_type,
+					report_type			:state.report_type,
+					report_desc			:state.report_desc,
+					report_min_access_wt:state.report_min_access_wt,
+					report_remarks1		:state.report_remarks1
+				}
+			}))
+
+			setState({
+				...state,
+				isReportError		:false,
+				report_code			:'',
+				report_name			:'',
+				report_system_type	:'',
+				report_type			:'',
+				report_desc			:'',
+				report_min_access_wt:0,
+				report_remarks1		:''
+			})
+			toggle();
+		}
+	}
+
+	const handleChange = (e) => {
+		setState({
+			...state,
+			[e.target.name]:e.target.value
+		})
+	}
+
+	const handleSelectChange = (e,name) => {
+		setState({
+			...state,
+			[name]:e
+		})
+	}
+
+	React.useEffect(()=>{
+		// console.log('report_code',report_code)
+
+		if(report_code) {
+			dispatch(getReportDetails({
+				route	: 'details',
+				filters	: {report_code}
+			}))
+			.unwrap()
+			.then(result => {
+				setState({
+					...state,
+					...result.data[0],
+					// report:{
+					// 	value	:result.data[0].report?.report_id,
+					// 	label	:result.data[0].report?.report_name
+					// }
+				})
+			})
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[report_code]);
+
+	return (
+		<Dialog open={isOpen}>
+		<DialogTitle>Update Report</DialogTitle>
+		<DialogContent dividers>
+			<div>
+				<Spinner reducer='report'/>
+				<Grid container spacing={2}>
+					<Grid item container>
+						<Grid item md={10} xs={12}>
+							<TextField
+								required
+								fullWidth
+								name='report_code'
+								error={state.isReportError}
+								variant='outlined'
+								label='Report Code'
+								value={state.report_code}
+								onChange={handleChange}
+							/>
+						</Grid>
+						<Grid item md={2} xs={12}>
+							<Switch isLabelVisible label='Status' name='report_status' checked={state.report_status} handleChange={(e)=>setState({...state, report_status:e.target.checked})}/>
+						</Grid>
+					</Grid>
+					<Grid item container>
+						<TextField
+							required
+							fullWidth
+							name='report_name'
+							error={state.isReportError}
+							variant='outlined'
+							label='Report Name'
+							value={state.report_name}
+							onChange={handleChange}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<MasterSelect
+							fullWidth
+							placeholder='Module'
+							name='module'
+							systemType='reasoncode'
+							type='module'
+							value={state.module}
+							handleChange={handleSelectChange}
+						/>
+					</Grid>
+					<Grid item container>
+						<TextField
+							fullWidth
+							name='report_system_type'
+							error={state.isReportError}
+							variant='outlined'
+							label='Report System Type'
+							value={state.report_system_type}
+							onChange={handleChange}
+						/>
+					</Grid>
+					<Grid item container>
+						<TextField
+							fullWidth
+							name='report_type'
+							error={state.isReportError}
+							variant='outlined'
+							label='Report Type'
+							value={state.report_type}
+							onChange={handleChange}
+						/>
+					</Grid>
+					<Grid item container>
+						<TextField
+							fullWidth
+							name='report_desc'
+							variant='outlined'
+							label='Report Description'
+							value={state.report_desc}
+							onChange={handleChange}
+						/>
+					</Grid>
+					<Grid item container>
+						<TextField
+							required
+							fullWidth
+							name='report_min_access_wt'
+							variant='outlined'
+							label='Report Minimum Access Weight'
+							value={state.report_min_access_wt}
+							onChange={handleChange}
+							type='number'
+						/>
+					</Grid>
+					<Grid item container>
+						<TextField
+							fullWidth
+							name='report_remarks1'
+							variant='outlined'
+							label='Report Remarks'
+							value={state.report_remarks1}
+							onChange={handleChange}
+						/>
+					</Grid>
+				</Grid>
+			</div>
+		</DialogContent>
+		<DialogActions>
+			<Button variant='contained' onClick={toggle} color='secondary'>Cancel</Button>
+			<Button variant='contained' onClick={handleUpdate}>Save</Button>
+		 </DialogActions>
+	 </Dialog>
+	);
+}
+
+UpdateReportDialog.defaultProps = {
+	isOpen		: false,
+	toggle		: false,
+	report_code	:'unknown email address'
+}
+
+export default UpdateReportDialog;
