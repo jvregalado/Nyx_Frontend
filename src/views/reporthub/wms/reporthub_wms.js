@@ -2,7 +2,7 @@ import React from 'react';
 import {Toolbar} from '../../../components/toolbar';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import {useDispatch,useSelector} from 'react-redux';
+// import {useSelector} from 'react-redux';
 import {MasterSelect} from '../../../components/select'
 
 const ReportHub_wms = ({routes}) => {
@@ -12,8 +12,7 @@ const ReportHub_wms = ({routes}) => {
 }
 
 const View = () => {
-	const dispatch = useDispatch();
-	const {loading} = useSelector(state => state.reporthub_wms)
+	// const {loading} = useSelector(state => state.reporthub_wms)
 	const [state,setState] = React.useState({
 		whseLocation:null,
 		principal	:null,
@@ -43,6 +42,7 @@ const View = () => {
 				<MasterSelect
 					label='Warehouse Location'
 					name='whseLocation'
+					route='masterData'
 					systemType='wms'
 					type='whseLocation'
 					value={state.whseLocation}

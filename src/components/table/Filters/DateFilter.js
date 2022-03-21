@@ -1,8 +1,9 @@
 import React from 'react'
-import { useAsyncDebounce } from 'react-table';
 import {SimpleDatePicker} from '../../../components/inputs';
 // import {setValue} from '../../../store/filters/filters.slice';
-import {useSelector,useDispatch} from 'react-redux';
+import {useSelector
+	// ,useDispatch
+} from 'react-redux';
 
 const DateFilter = ({
 	column:{filterValue, preFilteredRows, setFilter},
@@ -12,7 +13,7 @@ const DateFilter = ({
 
 	const [state,setState] = React.useState('');
 	const reducer = useSelector(state => state.filters)
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 
 
 	// const handleChange = useAsyncDebounce(value=>{

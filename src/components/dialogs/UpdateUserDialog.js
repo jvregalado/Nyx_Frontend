@@ -28,7 +28,10 @@ const UpdateUserDialog = ({
 		user_last_name	:'',
 		user_contact_no	:'',
 		user_status		:false,
-		role			:null
+		role			:null,
+		whLocation		:null,
+		position		:null,
+		user_rank		:0
 	});
 
 	const handleUpdate = () => {
@@ -52,7 +55,10 @@ const UpdateUserDialog = ({
 					user_last_name	:state.user_last_name,
 					user_contact_no	:state.user_contact_no,
 					user_status		:state.user_status,
-					role_id			:state.role?.value
+					role_id			:state.role?.value,
+					user_whLocation	:state.whLocation?.value,
+					user_position	:state.position?.value,
+					user_rank		:state.user_rank
 				}
 			}))
 
@@ -65,7 +71,10 @@ const UpdateUserDialog = ({
 				user_last_name	:'',
 				user_contact_no	:'',
 				user_status		:false,
-				role			:''
+				role			:null,
+				whLocation		:null,
+				position		:null,
+				user_rank		:0
 			})
 			toggle();
 		}
@@ -101,6 +110,14 @@ const UpdateUserDialog = ({
 					role:{
 						value	:result.data[0].role?.role_id,
 						label	:result.data[0].role?.role_name
+					},
+					whLocation:{
+						value	:result.data[0].user_whLocation_fk?.rc_id,
+						label	:result.data[0].user_whLocation_fk?.rc_desc
+					},
+					position:{
+						value	:result.data[0].user_position_fk?.rc_id,
+						label	:result.data[0].user_position_fk?.rc_desc
 					}
 				})
 			})
@@ -134,11 +151,47 @@ const UpdateUserDialog = ({
 						<MasterSelect
 							fullWidth
 							placeholder='Role Name'
+							label='Role Name'
 							name='role'
-							systemType='admin'
+							route='administration'
 							type='role'
 							value={state.role}
 							handleChange={handleSelectChange}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<MasterSelect
+							fullWidth
+							placeholder='Position'
+							label='Job Position'
+							name='position'
+							route='reasoncode'
+							type='Job Position'
+							value={state.position}
+							handleChange={handleSelectChange}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<MasterSelect
+							fullWidth
+							placeholder='Warehouse Location Assignment'
+							label='Warehouse Assignment'
+							name='whLocation'
+							route='reasoncode'
+							type='Warehouse Location'
+							value={state.whLocation}
+							handleChange={handleSelectChange}
+						/>
+					</Grid>
+					<Grid item container>
+						<TextField
+							fullWidth
+							type='number'
+							name='user_rank'
+							variant='outlined'
+							label='User Rank'
+							value={state.user_rank}
+							onChange={handleChange}
 						/>
 					</Grid>
 					<Grid item container>

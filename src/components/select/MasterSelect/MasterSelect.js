@@ -5,8 +5,8 @@ import {getSelectData} from '../../../store/select/select.slice';
 import {useTheme,Typography} from '@mui/material';
 
 function MasterSelect({
-	type,
-	systemType,
+	type, /**type of dropdown (rc:Report Type, rc:Report System Type) */
+	route, /**masterdata or administration or reasoncode */
 	name,
 	value,
 	isDisabled,
@@ -18,18 +18,22 @@ function MasterSelect({
 }) {
 	const theme = useTheme()
 	const [options,setOptions] = React.useState([])
+	const [focus,setFocus] = React.useState(false)
 	const dispatch = useDispatch();
 
 	const filterInput = (inputValue) => {
-		// console.log(options)
+		// console.log(inputValue, options?.length, options)
 		// eslint-disable-next-line no-eval
+		if(!options) {
+			return null
+		}
 		return options.filter(i =>
 			i.label.toLowerCase().includes(inputValue.toLowerCase())
 		)
 	}
 
 	React.useEffect(()=>{
-		if(type === '' || systemType === ''){
+		if(type === '' || route === ''){
 			return setOptions([{
 				label:'default',
 				value:'default'
@@ -37,8 +41,8 @@ function MasterSelect({
 		}
 		else{
 			dispatch(getSelectData({
-				systemType, //wms or tms or fin or admin
-				type, //type of dropdown
+				route,  /**masterdata or administration or reasoncode */
+				type, /**type of dropdown */
 			}))
 			.unwrap()
 			.then(result => {
@@ -47,7 +51,7 @@ function MasterSelect({
 		}
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[type,systemType])
+	},[type,route])
 
 	return (
 		<div style={{
@@ -55,10 +59,11 @@ function MasterSelect({
 			flexDirection:'column',
 			paddingLeft:theme.spacing(paddingLeft),
 			paddingRight:theme.spacing(paddingRight)
-			
 		}}>
-			{label ? null : <Typography variant='overline'>{label}</Typography>}
+			<Typography sx={focus ? {color:'primary.main'}:{color:'text.primary'}} variant='caption'>{label}</Typography>
 			<Select
+				onFocus={() => setFocus(true)}
+				onBlur={() => setFocus(false)}
 				isDisabled={isDisabled}
 				styles={{menu: provided => ({...provided,zIndex: 9999})}}
 				placeholder={placeholder}
@@ -78,6 +83,7 @@ function MasterSelect({
 
 MasterSelect.defaultProps = {
 	type:'',
+	route:'',
 	label:'',
 	name:'',
 	value:'',

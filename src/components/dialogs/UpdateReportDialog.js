@@ -12,7 +12,6 @@ import {Switch} from '../inputs';
 import {getReportDetails,updateReport} from '../../store/administration-report';
 import {MasterSelect} from '../select';
 
-
 const UpdateReportDialog = ({
 	isOpen,
 	toggle,
@@ -29,29 +28,31 @@ const UpdateReportDialog = ({
 		report_type			:'',
 		report_desc			:'',
 		report_min_access_wt:0,
+		report_status		:'',
 		report_remarks1		:''
 	});
 
 	const handleUpdate = () => {
-		let hasCodeAndName = false
-		if(state.report_first_name===''){
-			hasCodeAndName = true
+		let hasError = false
+		if(state.report_name==='' || state.report_desc===''){
+			hasError = true
 		}
 		setState({
 			...state,
-			isNameError:hasCodeAndName
+			isNameError:hasError
 		})
 
-		if(!hasCodeAndName){
+		if(!hasError){
 			dispatch(updateReport({
 				route:'update',
 				data:{
 					report_id			:state.report_id,
 					report_code			:state.report_code.replace(/\s\s+/g,' ').trim(),
 					report_name			:state.report_name.replace(/\s\s+/g,' ').trim(),
-					report_system_type	:state.report_system_type,
-					report_type			:state.report_type,
+					report_system_type	:state.report_system_type?.value,
+					report_type			:state.report_type?.value,
 					report_desc			:state.report_desc,
+					report_status		:state.report_status,
 					report_min_access_wt:state.report_min_access_wt,
 					report_remarks1		:state.report_remarks1
 				}
@@ -66,7 +67,8 @@ const UpdateReportDialog = ({
 				report_type			:'',
 				report_desc			:'',
 				report_min_access_wt:0,
-				report_remarks1		:''
+				report_remarks1		:'',
+				report_status		:''
 			})
 			toggle();
 		}
@@ -99,10 +101,14 @@ const UpdateReportDialog = ({
 				setState({
 					...state,
 					...result.data[0],
-					// report:{
-					// 	value	:result.data[0].report?.report_id,
-					// 	label	:result.data[0].report?.report_name
-					// }
+					report_system_type:{
+						value	:result.data[0]?.report_system_type_fk?.rc_id,
+						label	:result.data[0]?.report_system_type_fk?.rc_desc
+					},
+					report_type:{
+						value	:result.data[0]?.report_type_fk?.rc_id,
+						label	:result.data[0]?.report_type_fk?.rc_desc
+					}
 				})
 			})
 		}
@@ -119,13 +125,12 @@ const UpdateReportDialog = ({
 					<Grid item container>
 						<Grid item md={10} xs={12}>
 							<TextField
-								required
+								disabled
 								fullWidth
 								name='report_code'
-								error={state.isReportError}
 								variant='outlined'
 								label='Report Code'
-								value={state.report_code}
+								defaultValue={report_code || ''}
 								onChange={handleChange}
 							/>
 						</Grid>
@@ -133,7 +138,7 @@ const UpdateReportDialog = ({
 							<Switch isLabelVisible label='Status' name='report_status' checked={state.report_status} handleChange={(e)=>setState({...state, report_status:e.target.checked})}/>
 						</Grid>
 					</Grid>
-					<Grid item container>
+					<Grid item xs={12}>
 						<TextField
 							required
 							fullWidth
@@ -148,34 +153,25 @@ const UpdateReportDialog = ({
 					<Grid item xs={12}>
 						<MasterSelect
 							fullWidth
-							placeholder='Module'
-							name='module'
-							systemType='reasoncode'
-							type='module'
-							value={state.module}
+							placeholder='Report System Type'
+							name='report_system_type'
+							label='Report System Type'
+							route='reasoncode'
+							type='Report System Type'
+							value={state.report_system_type}
 							handleChange={handleSelectChange}
 						/>
 					</Grid>
-					<Grid item container>
-						<TextField
+					<Grid item xs={12}>
+						<MasterSelect
 							fullWidth
-							name='report_system_type'
-							error={state.isReportError}
-							variant='outlined'
-							label='Report System Type'
-							value={state.report_system_type}
-							onChange={handleChange}
-						/>
-					</Grid>
-					<Grid item container>
-						<TextField
-							fullWidth
-							name='report_type'
-							error={state.isReportError}
-							variant='outlined'
+							placeholder='Report Type'
 							label='Report Type'
+							name='report_type'
+							route='reasoncode'
+							type='Report Type'
 							value={state.report_type}
-							onChange={handleChange}
+							handleChange={handleSelectChange}
 						/>
 					</Grid>
 					<Grid item container>
@@ -224,7 +220,7 @@ const UpdateReportDialog = ({
 UpdateReportDialog.defaultProps = {
 	isOpen		: false,
 	toggle		: false,
-	report_code	:'unknown email address'
+	report_code	:'unknown report code'
 }
 
 export default UpdateReportDialog;

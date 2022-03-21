@@ -18,7 +18,7 @@ const View = () => {
 	const dispatch = useDispatch();
 	const [createTrigger,setCreateTrigger] = React.useState(false);
 	const [updateTrigger,setUpdateTrigger] = React.useState(false);
-	const {loading} = useSelector(state => state.report)
+	const {loading} = useSelector(state => state.admin_report)
 	const [createDialog,setCreateDialog] = React.useState(false);
 	const [updateDialog,setUpdateDialog] = React.useState(false);
 	const [selectedReport,setSelectedReport] = React.useState({report_email:null});
@@ -36,13 +36,18 @@ const View = () => {
 						report_code:props.value})
 					toggleUpdateDialog()
 				}
-				return (<Typography sx={{ color:'#CC6400' }} onClick={onClick} >{props.value}</Typography>)
+				return (<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}}  onClick={onClick} >{props.value}</Typography>)
 			}
+		},
+		{
+			Header:'Access Weight',
+			accessor:'report_min_access_wt',
+			width:80
 		},
 		{
 			Header:'Report Name',
 			accessor:'report_name',
-			width:300
+			width:270
 		},
 		{
 			Header:'Module Name',
@@ -50,14 +55,15 @@ const View = () => {
 		},
 		{
 			Header:'Report System Type',
-			accessor:'report_system_type'
+			accessor:'report_system_type_fk.rc_desc',
+			width:200
 		},
 		{
 			Header:'Report Type',
-			accessor:'report_type'
+			accessor:'report_type_fk.rc_desc'
 		},
 		{
-			Header:'Report Desc',
+			Header:'Report Description',
 			accessor:'report_desc'
 		},
 		{
@@ -78,7 +84,7 @@ const View = () => {
 		},
 		{
 			Header:'Created By',
-			accessor:'createdBy'
+			accessor:'creator.user_email'
 		},
 		{
 			Header:'Updated Date',
@@ -86,7 +92,7 @@ const View = () => {
 		},
 		{
 			Header:'Updated By',
-			accessor:'updatedBy'
+			accessor:'modifier.user_email'
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	],[])
@@ -142,7 +148,7 @@ const View = () => {
 			</Grid>
 		</Grid>
 		<CreateReportDialog isOpen={createDialog} toggle={()=>{ toggleCreateDialog() }}/>
-		<UpdateReportDialog isOpen={updateDialog} report_email={selectedReport.report_email} toggle={()=>{ toggleUpdateDialog() }}/>
+		<UpdateReportDialog isOpen={updateDialog} report_code={selectedReport.report_code} toggle={()=>{ toggleUpdateDialog() }}/>
 	</Grid>
 	)
 }

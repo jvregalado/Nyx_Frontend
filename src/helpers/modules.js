@@ -44,7 +44,7 @@ const modules = [
 			{
 				name:'reasoncodes',
 				route:'/administration/reasoncode',
-				label:'ReasonCodes'
+				label:'Reason Codes'
 			}
 		]
 	}

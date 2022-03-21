@@ -18,7 +18,7 @@ const View = () => {
 	const dispatch = useDispatch();
 	const [createTrigger,setCreateTrigger] = React.useState(false);
 	const [updateTrigger,setUpdateTrigger] = React.useState(false);
-	const {loading} = useSelector(state => state.reasoncode)
+	const {loading} = useSelector(state => state.admin_reasoncode)
 	const [createDialog,setCreateDialog] = React.useState(false);
 	const [updateDialog,setUpdateDialog] = React.useState(false);
 	const [selectedReasonCode,setSelectedReasonCode] = React.useState({reasoncode_email:null});
@@ -35,11 +35,11 @@ const View = () => {
 						rc_id:props.value})
 					toggleUpdateDialog()
 				}
-				return (<Typography sx={{ color:'#CC6400' }} onClick={onClick} >{`Edit`}</Typography>)
+				return (<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={onClick} >{`Edit`}</Typography>)
 			}
 		},
 		{
-			Header:'Reason Code Type',
+			Header:'Reason Type',
 			accessor:'rc_type',
 			width:150
 		},
@@ -48,7 +48,7 @@ const View = () => {
 			accessor:'rc_code'
 		},
 		{
-			Header:'Reason Code Desc',
+			Header:'Reason Description',
 			width:200,
 			accessor:'rc_desc'
 		},
@@ -61,7 +61,7 @@ const View = () => {
 			}
 		},
 		{
-			Header:'ReasonCode Remarks',
+			Header:'Remarks',
 			accessor:'rc_remarks1'
 		},
 		{
@@ -70,7 +70,7 @@ const View = () => {
 		},
 		{
 			Header:'Created By',
-			accessor:'createdBy'
+			accessor:'creator.user_email'
 		},
 		{
 			Header:'Updated Date',
@@ -78,7 +78,7 @@ const View = () => {
 		},
 		{
 			Header:'Updated By',
-			accessor:'updatedBy'
+			accessor:'modifier.user_email'
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	],[])
@@ -88,7 +88,7 @@ const View = () => {
 			route		:	'get',
 			page		:	pageIndex,
 			totalPage	:	pageSize,
-			orderBy		:	'createdAt,DESC',
+			orderBy		:	'rc_type,DESC',
 			filters		:	filters
 		}))
 		.unwrap()

@@ -1,10 +1,14 @@
 import {combineReducers} from '@reduxjs/toolkit';
 import authentication from './authentication';
+
 import user from './administration-user'
-import reasoncode from './administration-reasoncode'
 import role from './administration-role';
+import modulE from './administration-module';
 import report from './administration-report';
+import reasoncode from './administration-reasoncode'
+
 import select from './select';
+
 import reporthub_wms from './reporthub_wms';
 // import filters from './filters';
 // import dataManagement from './data-management/data-management.slice';
@@ -15,18 +19,22 @@ import reporthub_wms from './reporthub_wms';
 
 const combinedReducers = combineReducers({
 	auth			:	authentication,
+
+	admin_user		:	user,
+	admin_role		:	role,
+	admin_module	:	modulE,
+	admin_report	:	report,
+	admin_reasoncode:	reasoncode,
+
 	select			:	select,
+
 	reporthub_wms	:	reporthub_wms,
-	// dataManagement: dataManagement,
-	// contractTariff: contractTariff,
-	// filters:		filters,
+	// dataManagement	:	dataManagement,
+	// contractTariff	:	contractTariff,
+	// filters			:	filters,
 	// draftBill,
 	// dataUpload,
-	// dataDownload,
-	user:user,
-	role:role,
-	report:report,
-	reasoncode:reasoncode
+	// dataDownload
 })
 
 const rootReducer = (state,action) => {

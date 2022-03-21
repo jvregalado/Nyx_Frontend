@@ -5,58 +5,60 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography'
 import {Table} from '../../components/table';
 import {useDispatch,useSelector} from 'react-redux';
-import {CreateRoleDialog,UpdateRoleDialog} from '../../components/dialogs';
-import {getRole} from '../../store/administration-role';
-import { useNavigate, useRouteMatch } from 'react-router-dom';
+import {CreateModuleDialog,UpdateModuleDialog} from '../../components/dialogs';
+import {getModule} from '../../store/administration-module';
 
-const Role = ({routes}) => {
+const Modules = ({routes}) => {
 	return (
 		<View/>
 	);
 }
 
 const View = () => {
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const [trigger,setTrigger] = React.useState(false);
-	const {loading} = useSelector(state => state.admin_role)
+	const [createTrigger,setCreateTrigger] = React.useState(false);
+	const [updateTrigger,setUpdateTrigger] = React.useState(false);
+	const {loading} = useSelector(state => state.admin_module)
 	const [createDialog,setCreateDialog] = React.useState(false);
 	const [updateDialog,setUpdateDialog] = React.useState(false);
-	const [selectedRole,setSelectedRole] = React.useState({role_code:null});
+	const [selectedModule,setSelectedModule] = React.useState({module_email:null});
 
 	const columns = React.useMemo(()=>[
 		{
-			Header:'Role Code',
-			accessor:'role_code',
+			Header:'Module Code',
+			accessor:'module_code',
+			width:170,
 			Cell:props => {
 				const onClick = () => {
-					// console.log('selectedRole_before',selectedRole.role_code)
-					// setSelectedRole({
-					// 	...selectedRole,
-					// 	role_code:props.value})
-					// toggleUpdateDialog()
-					navigate(`update/${props.value}`)
+					// console.log('selectedModule_before',selectedModule.module_email)
+					setSelectedModule({
+						...selectedModule,
+						module_code:props.value})
+					toggleUpdateDialog()
 				}
-				// return (<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={onClick} >{props.value}</Typography>)
-				return (<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={onClick} >{props.value}</Typography>)
+				return (<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}}  onClick={onClick} >{props.value}</Typography>)
 			}
 		},
 		{
-			Header:'Role Name',
-			accessor:'role_name',
-			width:300
+			Header:'Module Name',
+			accessor:'module_name',
+			width:270
+		},
+		{
+			Header:'Module Description',
+			accessor:'module_desc'
 		},
 		{
 			Header:'Status',
-			accessor:'role_status',
+			accessor:'module_status',
 			width:100,
 			Cell:props => {
 				return props.value ? 'Active' : 'Inactive'
 			}
 		},
 		{
-			Header:'Role Remarks',
-			accessor:'role_remarks1'
+			Header:'Module Remarks',
+			accessor:'module_remarks1'
 		},
 		{
 			Header:'Created Date',
@@ -78,7 +80,7 @@ const View = () => {
 	],[])
 
 	const fetchData = React.useCallback(({pageIndex,pageSize,filters}, callBack) => {
-		dispatch(getRole({
+		dispatch(getModule({
 			route		:	'get',
 			page		:	pageIndex,
 			totalPage	:	pageSize,
@@ -90,22 +92,22 @@ const View = () => {
 			callBack(result)
 		})
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[trigger])
+	},[createTrigger,updateTrigger])
 
 	const toggleCreateDialog = () => {
 		setCreateDialog(!createDialog)
 
 		if(createDialog===true){
-			setTrigger(!trigger)
+			setCreateTrigger(!createTrigger)
 		}
 	}
 
 	const toggleUpdateDialog = () => {
 		setUpdateDialog(!updateDialog)
-		
+
 		if(updateDialog===true){
-			setTrigger(!trigger)
-			setSelectedRole({role_code:null})
+			setUpdateTrigger(!updateTrigger)
+			setSelectedModule({module_email:null})
 		}
 	}
 
@@ -113,7 +115,7 @@ const View = () => {
 		<Grid container rowSpacing={1}>
 		<Grid item md={12}>
 			<Toolbar
-				label='Roles'
+				label='Modules'
 				isCreate
 				onCreate={toggleCreateDialog}
 			/>
@@ -127,10 +129,10 @@ const View = () => {
 				/>
 			</Grid>
 		</Grid>
-		<CreateRoleDialog isOpen={createDialog} toggle={()=>{ toggleCreateDialog() }}/>
-		<UpdateRoleDialog isOpen={updateDialog} role_code={selectedRole.role_code} toggle={()=>{ toggleUpdateDialog() }}/>
+		<CreateModuleDialog isOpen={createDialog} toggle={()=>{ toggleCreateDialog() }}/>
+		<UpdateModuleDialog isOpen={updateDialog} module_code={selectedModule.module_code} toggle={()=>{ toggleUpdateDialog() }}/>
 	</Grid>
 	)
 }
 
-export default Role;
+export default Modules;

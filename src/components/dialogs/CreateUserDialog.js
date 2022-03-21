@@ -9,7 +9,7 @@ import {Button,
 	DialogActions} from '@mui/material';
 import {useDispatch} from 'react-redux';
 import {Spinner} from '../../components';
-import {createUser} from '../../store/administration-user/user.slice';
+import {createUser} from '../../store/administration-user';
 import {MasterSelect} from '../../components/select';
 
 const CreateUserDialog = ({
@@ -27,7 +27,10 @@ const CreateUserDialog = ({
 		user_middle_name:'',
 		user_last_name	:'',
 		user_contact_no	:'',
-		role			:null
+		role			:null,
+		whLocation		:null,
+		position		:null,
+		user_rank		:0
 	})
 
 	const handleCreate = () => {
@@ -55,7 +58,10 @@ const CreateUserDialog = ({
 					user_middle_name:state.user_middle_name,
 					user_last_name	:state.user_last_name,
 					user_contact_no	:state.user_contact_no,
-					role_id			:state.role?.value
+					role_id			:state.role?.value,
+					user_whLocation	:state.whLocation?.value,
+					user_position	:state.position?.value,
+					user_rank		:state.user_rank
 				}
 			}))
 
@@ -68,7 +74,10 @@ const CreateUserDialog = ({
 				user_middle_name:'',
 				user_last_name	:'',
 				user_contact_no	:'',
-				role			:null
+				role			:null,
+				whLocation		:null,
+				position		:null,
+				user_rank		:0
 			})
 			toggle();
 		}
@@ -111,11 +120,47 @@ const CreateUserDialog = ({
 						<MasterSelect
 							fullWidth
 							placeholder='Role Name'
+							label='Role'
 							name='role'
-							systemType='admin'
+							route='administration'
 							type='role'
 							value={state.role}
 							handleChange={handleSelectChange}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<MasterSelect
+							fullWidth
+							placeholder='Position'
+							label='Job Position'
+							name='position'
+							route='reasoncode'
+							type='Job Position'
+							value={state.position}
+							handleChange={handleSelectChange}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<MasterSelect
+							fullWidth
+							placeholder='Warehouse Location Assignment'
+							label='Warehouse Assignment'
+							name='whLocation'
+							route='reasoncode'
+							type='Warehouse Location'
+							value={state.whLocation}
+							handleChange={handleSelectChange}
+						/>
+					</Grid>
+					<Grid item container>
+						<TextField
+							fullWidth
+							type='number'
+							name='user_rank'
+							variant='outlined'
+							label='User Rank'
+							value={state.user_rank}
+							onChange={handleChange}
 						/>
 					</Grid>
 					<Grid item container>
@@ -163,7 +208,7 @@ const CreateUserDialog = ({
 						/>
 					</Grid>
 					<Grid>
-						<Typography variant='caption' onClick={()=>{console.log('state',state)}}>*NOTE: default password is kerrylogistikus</Typography>
+						<Typography variant='caption'>*NOTE: default password is kerrylogistikus</Typography>
 					</Grid>
 				</Grid>
 			</div>

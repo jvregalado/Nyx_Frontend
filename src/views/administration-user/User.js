@@ -18,7 +18,7 @@ const View = () => {
 	const dispatch = useDispatch();
 	const [createTrigger,setCreateTrigger] = React.useState(false);
 	const [updateTrigger,setUpdateTrigger] = React.useState(false);
-	const {loading} = useSelector(state => state.user)
+	const {loading} = useSelector(state => state.admin_user)
 	const [createDialog,setCreateDialog] = React.useState(false);
 	const [updateDialog,setUpdateDialog] = React.useState(false);
 	const [selectedUser,setSelectedUser] = React.useState({user_email:null});
@@ -27,7 +27,7 @@ const View = () => {
 		{
 			Header:'Email Address',
 			accessor:'user_email',
-			width:300,
+			width:280,
 			Cell:props => {
 				const onClick = () => {
 					// console.log('selectedUser_before',selectedUser.user_email)
@@ -36,7 +36,7 @@ const View = () => {
 						user_email:props.value})
 					toggleUpdateDialog()
 				}
-				return (<Typography sx={{ color:'#CC6400' }} onClick={onClick} >{props.value}</Typography>)
+				return (<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={onClick} >{props.value}</Typography>)
 			}
 		},
 		{
@@ -44,16 +44,30 @@ const View = () => {
 			accessor:'role_name'
 		},
 		{
+			Header:'Position',
+			accessor:'user_position_fk.rc_desc'
+		},
+		{
+			Header:'Warehouse Location',
+			accessor:'user_whLocation_fk.rc_desc'
+		},
+		{
+			Header:'Rank',
+			accessor:'user_rank',
+			width:80
+		},
+		{
 			Header:'Status',
 			accessor:'user_status',
-			width:100,
+			width:80,
 			Cell:props => {
 				return props.value ? 'Active' : 'Inactive'
 			}
 		},
 		{
 			Header:'First Name',
-			accessor:'user_first_name'
+			accessor:'user_first_name',
+			width:130
 		},
 		{
 			Header:'Middle Name',
@@ -62,7 +76,8 @@ const View = () => {
 		},
 		{
 			Header:'Last Name',
-			accessor:'user_last_name'
+			accessor:'user_last_name',
+			width:130
 		},
 		{
 			Header:'User Remarks',
@@ -74,7 +89,7 @@ const View = () => {
 		},
 		{
 			Header:'Created By',
-			accessor:'createdBy'
+			accessor:'creator.user_email'
 		},
 		{
 			Header:'Updated Date',
@@ -82,7 +97,7 @@ const View = () => {
 		},
 		{
 			Header:'Updated By',
-			accessor:'updatedBy'
+			accessor:'modifier.user_email'
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	],[])

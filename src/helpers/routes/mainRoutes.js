@@ -1,5 +1,6 @@
 import { User } from '../../views/administration-user';
-import { Role } from '../../views/administration-role';
+import { Role, RoleUpdate } from '../../views/administration-role';
+import { Module } from '../../views/administration-module';
 import { Report } from '../../views/administration-report';
 import { ReasonCode } from '../../views/administration-reasoncode';
 import { ReportHub_wms } from '../../views/reporthub/wms';
@@ -20,6 +21,22 @@ const routes = [
 		module:'Administration',
 		subModule:'Roles',
 		component:Role
+	},
+	{
+		name:'roles_update',
+		label:'Roles Update',
+		route:'/administration/role/update',
+		module:'Administration',
+		subModule:'Roles',
+		component:RoleUpdate
+	},
+	{
+		name:'modules',
+		label:'Modules',
+		route:'/administration/module',
+		module:'Administration',
+		subModule:'Modules',
+		component:Module
 	},
 	{
 		name:'reports',
@@ -44,7 +61,7 @@ const routes = [
 		module:'Report Hub',
 		subModule:'WMS',
 		component:ReportHub_wms
-	}
+	},
 ]
 
 export default routes;

@@ -9,6 +9,8 @@ import {Button,
 import {useDispatch} from 'react-redux';
 import {Spinner} from '..';
 import {createReport} from '../../store/administration-report';
+import {MasterSelect} from '../../components/select';
+
 
 const CreateReportDialog = ({
 	isOpen,
@@ -45,8 +47,8 @@ const CreateReportDialog = ({
 				data:{
 					report_code			:state.report_code.replace(/\s\s+/g,' ').trim(),
 					report_name			:state.report_name.replace(/\s\s+/g,' ').trim(),
-					report_system_type	:state.report_system_type,
-					report_type			:state.report_type,
+					report_system_type	:state.report_system_type?.value,
+					report_type			:state.report_type?.value,
 					report_desc			:state.report_desc,
 					report_min_access_wt:state.report_min_access_wt,
 					report_remarks1		:state.report_remarks1
@@ -72,6 +74,13 @@ const CreateReportDialog = ({
 		setState({
 			...state,
 			[e.target.name]:e.target.value
+		})
+	}
+
+	const handleSelectChange = (e,name) => {
+		setState({
+			...state,
+			[name]:e
 		})
 	}
 
@@ -106,26 +115,26 @@ const CreateReportDialog = ({
 							onChange={handleChange}
 						/>
 					</Grid>
-					<Grid item container>
-						<TextField
+					<Grid item xs={12}>
+						<MasterSelect
 							fullWidth
+							placeholder='Report System Type'
 							name='report_system_type'
-							error={state.isReportError}
-							variant='outlined'
-							label='Report System Type'
+							route='reasoncode'
+							type='Report System Type'
 							value={state.report_system_type}
-							onChange={handleChange}
+							handleChange={handleSelectChange}
 						/>
 					</Grid>
-					<Grid item container>
-						<TextField
+					<Grid item xs={12}>
+						<MasterSelect
 							fullWidth
+							placeholder='Report Type'
 							name='report_type'
-							error={state.isReportError}
-							variant='outlined'
-							label='Report Type'
+							route='reasoncode'
+							type='Report Type'
 							value={state.report_type}
-							onChange={handleChange}
+							handleChange={handleSelectChange}
 						/>
 					</Grid>
 					<Grid item container>

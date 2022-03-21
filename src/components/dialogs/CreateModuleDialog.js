@@ -8,9 +8,10 @@ import {Button,
 	DialogActions} from '@mui/material';
 import {useDispatch} from 'react-redux';
 import {Spinner} from '..';
-import {createReasonCode} from '../../store/administration-reasoncode';
+import {createModule} from '../../store/administration-module';
 
-const CreateReasonCodeDialog = ({
+
+const CreateModuleDialog = ({
 	isOpen,
 	toggle
 }) => {
@@ -18,42 +19,42 @@ const CreateReasonCodeDialog = ({
 	const dispatch = useDispatch();
 
 	const [state, setState] = React.useState({
-		isReasonCodeError	:false,
-		rc_type				:'',
-		rc_code				:'',
-		rc_desc				:'',
-		rc_remarks1			:''
+		isModuleError			:false,
+		module_code				:'',
+		module_name				:'',
+		module_desc				:'',
+		module_remarks1			:''
 	})
 
 	const handleCreate = () => {
-		let hasReasonCode = false;
-		if(state.rc_type.replace(/ /g,'')==='' || state.rc_code.replace(/ /g,'')==='' || state.rc_desc.replace(/ /g,'')===''){
-			hasReasonCode = true;
+		let hasError = false
+		if(state.module_code.replace(/ /g,'')==='' || state.module_name.replace(/ /g,'')===''){
+			hasError = true;
 		}
 
 		setState({
 			...state,
-			isReasonCodeError:hasReasonCode
+			isModuleError:hasError
 		})
 
-		if(!hasReasonCode){
-			dispatch(createReasonCode({
+		if(!hasError){
+			dispatch(createModule({
 				route:'create',
 				data:{
-					rc_type		:state.rc_type,
-					rc_code		:state.rc_code,
-					rc_desc		:state.rc_desc,
-					rc_remarks1	:state.rc_remarks1
+					module_code			:state.module_code.replace(/\s\s+/g,' ').trim(),
+					module_name			:state.module_name.replace(/\s\s+/g,' ').trim(),
+					module_desc			:state.module_desc,
+					module_remarks1		:state.module_remarks1
 				}
 			}))
 
 			setState({
 				...state,
-				isReasonCodeError	:false,
-				rc_type				:'',
-				rc_code				:'',
-				rc_desc				:'',
-				rc_remarks1			:''
+				isModuleError		:false,
+				module_code			:'',
+				module_name			:'',
+				module_desc			:'',
+				module_remarks1		:''
 			})
 			toggle();
 		}
@@ -68,32 +69,20 @@ const CreateReasonCodeDialog = ({
 
 	return (
 		<Dialog open={isOpen}>
-		<DialogTitle>Create Reason Code</DialogTitle>
+		<DialogTitle>Create Module</DialogTitle>
 		<DialogContent dividers>
 			<div>
-				<Spinner reducer='rc'/>
+				<Spinner reducer='module'/>
 				<Grid container spacing={2}>
 					<Grid item container>
 						<TextField
 							required
 							fullWidth
-							name='rc_type'
-							error={state.isReasonCodeError}
+							name='module_code'
+							error={state.isModuleError}
 							variant='outlined'
-							label='Reason code Type'
-							value={state.rc_type}
-							onChange={handleChange}
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						<TextField
-							required
-							fullWidth
-							name='rc_code'
-							error={state.isReasonCodeError}
-							variant='outlined'
-							label='Reason Code'
-							value={state.rc_code}
+							label='Module Code'
+							value={state.module_code}
 							onChange={handleChange}
 						/>
 					</Grid>
@@ -101,21 +90,31 @@ const CreateReasonCodeDialog = ({
 						<TextField
 							required
 							fullWidth
-							name='rc_desc'
-							error={state.isReasonCodeError}
+							name='module_name'
+							error={state.isModuleError}
 							variant='outlined'
-							label='Reason code Description'
-							value={state.rc_desc}
+							label='Module Name'
+							value={state.module_name}
 							onChange={handleChange}
 						/>
 					</Grid>
 					<Grid item container>
 						<TextField
 							fullWidth
-							name='rc_remarks1'
+							name='module_desc'
 							variant='outlined'
-							label='Reason code Remarks'
-							value={state.rc_remarks1}
+							label='Module Description'
+							value={state.module_desc}
+							onChange={handleChange}
+						/>
+					</Grid>
+					<Grid item container>
+						<TextField
+							fullWidth
+							name='module_remarks1'
+							variant='outlined'
+							label='Module Remarks'
+							value={state.module_remarks1}
 							onChange={handleChange}
 						/>
 					</Grid>
@@ -130,4 +129,4 @@ const CreateReasonCodeDialog = ({
 	);
 }
 
-export default CreateReasonCodeDialog;
+export default CreateModuleDialog;

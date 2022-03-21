@@ -1,8 +1,8 @@
 import React from 'react';
 import {useSelector,useDispatch} from 'react-redux';
-// import {
-//	 MasterSelect
-// } from '../../select';
+import {
+	 MasterSelect
+} from '../../select';
 // import {setValue} from '../../../store/filters/filters.slice';
 
 const MasterSelectFilter = ({
@@ -12,7 +12,7 @@ const MasterSelectFilter = ({
 	name,
 	quickCodeType
 }) => {
-	const dispatch = useDispatch()
+	// const dispatch = useDispatch()
 	const reducer = useSelector(state => state.filters)
 	
 	React.useEffect(()=>{
@@ -21,20 +21,20 @@ const MasterSelectFilter = ({
 	},[])
 
 	return (
-	   <MasterSelect 
-		type={variant} 
-		label={label}
-		name={name}
-		quickCodeType={quickCodeType}
-		value={reducer[variant] || filterValue}
-		handleChange={(e)=>{
-		   setFilter(e || undefined)
-		//	dispatch(setValue({
-		//		 variant,
-		//		 value:e||undefined
-		//	}))
-		}}
-	   />
+		<MasterSelect
+			type={variant}
+			label={label}
+			name={name}
+			quickCodeType={quickCodeType}
+			value={reducer[variant] || filterValue}
+			handleChange={(e)=>{
+				setFilter(e || undefined)
+			//	dispatch(setValue({
+			//		 variant,
+			//		 value:e||undefined
+			//	}))
+			}}
+		/>
 	)
 }
 
