@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {createReasonCode,getReasonCode,getReasonCodeDetails,updateReasonCode} from './reasoncode.thunk';
+import {postReasonCode,getReasonCode,getReasonCodeDetails,patchReasonCode} from './reasoncode.thunk';
 
 const initialState = {
 	loading:false
@@ -12,13 +12,13 @@ const slice = createSlice({
 		resetAction:()=>initialState
 	},
 	extraReducers:{
-		[createReasonCode.pending]:(state,action)=>{
+		[postReasonCode.pending]:(state,action)=>{
 			state.loading=true
 		},
-		[createReasonCode.fulfilled]:(state,action)=>{
+		[postReasonCode.fulfilled]:(state,action)=>{
 			state.loading=false
 		},
-		[createReasonCode.rejected]:(state,action)=>{
+		[postReasonCode.rejected]:(state,action)=>{
 			state.loading=false
 		},
 		[getReasonCode.pending]:(state,action)=>{
@@ -39,17 +39,17 @@ const slice = createSlice({
 		[getReasonCodeDetails.rejected]:(state,action)=>{
 			state.loading=false
 		},
-		[updateReasonCode.pending]:(state,action)=>{
+		[patchReasonCode.pending]:(state,action)=>{
 			state.loading=true
 		},
-		[updateReasonCode.fulfilled]:(state,action)=>{
+		[patchReasonCode.fulfilled]:(state,action)=>{
 			state.loading=false
 		},
-		[updateReasonCode.rejected]:(state,action)=>{
+		[patchReasonCode.rejected]:(state,action)=>{
 			state.loading=false
 		},
 	}
 })
 
-export {createReasonCode,getReasonCode,getReasonCodeDetails,updateReasonCode}
+export {postReasonCode,getReasonCode,getReasonCodeDetails,patchReasonCode}
 export default slice.reducer

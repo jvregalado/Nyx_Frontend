@@ -8,7 +8,7 @@ import {Button,
 	DialogActions} from '@mui/material';
 import {useDispatch} from 'react-redux';
 import {Spinner} from '..';
-import {createReasonCode} from '../../store/administration-reasoncode';
+import {postReasonCode} from '../../store/administration-reasoncode';
 
 const CreateReasonCodeDialog = ({
 	isOpen,
@@ -37,8 +37,8 @@ const CreateReasonCodeDialog = ({
 		})
 
 		if(!hasReasonCode){
-			dispatch(createReasonCode({
-				route:'create',
+			dispatch(postReasonCode({
+				route:'',
 				data:{
 					rc_type		:state.rc_type,
 					rc_code		:state.rc_code,

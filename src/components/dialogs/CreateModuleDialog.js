@@ -8,7 +8,7 @@ import {Button,
 	DialogActions} from '@mui/material';
 import {useDispatch} from 'react-redux';
 import {Spinner} from '..';
-import {createModule} from '../../store/administration-module';
+import {postModule} from '../../store/administration-module';
 
 
 const CreateModuleDialog = ({
@@ -38,8 +38,8 @@ const CreateModuleDialog = ({
 		})
 
 		if(!hasError){
-			dispatch(createModule({
-				route:'create',
+			dispatch(postModule({
+				route:'',
 				data:{
 					module_code			:state.module_code.replace(/\s\s+/g,' ').trim(),
 					module_name			:state.module_name.replace(/\s\s+/g,' ').trim(),

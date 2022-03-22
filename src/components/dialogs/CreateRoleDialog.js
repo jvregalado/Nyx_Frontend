@@ -8,7 +8,7 @@ import {Button,
 	DialogActions} from '@mui/material';
 import {useDispatch} from 'react-redux';
 import {Spinner} from '..';
-import {createRole} from '../../store/administration-role';
+import {postRole} from '../../store/administration-role';
 
 const CreateRoleDialog = ({
 	isOpen,
@@ -35,8 +35,8 @@ const CreateRoleDialog = ({
 		})
 
 		if(!hasCode){
-			dispatch(createRole({
-				route:'create',
+			dispatch(postRole({
+				route:'',
 				data:{
 					role_code	:state.role_code.replace(/\s\s+/g,' ').trim(),
 					role_name	:state.role_name.replace(/\s\s+/g,' ').trim(),

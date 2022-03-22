@@ -7,7 +7,7 @@ import {Table} from '../../components/table';
 import {useDispatch,useSelector} from 'react-redux';
 import {CreateRoleDialog,UpdateRoleDialog} from '../../components/dialogs';
 import {getRole} from '../../store/administration-role';
-import { useNavigate, useRouteMatch } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 const Role = ({routes}) => {
 	return (
@@ -30,14 +30,11 @@ const View = () => {
 			accessor:'role_code',
 			Cell:props => {
 				const onClick = () => {
-					// console.log('selectedRole_before',selectedRole.role_code)
-					// setSelectedRole({
-					// 	...selectedRole,
-					// 	role_code:props.value})
-					// toggleUpdateDialog()
-					navigate(`update/${props.value}`)
+					navigate({
+							pathname: `update/`,
+							search:`role_code=${props.value}`
+						});
 				}
-				// return (<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={onClick} >{props.value}</Typography>)
 				return (<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={onClick} >{props.value}</Typography>)
 			}
 		},
@@ -79,7 +76,7 @@ const View = () => {
 
 	const fetchData = React.useCallback(({pageIndex,pageSize,filters}, callBack) => {
 		dispatch(getRole({
-			route		:	'get',
+			route		:	'',
 			page		:	pageIndex,
 			totalPage	:	pageSize,
 			orderBy		:	'createdAt,DESC',

@@ -7,7 +7,7 @@ const headers = {
 	'Content-Type':'application/json',
 }
 
-const createModule = createAsyncThunk('module/create',
+const postModule = createAsyncThunk('module/post',
 	async({route,data},{rejectWithValue})=>{
 		try{
 			const res = await API({
@@ -62,7 +62,7 @@ const getModule = createAsyncThunk('module/get',
 	}
 )
 
-const getModuleDetails = createAsyncThunk('module/get/post',
+const getModuleDetails = createAsyncThunk('module/getDetails',
 	async({route,filters},{rejectWithValue})=>{
 		try{
 			const res = await API({
@@ -86,14 +86,14 @@ const getModuleDetails = createAsyncThunk('module/get/post',
 	}
 )
 
-const updateModule = createAsyncThunk('module/update',
+const patchModule = createAsyncThunk('module/patch',
 	async({route,data},{rejectWithValue})=>{
 		try{
 			const res = await API({
 				requestHeaders:{
 					...headers
 				}
-			}).post(`${baseURL}/${route}`,{
+			}).patch(`${baseURL}/${route}`,{
 				data
 			})
 			.then(result => {
@@ -114,4 +114,4 @@ const updateModule = createAsyncThunk('module/update',
 	}
 )
 
-export { getModule, createModule, getModuleDetails, updateModule }
+export { getModule, postModule, getModuleDetails, patchModule }

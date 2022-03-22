@@ -9,7 +9,7 @@ import {Button,
 import {useDispatch} from 'react-redux';
 import {Spinner} from '../../components';
 import {Switch} from '../../components/inputs';
-import {getUserDetails,updateUser} from '../../store/administration-user';
+import {getUserDetails,patchUser} from '../../store/administration-user';
 import {MasterSelect} from '../../components/select';
 
 
@@ -28,9 +28,9 @@ const UpdateUserDialog = ({
 		user_last_name	:'',
 		user_contact_no	:'',
 		user_status		:false,
-		role			:null,
-		whLocation		:null,
-		position		:null,
+		role			:'',
+		whLocation		:'',
+		position		:'',
 		user_rank		:0
 	});
 
@@ -45,8 +45,8 @@ const UpdateUserDialog = ({
 		})
 
 		if(!hasName){
-			dispatch(updateUser({
-				route:'update',
+			dispatch(patchUser({
+				route:'',
 				data:{
 					user_id			:state.user_id,
 					user_email		:state.user_email,
@@ -71,9 +71,9 @@ const UpdateUserDialog = ({
 				user_last_name	:'',
 				user_contact_no	:'',
 				user_status		:false,
-				role			:null,
-				whLocation		:null,
-				position		:null,
+				role			:{value: '', label: ''},
+				whLocation		:{value: '', label: ''},
+				position		:{value: '', label: ''},
 				user_rank		:0
 			})
 			toggle();
@@ -117,7 +117,7 @@ const UpdateUserDialog = ({
 					},
 					position:{
 						value	:result.data[0].user_position_fk?.rc_id,
-						label	:result.data[0].user_position_fk?.rc_desc
+						label	:result.data[0].user_position_fk?.rc_des
 					}
 				})
 			})
@@ -155,7 +155,7 @@ const UpdateUserDialog = ({
 							name='role'
 							route='administration'
 							type='role'
-							value={state.role}
+							value={state.role || ''}
 							handleChange={handleSelectChange}
 						/>
 					</Grid>
@@ -167,7 +167,7 @@ const UpdateUserDialog = ({
 							name='position'
 							route='reasoncode'
 							type='Job Position'
-							value={state.position}
+							value={state.position || ''}
 							handleChange={handleSelectChange}
 						/>
 					</Grid>
@@ -179,7 +179,7 @@ const UpdateUserDialog = ({
 							name='whLocation'
 							route='reasoncode'
 							type='Warehouse Location'
-							value={state.whLocation}
+							value={state.whLocation || ''}
 							handleChange={handleSelectChange}
 						/>
 					</Grid>
@@ -190,7 +190,7 @@ const UpdateUserDialog = ({
 							name='user_rank'
 							variant='outlined'
 							label='User Rank'
-							value={state.user_rank}
+							value={state.user_rank || ''}
 							onChange={handleChange}
 						/>
 					</Grid>
@@ -202,7 +202,7 @@ const UpdateUserDialog = ({
 							error={state.isNameError}
 							variant='outlined'
 							label='First Name'
-							value={state.user_first_name}
+							value={state.user_first_name || ''}
 							onChange={handleChange}
 						/>
 					</Grid>
@@ -212,7 +212,7 @@ const UpdateUserDialog = ({
 							name='user_middle_name'
 							variant='outlined'
 							label='Middle Name'
-							value={state.user_middle_name}
+							value={state.user_middle_name || ''}
 							onChange={handleChange}
 						 />
 					</Grid>
@@ -224,7 +224,7 @@ const UpdateUserDialog = ({
 							error={state.isNameError}
 							variant='outlined'
 							label='Last Name'
-							value={state.user_last_name}
+							value={state.user_last_name || ''}
 							onChange={handleChange}
 						/>
 					</Grid>
@@ -234,7 +234,7 @@ const UpdateUserDialog = ({
 							name='user_contact_no'
 							variant='outlined'
 							label='Contact No.'
-							value={state.user_contact_no}
+							value={state.user_contact_no || ''}
 							onChange={handleChange}
 						/>
 					</Grid>

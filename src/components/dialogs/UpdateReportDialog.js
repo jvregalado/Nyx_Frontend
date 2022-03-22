@@ -9,7 +9,7 @@ import {Button,
 import {useDispatch} from 'react-redux';
 import {Spinner} from '..';
 import {Switch} from '../inputs';
-import {getReportDetails,updateReport} from '../../store/administration-report';
+import {getReportDetails,patchReport} from '../../store/administration-report';
 import {MasterSelect} from '../select';
 
 const UpdateReportDialog = ({
@@ -28,7 +28,7 @@ const UpdateReportDialog = ({
 		report_type			:'',
 		report_desc			:'',
 		report_min_access_wt:0,
-		report_status		:'',
+		report_status		:false,
 		report_remarks1		:''
 	});
 
@@ -43,8 +43,8 @@ const UpdateReportDialog = ({
 		})
 
 		if(!hasError){
-			dispatch(updateReport({
-				route:'update',
+			dispatch(patchReport({
+				route:'',
 				data:{
 					report_id			:state.report_id,
 					report_code			:state.report_code.replace(/\s\s+/g,' ').trim(),

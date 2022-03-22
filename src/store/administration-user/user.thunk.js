@@ -7,7 +7,7 @@ const headers = {
 	'Content-Type':'application/json',
 }
 
-const createUser = createAsyncThunk('user/create',
+const postUser = createAsyncThunk('user/post',
 	async({route,data},{rejectWithValue})=>{
 		try{
 			const res = await API({
@@ -62,7 +62,7 @@ const getUser = createAsyncThunk('user/get',
 	}
 )
 
-const getUserDetails = createAsyncThunk('user/get/post',
+const getUserDetails = createAsyncThunk('user/getDetails',
 	async({route,filters},{rejectWithValue})=>{
 		try{
 			const res = await API({
@@ -86,14 +86,14 @@ const getUserDetails = createAsyncThunk('user/get/post',
 	}
 )
 
-const updateUser = createAsyncThunk('user/update',
+const patchUser = createAsyncThunk('user/patch',
 	async({route,data},{rejectWithValue})=>{
 		try{
 			const res = await API({
 				requestHeaders:{
 					...headers
 				}
-			}).post(`${baseURL}/${route}`,{
+			}).patch(`${baseURL}/${route}`,{
 				data
 			})
 			.then(result => {
@@ -114,4 +114,4 @@ const updateUser = createAsyncThunk('user/update',
 	}
 )
 
-export { getUser, createUser, getUserDetails, updateUser }
+export { getUser, postUser, getUserDetails, patchUser }

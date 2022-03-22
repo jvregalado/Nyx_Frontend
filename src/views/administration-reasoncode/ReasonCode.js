@@ -85,7 +85,7 @@ const View = () => {
 
 	const fetchData = React.useCallback(({pageIndex,pageSize,filters}, callBack) => {
 		dispatch(getReasonCode({
-			route		:	'get',
+			route		:	'',
 			page		:	pageIndex,
 			totalPage	:	pageSize,
 			orderBy		:	'rc_type,DESC',

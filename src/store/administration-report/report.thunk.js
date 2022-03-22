@@ -7,7 +7,7 @@ const headers = {
 	'Content-Type':'application/json',
 }
 
-const createReport = createAsyncThunk('report/create',
+const postReport = createAsyncThunk('report/post',
 	async({route,data},{rejectWithValue})=>{
 		try{
 			const res = await API({
@@ -62,7 +62,7 @@ const getReport = createAsyncThunk('report/get',
 	}
 )
 
-const getReportDetails = createAsyncThunk('report/get/post',
+const getReportDetails = createAsyncThunk('report/getDetails',
 	async({route,filters},{rejectWithValue})=>{
 		try{
 			const res = await API({
@@ -86,14 +86,14 @@ const getReportDetails = createAsyncThunk('report/get/post',
 	}
 )
 
-const updateReport = createAsyncThunk('report/update',
+const patchReport = createAsyncThunk('report/patch',
 	async({route,data},{rejectWithValue})=>{
 		try{
 			const res = await API({
 				requestHeaders:{
 					...headers
 				}
-			}).post(`${baseURL}/${route}`,{
+			}).patch(`${baseURL}/${route}`,{
 				data
 			})
 			.then(result => {
@@ -114,4 +114,4 @@ const updateReport = createAsyncThunk('report/update',
 	}
 )
 
-export { getReport, createReport, getReportDetails, updateReport }
+export { postReport, getReport, getReportDetails, patchReport }

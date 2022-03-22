@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {createUser,getUser,getUserDetails,updateUser} from './user.thunk';
+import {postUser,getUser,getUserDetails,patchUser} from './user.thunk';
 
 const initialState = {
 	loading:false
@@ -12,15 +12,6 @@ const slice = createSlice({
 		resetAction:()=>initialState
 	},
 	extraReducers:{
-		[createUser.pending]:(state,action)=>{
-			state.loading=true
-		},
-		[createUser.fulfilled]:(state,action)=>{
-			state.loading=false
-		},
-		[createUser.rejected]:(state,action)=>{
-			state.loading=false
-		},
 		[getUser.pending]:(state,action)=>{
 			state.loading=true
 		},
@@ -28,6 +19,15 @@ const slice = createSlice({
 			state.loading=false
 		},
 		[getUser.rejected]:(state,action)=>{
+			state.loading=false
+		},
+		[postUser.pending]:(state,action)=>{
+			state.loading=true
+		},
+		[postUser.fulfilled]:(state,action)=>{
+			state.loading=false
+		},
+		[postUser.rejected]:(state,action)=>{
 			state.loading=false
 		},
 		[getUserDetails.pending]:(state,action)=>{
@@ -39,17 +39,17 @@ const slice = createSlice({
 		[getUserDetails.rejected]:(state,action)=>{
 			state.loading=false
 		},
-		[updateUser.pending]:(state,action)=>{
+		[patchUser.pending]:(state,action)=>{
 			state.loading=true
 		},
-		[updateUser.fulfilled]:(state,action)=>{
+		[patchUser.fulfilled]:(state,action)=>{
 			state.loading=false
 		},
-		[updateUser.rejected]:(state,action)=>{
+		[patchUser.rejected]:(state,action)=>{
 			state.loading=false
 		},
 	}
 })
 
-export {createUser,getUser,getUserDetails,updateUser}
+export {postUser,getUser,getUserDetails,patchUser}
 export default slice.reducer

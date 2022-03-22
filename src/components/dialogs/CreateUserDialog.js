@@ -9,7 +9,7 @@ import {Button,
 	DialogActions} from '@mui/material';
 import {useDispatch} from 'react-redux';
 import {Spinner} from '../../components';
-import {createUser} from '../../store/administration-user';
+import {postUser} from '../../store/administration-user';
 import {MasterSelect} from '../../components/select';
 
 const CreateUserDialog = ({
@@ -50,8 +50,8 @@ const CreateUserDialog = ({
 		})
 
 		if(!hasEmail && !hasName){
-			dispatch(createUser({
-				route:'create',
+			dispatch(postUser({
+				route:'',
 				data:{
 					user_email		:state.user_email.replace(/ /g,'').toLowerCase(),
 					user_first_name	:state.user_first_name,

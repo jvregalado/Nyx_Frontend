@@ -114,4 +114,32 @@ const updateRole = createAsyncThunk('role/update',
 	}
 )
 
-export { getRole, createRole, getRoleDetails, updateRole }
+const upsertRoleDetails = createAsyncThunk('role/put',
+	async({route,data},{rejectWithValue})=>{
+		try{
+			const res = await API({
+				requestHeaders:{
+					...headers
+				}
+			}).post(`${baseURL}/${route}`,{
+				data
+			})
+			.then(result => {
+				if(result.status === 200){
+					toast.success('Role Updated!')
+				}
+				return result
+			})
+
+			return res
+		}
+		catch(e){
+			if(e.response && e.response.data){
+				toast.error(`${e.response.data.message}`)
+			}
+			return rejectWithValue(e)
+		}
+	}
+)
+
+export { getRole, createRole, getRoleDetails, updateRole, upsertRoleDetails }

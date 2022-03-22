@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {createReport,getReport,getReportDetails,updateReport} from './report.thunk';
+import {postReport,getReport,getReportDetails,patchReport} from './report.thunk';
 
 const initialState = {
 	loading:false
@@ -12,13 +12,13 @@ const slice = createSlice({
 		resetAction:()=>initialState
 	},
 	extraReducers:{
-		[createReport.pending]:(state,action)=>{
+		[postReport.pending]:(state,action)=>{
 			state.loading=true
 		},
-		[createReport.fulfilled]:(state,action)=>{
+		[postReport.fulfilled]:(state,action)=>{
 			state.loading=false
 		},
-		[createReport.rejected]:(state,action)=>{
+		[postReport.rejected]:(state,action)=>{
 			state.loading=false
 		},
 		[getReport.pending]:(state,action)=>{
@@ -39,17 +39,17 @@ const slice = createSlice({
 		[getReportDetails.rejected]:(state,action)=>{
 			state.loading=false
 		},
-		[updateReport.pending]:(state,action)=>{
+		[patchReport.pending]:(state,action)=>{
 			state.loading=true
 		},
-		[updateReport.fulfilled]:(state,action)=>{
+		[patchReport.fulfilled]:(state,action)=>{
 			state.loading=false
 		},
-		[updateReport.rejected]:(state,action)=>{
+		[patchReport.rejected]:(state,action)=>{
 			state.loading=false
 		},
 	}
 })
 
-export {createReport,getReport,getReportDetails,updateReport}
+export {postReport,getReport,getReportDetails,patchReport}
 export default slice.reducer

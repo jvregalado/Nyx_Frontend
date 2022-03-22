@@ -81,7 +81,7 @@ const View = () => {
 
 	const fetchData = React.useCallback(({pageIndex,pageSize,filters}, callBack) => {
 		dispatch(getModule({
-			route		:	'get',
+			route		:	'',
 			page		:	pageIndex,
 			totalPage	:	pageSize,
 			orderBy		:	'createdAt,DESC',

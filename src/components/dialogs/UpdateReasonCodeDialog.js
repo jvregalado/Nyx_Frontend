@@ -9,7 +9,7 @@ import {Button,
 import {useDispatch} from 'react-redux';
 import {Spinner} from '..';
 import {Switch} from '../inputs';
-import {getReasonCodeDetails,updateReasonCode} from '../../store/administration-reasoncode/reasoncode.slice';
+import {getReasonCodeDetails,patchReasonCode} from '../../store/administration-reasoncode/reasoncode.slice';
 
 
 const UpdateReasonCodeDialog = ({
@@ -41,8 +41,8 @@ const UpdateReasonCodeDialog = ({
 		})
 
 		if(!hasError){
-			dispatch(updateReasonCode({
-				route:'update',
+			dispatch(patchReasonCode({
+				route:'',
 				data:{
 					rc_id		:state.rc_id,
 					rc_type		:state.rc_type,

@@ -8,7 +8,7 @@ import {Button,
 	DialogActions} from '@mui/material';
 import {useDispatch} from 'react-redux';
 import {Spinner} from '..';
-import {createReport} from '../../store/administration-report';
+import {postReport} from '../../store/administration-report';
 import {MasterSelect} from '../../components/select';
 
 
@@ -42,8 +42,8 @@ const CreateReportDialog = ({
 		})
 
 		if(!hasCode){
-			dispatch(createReport({
-				route:'create',
+			dispatch(postReport({
+				route:'',
 				data:{
 					report_code			:state.report_code.replace(/\s\s+/g,' ').trim(),
 					report_name			:state.report_name.replace(/\s\s+/g,' ').trim(),

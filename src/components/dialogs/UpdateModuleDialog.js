@@ -9,7 +9,7 @@ import {Button,
 import {useDispatch} from 'react-redux';
 import {Spinner} from '..';
 import {Switch} from '../inputs';
-import {getModuleDetails,updateModule} from '../../store/administration-module';
+import {getModuleDetails,patchModule} from '../../store/administration-module';
 
 const UpdateModuleDialog = ({
 	isOpen,
@@ -42,8 +42,8 @@ const UpdateModuleDialog = ({
 		})
 
 		if(!hasError){
-			dispatch(updateModule({
-				route:'update',
+			dispatch(patchModule({
+				route:'',
 				data:{
 					module_id			:state.module_id,
 					module_code			:state.module_code.replace(/\s\s+/g,' ').trim(),

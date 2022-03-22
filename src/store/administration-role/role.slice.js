@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {createRole,getRole,getRoleDetails,updateRole} from './role.thunk';
+import {createRole,getRole,getRoleDetails,updateRole,upsertRoleDetails} from './role.thunk';
 
 const initialState = {
 	loading:false
@@ -48,8 +48,17 @@ const slice = createSlice({
 		[updateRole.rejected]:(state,action)=>{
 			state.loading=false
 		},
+		[upsertRoleDetails.pending]:(state,action)=>{
+			state.loading=true
+		},
+		[upsertRoleDetails.fulfilled]:(state,action)=>{
+			state.loading=false
+		},
+		[upsertRoleDetails.rejected]:(state,action)=>{
+			state.loading=false
+		},
 	}
 })
 
-export {createRole,getRole,getRoleDetails,updateRole}
+export {createRole,getRole,getRoleDetails,updateRole,upsertRoleDetails}
 export default slice.reducer

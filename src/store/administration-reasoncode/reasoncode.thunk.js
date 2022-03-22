@@ -7,7 +7,7 @@ const headers = {
 	'Content-Type':'application/json',
 }
 
-const createReasonCode = createAsyncThunk('reasoncode/create',
+const postReasonCode = createAsyncThunk('reasoncode/post',
 	async({route,data},{rejectWithValue})=>{
 		try{
 			const res = await API({
@@ -62,7 +62,7 @@ const getReasonCode = createAsyncThunk('reasoncode/get',
 	}
 )
 
-const getReasonCodeDetails = createAsyncThunk('reasoncode/get/post',
+const getReasonCodeDetails = createAsyncThunk('reasoncode/getDetails',
 	async({route,filters},{rejectWithValue})=>{
 		try{
 			const res = await API({
@@ -86,14 +86,14 @@ const getReasonCodeDetails = createAsyncThunk('reasoncode/get/post',
 	}
 )
 
-const updateReasonCode = createAsyncThunk('reasoncode/update',
+const patchReasonCode = createAsyncThunk('reasoncode/patch',
 	async({route,data},{rejectWithValue})=>{
 		try{
 			const res = await API({
 				requestHeaders:{
 					...headers
 				}
-			}).post(`${baseURL}/${route}`,{
+			}).patch(`${baseURL}/${route}`,{
 				data
 			})
 			.then(result => {
@@ -114,4 +114,4 @@ const updateReasonCode = createAsyncThunk('reasoncode/update',
 	}
 )
 
-export { getReasonCode, createReasonCode, getReasonCodeDetails, updateReasonCode }
+export { getReasonCode, postReasonCode, getReasonCodeDetails, patchReasonCode }

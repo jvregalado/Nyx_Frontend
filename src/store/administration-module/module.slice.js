@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {createModule,getModule,getModuleDetails,updateModule} from './module.thunk';
+import {postModule,getModule,getModuleDetails,patchModule} from './module.thunk';
 
 const initialState = {
 	loading:false
@@ -12,13 +12,13 @@ const slice = createSlice({
 		resetAction:()=>initialState
 	},
 	extraReducers:{
-		[createModule.pending]:(state,action)=>{
+		[postModule.pending]:(state,action)=>{
 			state.loading=true
 		},
-		[createModule.fulfilled]:(state,action)=>{
+		[postModule.fulfilled]:(state,action)=>{
 			state.loading=false
 		},
-		[createModule.rejected]:(state,action)=>{
+		[postModule.rejected]:(state,action)=>{
 			state.loading=false
 		},
 		[getModule.pending]:(state,action)=>{
@@ -39,17 +39,17 @@ const slice = createSlice({
 		[getModuleDetails.rejected]:(state,action)=>{
 			state.loading=false
 		},
-		[updateModule.pending]:(state,action)=>{
+		[patchModule.pending]:(state,action)=>{
 			state.loading=true
 		},
-		[updateModule.fulfilled]:(state,action)=>{
+		[patchModule.fulfilled]:(state,action)=>{
 			state.loading=false
 		},
-		[updateModule.rejected]:(state,action)=>{
+		[patchModule.rejected]:(state,action)=>{
 			state.loading=false
 		},
 	}
 })
 
-export {createModule,getModule,getModuleDetails,updateModule}
+export {postModule,getModule,getModuleDetails,patchModule}
 export default slice.reducer
