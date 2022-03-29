@@ -24,6 +24,7 @@ const UpdateReportDialog = ({
 		isReportError		:false,
 		report_code			:'',
 		report_name			:'',
+		module				:'',
 		report_system_type	:'',
 		report_type			:'',
 		report_desc			:'',
@@ -49,6 +50,7 @@ const UpdateReportDialog = ({
 					report_id			:state.report_id,
 					report_code			:state.report_code.replace(/\s\s+/g,' ').trim(),
 					report_name			:state.report_name.replace(/\s\s+/g,' ').trim(),
+					module_id			:state.module?.value,
 					report_system_type	:state.report_system_type?.value,
 					report_type			:state.report_type?.value,
 					report_desc			:state.report_desc,
@@ -63,12 +65,13 @@ const UpdateReportDialog = ({
 				isReportError		:false,
 				report_code			:'',
 				report_name			:'',
+				module				:'',
 				report_system_type	:'',
 				report_type			:'',
 				report_desc			:'',
 				report_min_access_wt:0,
 				report_remarks1		:'',
-				report_status		:''
+				report_status		:false
 			})
 			toggle();
 		}
@@ -101,6 +104,10 @@ const UpdateReportDialog = ({
 				setState({
 					...state,
 					...result.data[0],
+					module:{
+						value	:result.data[0]?.report_module_fk?.module_id,
+						label	:result.data[0]?.report_module_fk?.module_name
+					},
 					report_system_type:{
 						value	:result.data[0]?.report_system_type_fk?.rc_id,
 						label	:result.data[0]?.report_system_type_fk?.rc_desc
@@ -148,6 +155,18 @@ const UpdateReportDialog = ({
 							label='Report Name'
 							value={state.report_name}
 							onChange={handleChange}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<MasterSelect
+							fullWidth
+							placeholder='Module'
+							name='module'
+							label='Module'
+							route='administration'
+							type='module'
+							value={state.module}
+							handleChange={handleSelectChange}
 						/>
 					</Grid>
 					<Grid item xs={12}>

@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {createRole,getRole,getRoleDetails,updateRole,upsertRoleDetails} from './role.thunk';
+import {postRole,getRole,getRoleDetails,patchRole,putRoleDetails} from './role.thunk';
 
 const initialState = {
 	loading:false
@@ -12,13 +12,13 @@ const slice = createSlice({
 		resetAction:()=>initialState
 	},
 	extraReducers:{
-		[createRole.pending]:(state,action)=>{
+		[postRole.pending]:(state,action)=>{
 			state.loading=true
 		},
-		[createRole.fulfilled]:(state,action)=>{
+		[postRole.fulfilled]:(state,action)=>{
 			state.loading=false
 		},
-		[createRole.rejected]:(state,action)=>{
+		[postRole.rejected]:(state,action)=>{
 			state.loading=false
 		},
 		[getRole.pending]:(state,action)=>{
@@ -39,26 +39,26 @@ const slice = createSlice({
 		[getRoleDetails.rejected]:(state,action)=>{
 			state.loading=false
 		},
-		[updateRole.pending]:(state,action)=>{
+		[patchRole.pending]:(state,action)=>{
 			state.loading=true
 		},
-		[updateRole.fulfilled]:(state,action)=>{
+		[patchRole.fulfilled]:(state,action)=>{
 			state.loading=false
 		},
-		[updateRole.rejected]:(state,action)=>{
+		[patchRole.rejected]:(state,action)=>{
 			state.loading=false
 		},
-		[upsertRoleDetails.pending]:(state,action)=>{
+		[putRoleDetails.pending]:(state,action)=>{
 			state.loading=true
 		},
-		[upsertRoleDetails.fulfilled]:(state,action)=>{
+		[putRoleDetails.fulfilled]:(state,action)=>{
 			state.loading=false
 		},
-		[upsertRoleDetails.rejected]:(state,action)=>{
+		[putRoleDetails.rejected]:(state,action)=>{
 			state.loading=false
 		},
 	}
 })
 
-export {createRole,getRole,getRoleDetails,updateRole,upsertRoleDetails}
+export {postRole,getRole,getRoleDetails,patchRole,putRoleDetails}
 export default slice.reducer

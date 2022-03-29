@@ -7,7 +7,7 @@ const headers = {
 	'Content-Type':'application/json',
 }
 
-const createRole = createAsyncThunk('role/create',
+const postRole = createAsyncThunk('role/post',
 	async({route,data},{rejectWithValue})=>{
 		try{
 			const res = await API({
@@ -62,7 +62,7 @@ const getRole = createAsyncThunk('role/get',
 	}
 )
 
-const getRoleDetails = createAsyncThunk('role/get/post',
+const getRoleDetails = createAsyncThunk('role/getDetails',
 	async({route,filters},{rejectWithValue})=>{
 		try{
 			const res = await API({
@@ -86,14 +86,14 @@ const getRoleDetails = createAsyncThunk('role/get/post',
 	}
 )
 
-const updateRole = createAsyncThunk('role/update',
+const patchRole = createAsyncThunk('role/patchRole',
 	async({route,data},{rejectWithValue})=>{
 		try{
 			const res = await API({
 				requestHeaders:{
 					...headers
 				}
-			}).post(`${baseURL}/${route}`,{
+			}).patch(`${baseURL}/${route}`,{
 				data
 			})
 			.then(result => {
@@ -114,19 +114,19 @@ const updateRole = createAsyncThunk('role/update',
 	}
 )
 
-const upsertRoleDetails = createAsyncThunk('role/put',
+const putRoleDetails = createAsyncThunk('role/putRoleDetails',
 	async({route,data},{rejectWithValue})=>{
 		try{
 			const res = await API({
 				requestHeaders:{
 					...headers
 				}
-			}).post(`${baseURL}/${route}`,{
+			}).put(`${baseURL}/${route}`,{
 				data
 			})
 			.then(result => {
 				if(result.status === 200){
-					toast.success('Role Updated!')
+					toast.success('Role Details Updated!')
 				}
 				return result
 			})
@@ -142,4 +142,4 @@ const upsertRoleDetails = createAsyncThunk('role/put',
 	}
 )
 
-export { getRole, createRole, getRoleDetails, updateRole, upsertRoleDetails }
+export { getRole, postRole, getRoleDetails, patchRole, putRoleDetails }

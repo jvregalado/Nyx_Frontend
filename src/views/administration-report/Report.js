@@ -51,7 +51,7 @@ const View = () => {
 		},
 		{
 			Header:'Module Name',
-			accessor:'module_name'
+			accessor:'report_module_fk.module_name'
 		},
 		{
 			Header:'Report System Type',

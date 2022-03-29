@@ -1,7 +1,5 @@
-
-
 import React from 'react'
-import {useNavigate,useLocation} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {Grid,
 	Paper,
 	Typography} from '@mui/material';
@@ -9,154 +7,193 @@ import {Toolbar} from '../../components/toolbar';
 import {Input,Switch} from '../../components/inputs';
 import {Spinner} from '../../components';
 import {useDispatch,useSelector} from 'react-redux';
-import {upsertRoleDetails} from '../../store/administration-role';
-import {useParams} from 'react-router';
-import {useQueryParams} from '../../helpers/hooks'
+import {getRole, getRoleDetails,putRoleDetails,patchRole} from '../../store/administration-role';
+import {useQueryParams} from '../../helpers/hooks';
 
-// import RoleTable from './RoleTable';
+import RoleTable from './RoleTable';
 
 const RoleUpdate = () => {
 	const {loading} = useSelector(state => state.admin_role)
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const query = useQueryParams();
-	const location = useLocation();
+	const role_code = query.get('role_code')
 	const [state,setState] = React.useState([])
-	const [required,setRequired] = React.useState({
-		role_code		:	null,
-		role_name		:	null,
-		role_status		:	false,
-		role_remarks1	:	''
+	const [headerState,setHeaderState] = React.useState({
+		role_name		:'',
+		role_status		:false,
+		role_remarks1	:''
 	})
 
 	const onChangeHeader = (e,data) => {
 		let temp = [...state]
-		const index = state.map(item => item.name).indexOf(data.name)
+		const index = state.map(item => item.module_code).indexOf(data.module_code)
 
 		temp[index] = {
 			...temp[index],
-			has_access:e.target.checked,
+			role_module_status:e.target.checked,
 			sub_modules: data.sub_modules.map(item => {
 
 				return {
 					...item,
-					has_access:e.target.checked
+					role_module_status:e.target.checked
 				}
 			})
 		}
 		setState(temp)
 	}
 
-	const onhandleSubChange = (e,module,data) => {
-		const temp = [...state]
-		const indexModule = state.map(item => item.name).indexOf(module)
-		const indexSub = state[indexModule].sub_modules.map(item => item.name).indexOf(data.name)
-
-		let sub_modules = temp[indexModule].sub_modules
-		sub_modules[indexSub].has_access = e.target.checked
-
-		temp[indexModule] = {
-			...temp[indexModule],
-			sub_modules
-		}
-
-		setState(temp)
-	}
-
 	const handleInputChange = (e) => {
-		setRequired({
-			...required,
+		setHeaderState({
+			...headerState,
 			[e.target.name]:e.target.value
 		})
 	}
 
 	const handleSwitchChange = (e) => {
-		setRequired({
-			...required,
+		setHeaderState({
+			...headerState,
 			[e.target.name]:e.target.checked
 		})
 	}
 
 	const onConfirm= () =>{
-		const data = {
-			...required,
-			modules:state
-		}
-		dispatch(upsertRoleDetails({
-			route:'upsert',
-			data
+		dispatch(patchRole({
+			route:'',
+			data:headerState
+		}))
+		dispatch(putRoleDetails({
+			route:'assignment',
+			data: state
 		}))
 	}
 
 	React.useEffect(()=>{
-		// console.log(location)
-		// console.log(par.search)
-		console.log(query.get('role_code'))
-		// setState(modules.map(header => {
-		// 	const sub_modules = header.subModules.map(sub => {
-		// 		return {
-		// 			name:sub.name,
-		// 			label:sub.label,
-		// 			route:sub.route,
-		// 			has_access:false
-		// 		}
-		// 	})
-			
-		// 	return {
-		// 		name:header.name,
-		// 		label:header.name,
-		// 		route:header.route,
-		// 		has_access:false,
-		// 		sub_modules
-		// 	}
-		// }))
-	},[])
+		//console.log('role_code', role_code)
+
+		if(role_code) {
+			dispatch(getRole({
+				route		: '',
+				filters		: {role_code},
+				page		: 0,
+				totalPage	: 1,
+			}))
+			.unwrap()
+			.then(result => {
+				setHeaderState({
+					...headerState,
+					role_id			: result.data[0]?.role_id,
+					role_code		: result.data[0]?.role_code,
+					role_name		: result.data[0]?.role_name,
+					role_status		: result.data[0]?.role_status,
+					role_remarks1	: result.data[0]?.role_remarks1
+				})
+			})
+		}
+
+		if(role_code) {
+			dispatch(getRoleDetails({
+				route	: 'assignment',
+				filters	: {role_code}
+			}))
+			.unwrap()
+			.then(result => {
+				// console.log('result',result.data[0])
+
+				let pleyshodl = [];
+				for(let i in result.data[0]) {
+					pleyshodl.push({...result.data[0][i]})
+				}
+
+				let bugal = pleyshodl.reduce((acc, item) => {
+					if(!acc[item.module_code]) {
+						acc[item.module_code] = {
+							'module_id'				: item.module_id,
+							'module_code'			: item.module_code,
+							'module_name'			: item.module_name,
+							'role_module_status'	: item.role_module_status === 0 ? false : item.role_module_status || false,
+							'role_id'				: item.role_id,
+							'sub_modules' 			: [
+								{	'report_code'	: item.report_code,
+									'report_name'	: item.report_name
+								}
+							]
+						}
+					}
+					else {
+						acc[item.module_code].sub_modules.push({
+							'report_code'	: item.report_code,
+							'report_name'	: item.report_name
+						})
+					}
+					return acc
+				}, [])
+
+				let pwe = Object.values(bugal);
+				setState(pwe)
+			})
+		}
+		// eslint-disable-next-line no-unused-expressions
+		return () => { role_code }
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[role_code])
 
 	return (
 		<Grid container rowSpacing={2}>
 		<Spinner loading={loading} />
 		<Grid item md={12}>
 			<Toolbar
+				label={'Roles / update'}
 				isCancel
 				isConfirm
 				onCancel={()=>{
-					navigate.goBack()
+					navigate(-1)
 				}}
 				onConfirm={onConfirm}
 			/>
 		</Grid>
 		<Grid item md={12}>
-			<Grid item container component={Paper}  variant='container' md={12}>
+			<Grid item container component={Paper} variant='container' md={12}>
 				<Grid item md={12}><Typography variant='button'>Role Information</Typography></Grid>
 				<Input
+					size={4}
+					fullWidth
+					isDisabled
+					isLabelVisible
+					label='Role Code'
+					name='role_code'
+					value={headerState.role_code}
+					handleChange={handleInputChange}
+				/>
+				<Input
+					size={5}
 					isLabelVisible
 					label='Role Name'
 					name='role_name'
-					size={6}
-					value={required.role_name || 'asd'}
+					value={headerState.role_name}
 					handleChange={handleInputChange}
 				/>
-				<Grid item md={6}>
+				<Grid item md={3}>
 					<Switch
 					isLabelVisible
 					label='Status'
-					name='status'
-					checked={required.status}
+					name='role_status'
+					checked={headerState.role_status}
 					handleChange={handleSwitchChange}
 				/>
 				</Grid>
 			</Grid>
 		</Grid>
 		<Grid item md={12}>
-			<Grid item container component={Paper}  variant='container' md={12}>
-				<Grid item md={12}><Typography  variant='button'>Roles</Typography></Grid>
+			<Grid item container component={Paper} variant='container' md={12}>
+				<Grid item md={12}><Typography variant='button'>Roles</Typography></Grid>
 				<Grid item md={12}>
-					{/* <RoleTable columns={['MODULES','ACCESS']} data={state} handleChangeHeader={onChangeHeader} handleSubChange={onhandleSubChange}/> */}
+					<RoleTable data={state} handleChangeHeader={onChangeHeader} />
 				</Grid>
 			</Grid>
 		</Grid>
+		{/* <Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log("headerState",headerState)} >{'POKE ME'}</Typography> */}
 	</Grid>
-		// <Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log('xxx')} >{'SAMPLE'}</Typography>
 	);
 }
 

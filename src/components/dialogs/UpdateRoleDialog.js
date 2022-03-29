@@ -9,7 +9,7 @@ import {Button,
 import {useDispatch} from 'react-redux';
 import {Spinner} from '..';
 import {Switch} from '../inputs';
-import {getRoleDetails,updateRole} from '../../store/administration-role';
+import {getRoleDetails,patchRole} from '../../store/administration-role';
 
 
 const UpdateRoleDialog = ({
@@ -40,8 +40,8 @@ const UpdateRoleDialog = ({
 		})
 
 		if(!hasCode){
-			dispatch(updateRole({
-				route:'update',
+			dispatch(patchRole({
+				route:'',
 				data:{
 					role_id			:state.role_id,
 					role_code		:state.role_code,

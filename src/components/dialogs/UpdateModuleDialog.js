@@ -27,7 +27,7 @@ const UpdateModuleDialog = ({
 		module_type			:'',
 		module_desc			:'',
 		module_min_access_wt:0,
-		module_status		:'',
+		module_status		:false,
 		module_remarks1		:''
 	});
 
@@ -61,7 +61,7 @@ const UpdateModuleDialog = ({
 				module_name			:'',
 				module_desc			:'',
 				module_remarks1		:'',
-				module_status		:''
+				module_status		:false
 			})
 			toggle();
 		}
