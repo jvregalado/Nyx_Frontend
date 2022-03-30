@@ -25,7 +25,6 @@ const UpdateReportDialog = ({
 		report_code			:'',
 		report_name			:'',
 		module				:'',
-		report_system_type	:'',
 		report_type			:'',
 		report_desc			:'',
 		report_min_access_wt:0,
@@ -51,7 +50,6 @@ const UpdateReportDialog = ({
 					report_code			:state.report_code.replace(/\s\s+/g,' ').trim(),
 					report_name			:state.report_name.replace(/\s\s+/g,' ').trim(),
 					module_id			:state.module?.value,
-					report_system_type	:state.report_system_type?.value,
 					report_type			:state.report_type?.value,
 					report_desc			:state.report_desc,
 					report_status		:state.report_status,
@@ -66,7 +64,6 @@ const UpdateReportDialog = ({
 				report_code			:'',
 				report_name			:'',
 				module				:'',
-				report_system_type	:'',
 				report_type			:'',
 				report_desc			:'',
 				report_min_access_wt:0,
@@ -94,7 +91,7 @@ const UpdateReportDialog = ({
 	React.useEffect(()=>{
 		// console.log('report_code',report_code)
 
-		if(report_code !== null) {
+		if(report_code !== null && report_code !== 'unknown report code') {
 			dispatch(getReportDetails({
 				route	: 'details',
 				filters	: {report_code}
@@ -107,10 +104,6 @@ const UpdateReportDialog = ({
 					module:{
 						value	:result.data[0]?.report_module_fk?.module_id,
 						label	:result.data[0]?.report_module_fk?.module_name
-					},
-					report_system_type:{
-						value	:result.data[0]?.report_system_type_fk?.rc_id,
-						label	:result.data[0]?.report_system_type_fk?.rc_desc
 					},
 					report_type:{
 						value	:result.data[0]?.report_type_fk?.rc_id,
@@ -166,18 +159,6 @@ const UpdateReportDialog = ({
 							route='administration'
 							type='module'
 							value={state.module}
-							handleChange={handleSelectChange}
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						<MasterSelect
-							fullWidth
-							placeholder='Report System Type'
-							name='report_system_type'
-							label='Report System Type'
-							route='reasoncode'
-							type='Report System Type'
-							value={state.report_system_type}
 							handleChange={handleSelectChange}
 						/>
 					</Grid>

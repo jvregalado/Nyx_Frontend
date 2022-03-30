@@ -12,7 +12,7 @@ const ReportHub_wms = ({routes}) => {
 }
 
 const View = () => {
-	// const {loading} = useSelector(state => state.reporthub_wms)
+
 	const [state,setState] = React.useState({
 		whseLocation:null,
 		principal	:null,
@@ -37,6 +37,7 @@ const View = () => {
 				// onCreate={toggleCreateDialog}
 			/>
 		</Grid>
+
 		<Grid item md={6}>
 			<Grid container component={Paper} variant='container'>
 				<MasterSelect

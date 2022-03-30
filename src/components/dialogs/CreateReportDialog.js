@@ -23,7 +23,6 @@ const CreateReportDialog = ({
 		isReportError			:false,
 		report_code				:'',
 		report_name				:'',
-		report_system_type		:'',
 		report_type				:'',
 		report_desc				:'',
 		report_min_access_wt	:0,
@@ -47,7 +46,6 @@ const CreateReportDialog = ({
 				data:{
 					report_code			:state.report_code.replace(/\s\s+/g,' ').trim(),
 					report_name			:state.report_name.replace(/\s\s+/g,' ').trim(),
-					report_system_type	:state.report_system_type?.value,
 					report_type			:state.report_type?.value,
 					report_desc			:state.report_desc,
 					report_min_access_wt:state.report_min_access_wt,
@@ -60,7 +58,6 @@ const CreateReportDialog = ({
 				isReportError		:false,
 				report_code			:'',
 				report_name			:'',
-				report_system_type	:'',
 				report_type			:'',
 				report_desc			:'',
 				report_min_access_wt:0,
@@ -113,17 +110,6 @@ const CreateReportDialog = ({
 							label='Report Name'
 							value={state.report_name}
 							onChange={handleChange}
-						/>
-					</Grid>
-					<Grid item xs={12}>
-						<MasterSelect
-							fullWidth
-							placeholder='Report System Type'
-							name='report_system_type'
-							route='reasoncode'
-							type='Report System Type'
-							value={state.report_system_type}
-							handleChange={handleSelectChange}
 						/>
 					</Grid>
 					<Grid item xs={12}>

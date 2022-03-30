@@ -6,6 +6,7 @@ import {Button,
 	TextField,
 	Grid,
 	DialogActions} from '@mui/material';
+import {MasterSelect} from '../select';
 import {useDispatch} from 'react-redux';
 import {Spinner} from '..';
 import {postModule} from '../../store/administration-module';
@@ -22,6 +23,7 @@ const CreateModuleDialog = ({
 		isModuleError			:false,
 		module_code				:'',
 		module_name				:'',
+		module_system_type		:'',
 		module_desc				:'',
 		module_remarks1			:''
 	})
@@ -43,6 +45,7 @@ const CreateModuleDialog = ({
 				data:{
 					module_code			:state.module_code.replace(/\s\s+/g,' ').trim(),
 					module_name			:state.module_name.replace(/\s\s+/g,' ').trim(),
+					module_system_type	:state.module_system_type?.value,
 					module_desc			:state.module_desc,
 					module_remarks1		:state.module_remarks1
 				}
@@ -53,6 +56,7 @@ const CreateModuleDialog = ({
 				isModuleError		:false,
 				module_code			:'',
 				module_name			:'',
+				module_system_type	:'',
 				module_desc			:'',
 				module_remarks1		:''
 			})
@@ -64,6 +68,13 @@ const CreateModuleDialog = ({
 		setState({
 			...state,
 			[e.target.name]:e.target.value
+		})
+	}
+
+	const handleSelectChange = (e,name) => {
+		setState({
+			...state,
+			[name]:e
 		})
 	}
 
@@ -96,6 +107,18 @@ const CreateModuleDialog = ({
 							label='Module Name'
 							value={state.module_name}
 							onChange={handleChange}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<MasterSelect
+							fullWidth
+							placeholder='Module System Type'
+							name='module_system_type'
+							label='Module System Type'
+							route='reasoncode'
+							type='Module System Type'
+							value={state.module_system_type}
+							handleChange={handleSelectChange}
 						/>
 					</Grid>
 					<Grid item container>

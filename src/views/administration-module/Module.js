@@ -45,8 +45,14 @@ const View = () => {
 			width:270
 		},
 		{
+			Header:'Module System Type',
+			accessor:'module_system_type_fk.rc_desc',
+			width:150
+		},
+		{
 			Header:'Module Description',
-			accessor:'module_desc'
+			accessor:'module_desc',
+			width:200
 		},
 		{
 			Header:'Status',

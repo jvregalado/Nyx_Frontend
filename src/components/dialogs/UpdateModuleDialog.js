@@ -8,6 +8,7 @@ import {Button,
 	DialogActions} from '@mui/material';
 import {useDispatch} from 'react-redux';
 import {Spinner} from '..';
+import {MasterSelect} from '../select';
 import {Switch} from '../inputs';
 import {getModuleDetails,patchModule} from '../../store/administration-module';
 
@@ -48,6 +49,7 @@ const UpdateModuleDialog = ({
 					module_id			:state.module_id,
 					module_code			:state.module_code.replace(/\s\s+/g,' ').trim(),
 					module_name			:state.module_name.replace(/\s\s+/g,' ').trim(),
+					module_system_type	:state.module_system_type?.value || null,
 					module_desc			:state.module_desc,
 					module_status		:state.module_status,
 					module_remarks1		:state.module_remarks1
@@ -59,6 +61,7 @@ const UpdateModuleDialog = ({
 				isModuleError		:false,
 				module_code			:'',
 				module_name			:'',
+				module_system_type	:'',
 				module_desc			:'',
 				module_remarks1		:'',
 				module_status		:false
@@ -74,6 +77,13 @@ const UpdateModuleDialog = ({
 		})
 	}
 
+	const handleSelectChange = (e,name) => {
+		setState({
+			...state,
+			[name]:e
+		})
+	}
+
 	React.useEffect(()=>{
 		// console.log('module_code',module_code)
 
@@ -86,7 +96,11 @@ const UpdateModuleDialog = ({
 			.then(result => {
 				setState({
 					...state,
-					...result.data[0]
+					...result.data[0],
+					module_system_type:{
+						value	:result.data[0]?.module_system_type_fk?.rc_id,
+						label	:result.data[0]?.module_system_type_fk?.rc_desc
+					},
 				})
 			})
 		}
@@ -126,6 +140,18 @@ const UpdateModuleDialog = ({
 							label='Module Name'
 							value={state.module_name}
 							onChange={handleChange}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<MasterSelect
+							fullWidth
+							placeholder='Module System Type'
+							name='module_system_type'
+							label='Module System Type'
+							route='reasoncode'
+							type='Module System Type'
+							value={state.module_system_type}
+							handleChange={handleSelectChange}
 						/>
 					</Grid>
 					<Grid item container>
