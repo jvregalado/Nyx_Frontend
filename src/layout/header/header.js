@@ -8,11 +8,12 @@ import {AppBar,
 import {Menu as MenuIcon} from '@mui/icons-material';
 import {useSelector} from 'react-redux'
 import {Sidebar} from '../../layout'
+import {Spinner} from '../../components';
 import UserMenu from './userMenu';
 
 function Header(props) {
 	// const classes = useStyles();
-	const {user_email} = useSelector(state => state.auth)
+	const {user_email, loading} = useSelector(state => state.auth)
 	const [isOpen,setDrawer] = React.useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const open = Boolean(anchorEl);
@@ -31,6 +32,7 @@ function Header(props) {
 
 	return (
 		<div >
+			<Spinner loading={loading}/>
 			<AppBar variant='kerry' position="fixed">
 				<Toolbar>
 					<IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer}>
@@ -38,9 +40,7 @@ function Header(props) {
 					</IconButton>
 					<div style={{width:'100%'}}>
 						<Box display='flex' justifyContent='flex-end'>
-							<Button sx={{
-								color:'#FF6400'
-							}} onClick={handleMenu}>
+							<Button sx={{ color:'#FF6400' }} onClick={handleMenu}>
 								{user_email ? user_email : `notLoggedIn@administrator.com`}
 							</Button>
 						</Box>

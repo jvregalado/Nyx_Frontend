@@ -73,7 +73,7 @@ const UpdateRoleDialog = ({
 	React.useEffect(()=>{
 		// console.log('role_code',role_code)
 
-		if(role_code) {
+		if(role_code !== null && role_code !== 'unknown role code') {
 			dispatch(getRoleDetails({
 				route	: 'details',
 				filters	: {role_code}

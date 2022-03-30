@@ -21,9 +21,9 @@ const signIn = createAsyncThunk('authentication/sign-in',
 			})
 
 			return {
-				token:response.data.token,
-				// modules:response.data.modules,
-				user_email:user_email
+				user_email	:user_email,
+				token		:response.data.token,
+				role		:response.data.role
 			}
 		}
 		catch(e){
@@ -57,4 +57,32 @@ const signOut = createAsyncThunk('authentication/sign-out',
 	}
 )
 
-export { signIn, signOut }
+const changePassword = createAsyncThunk('authentication/change-password',
+	async({route,data}, {rejectWithValue}) => {
+		try{
+			const res = await API({
+				requestHeaders : {
+					...headers
+				}
+			}).post(`${baseURL}/${route}`,{
+				data
+			}).then(result => {
+				if(result.status === 200){
+					toast.success('Password Updated!')
+				}
+				return result
+			})
+
+			return res
+		}
+		catch(e){
+			if(e.response && e.response.data){
+				toast.error(`${e.response.data.message}`)
+			}
+
+			return rejectWithValue(e)
+		}
+	}
+)
+
+export { signIn, signOut, changePassword }

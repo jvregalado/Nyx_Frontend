@@ -3,7 +3,8 @@ import {Paper,CssBaseline,Link,TextField,Grid, Button, Typography,Box} from '@mu
 import {createTheme,ThemeProvider} from '@mui/material/styles';
 import {blueGrey} from '@mui/material/colors';
 import {signIn} from '../../store/authentication/authentication.thunk';
-import {useDispatch} from 'react-redux';
+import {Spinner} from '../../components';
+import {useDispatch,useSelector} from 'react-redux';
 
 import kli_bg from '../../assets/kli_bg.png'
 
@@ -19,7 +20,7 @@ function Login() {
 		[]
 	);
 	const dispatch = useDispatch();
-
+	const {loading} = useSelector(state => state.auth)
 	const [state,setState] = React.useState({
 		user_email:'',
 		user_password:''
@@ -40,6 +41,7 @@ function Login() {
 	return(
 		<ThemeProvider theme={theme}>
 		<CssBaseline />
+		<Spinner loading={loading}/>
 		<Grid container sx={{
 			height:'100vh',
 			backgroundColor:blueGrey['900']
@@ -94,11 +96,11 @@ function Login() {
 					>Sign In
 					</Button>
 					<Grid container>
-					<Grid item xs>
+					{/* <Grid item xs>
 						<Link href="#" variant="body2">
 							Forgot password?
 						</Link>
-					</Grid>
+					</Grid> */}
 					</Grid>
 				</form>
 				</Box>

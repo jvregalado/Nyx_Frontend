@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import API from '../../helpers/api';
 import {toast} from 'react-toastify';
 
-const baseURL = '/report';
+const baseURL = '/administration/report';
 const headers = {
 	'Content-Type':'application/json',
 }

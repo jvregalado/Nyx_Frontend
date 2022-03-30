@@ -75,8 +75,9 @@ const UpdateReasonCodeDialog = ({
 	}
 
 	React.useEffect(()=>{
+		// console.log('rc_id',rc_id)
 
-		if(rc_id) {
+		if(rc_id !== null && rc_id !== 'unknown reason code id') {
 			dispatch(getReasonCodeDetails({
 				route	: 'details',
 				filters	: {rc_id}
@@ -85,11 +86,7 @@ const UpdateReasonCodeDialog = ({
 			.then(result => {
 				setState({
 					...state,
-					...result.data[0],
-					role:{
-						value	:result.data[0].role?.role_id,
-						label	:result.data[0].role?.role_name
-					}
+					...result.data[0]
 				})
 			})
 		}
@@ -164,7 +161,7 @@ const UpdateReasonCodeDialog = ({
 UpdateReasonCodeDialog.defaultProps = {
 	isOpen		: false,
 	toggle		: false,
-	reasoncode_email	:'unknown reason code'
+	rc_id		: 'unknown reason code id'
 }
 
 export default UpdateReasonCodeDialog;

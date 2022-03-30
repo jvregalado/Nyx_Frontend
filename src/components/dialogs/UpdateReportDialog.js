@@ -94,7 +94,7 @@ const UpdateReportDialog = ({
 	React.useEffect(()=>{
 		// console.log('report_code',report_code)
 
-		if(report_code) {
+		if(report_code !== null) {
 			dispatch(getReportDetails({
 				route	: 'details',
 				filters	: {report_code}

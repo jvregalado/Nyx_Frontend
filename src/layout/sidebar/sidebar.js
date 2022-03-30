@@ -39,17 +39,17 @@ function Sidebar({isOpen,toggle}) {
 						modules.map((item,index) => {
 							return <div key={index}>
 								{
-									item.subModules.length > 0 ? 
+									item.subModules.length > 0 ?
 									<ListItem button variant='drawerItem' onClick={() => toggleSubmodule(index)}>
-										<ListItemText 
+										<ListItemText
 											disableTypography
 											primary={<Typography variant="button">{item.label}</Typography>}
 										/>
 										<div>
 											{item.isCollapse ? <ExpandLess htmlColor='#FF6400'/> :<ExpandMore htmlColor='#FF6400'/>}
 										</div>
-									</ListItem> : 
-									<ListItem button 
+									</ListItem> :
+									<ListItem button
 										onClick={toggle}
 										component={NavLink}
 										selected = {location.pathname === item.route}
@@ -61,13 +61,13 @@ function Sidebar({isOpen,toggle}) {
 												}
 											}}
 										>
-										<ListItemText 
+										<ListItemText
 											disableTypography
 											primary={<Typography variant='overline'>{item.label}</Typography>}
 										/>
 									</ListItem>
 								}
-							   
+
 								<Collapse in={item.isCollapse} timeout="auto" unmountOnExit>
 									{
 										item.subModules.map((sub,i) => {
@@ -84,8 +84,8 @@ function Sidebar({isOpen,toggle}) {
 														subHeader:sub.label
 													}
 												}}
-												key={i}>												
-												<ListItemText 
+												key={i}>
+												<ListItemText
 													disableTypography
 													primary={<Typography sx={{padding:2}} variant='overline'>{sub.label}</Typography>}
 												/>
@@ -95,7 +95,7 @@ function Sidebar({isOpen,toggle}) {
 								</Collapse>
 								<Divider/>
 							</div>
-						})	   
+						})
 					}
 					</List>
 				</div>

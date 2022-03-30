@@ -12,3 +12,5 @@ export {default as UpdateModuleDialog} from './UpdateModuleDialog';
 
 export {default as CreateReasonCodeDialog} from './CreateReasonCodeDialog';
 export {default as UpdateReasonCodeDialog} from './UpdateReasonCodeDialog';
+
+export {default as ChangePasswordDialog} from './ChangePasswordDialog';

@@ -3,20 +3,32 @@ import {Menu,
 	MenuItem,
 } from '@mui/material';
 import {signOut} from '../../store/authentication'
-import {useDispatch} from 'react-redux';
+import {useDispatch
+		,useSelector} from 'react-redux';
+import {ChangePasswordDialog} from '../../components/dialogs'
 
 function UserMenu({anchorEl,open,handleClose}) {
 	const [openModal,setModal] = React.useState(false);
-	
+	const [dialog,setDialog] = React.useState(false);
+	const [trigger,setTrigger] = React.useState(false);
+	const {user_email} = useSelector(state => state.auth)
+
 	const dispatch = useDispatch();
-	const toggle=()=>{
-		setModal(!openModal);
-	}
 
 	const handleSignOut =() => {
 		dispatch(signOut())
 	}
-	
+
+	const toggleChangePassword = () => {
+		handleClose()
+		setModal(!openModal);
+		setDialog(!dialog)
+
+		if(dialog===true){
+			setTrigger(!trigger)
+		}
+	}
+
 	return (
 		<div>
 			<Menu
@@ -34,11 +46,10 @@ function UserMenu({anchorEl,open,handleClose}) {
 				open={open}
 				onClose={handleClose}
 			>
-				<MenuItem onClick={()=>{toggle()
-				handleClose()
-				}}>Change Password</MenuItem>
-			<MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+				<MenuItem onClick={toggleChangePassword}>Change Password</MenuItem>
+				<MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
 			</Menu>
+			<ChangePasswordDialog user_email={user_email} isOpen={dialog} toggle={()=>{ toggleChangePassword()}} />
 		</div>
 	);
 }

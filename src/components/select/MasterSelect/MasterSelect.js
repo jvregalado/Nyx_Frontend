@@ -33,15 +33,17 @@ function MasterSelect({
 	}
 
 	React.useEffect(()=>{
-		if(type === '' || route === ''){
+		// console.log('type:', type, 'route:', route,)
+
+		if(type === null || route === null){
 			return setOptions([{
 				label:'default',
 				value:'default'
 			}])
 		}
-		else{
+		else {
 			dispatch(getSelectData({
-				route,  /**masterdata or administration or reasoncode */
+				route, /**masterdata or administration or reasoncode */
 				type, /**type of dropdown */
 			}))
 			.unwrap()
@@ -71,7 +73,7 @@ function MasterSelect({
 				loadOptions={(inputValue,callBack)=>{
 					setTimeout(() => {
 						callBack(filterInput(inputValue))
-					},1000)
+					},1200)
 				}}
 				value={value}
 				onChange={e => handleChange(e,name)}

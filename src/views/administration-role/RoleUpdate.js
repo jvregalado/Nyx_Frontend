@@ -71,7 +71,7 @@ const RoleUpdate = () => {
 	React.useEffect(()=>{
 		//console.log('role_code', role_code)
 
-		if(role_code) {
+		if(role_code !== '' || role_code !== null) {
 			dispatch(getRole({
 				route		: '',
 				filters		: {role_code},
@@ -91,7 +91,7 @@ const RoleUpdate = () => {
 			})
 		}
 
-		if(role_code) {
+		if(role_code !== '' || role_code !== null) {
 			dispatch(getRoleDetails({
 				route	: 'assignment',
 				filters	: {role_code}
@@ -105,13 +105,13 @@ const RoleUpdate = () => {
 					pleyshodl.push({...result.data[0][i]})
 				}
 
-				let bugal = pleyshodl.reduce((acc, item) => {
+				let prepedRoleDetails = pleyshodl.reduce((acc, item) => {
 					if(!acc[item.module_code]) {
 						acc[item.module_code] = {
 							'module_id'				: item.module_id,
 							'module_code'			: item.module_code,
 							'module_name'			: item.module_name,
-							'role_module_status'	: item.role_module_status === 0 ? false : item.role_module_status || false,
+							'role_module_status'	: item.role_module_status === 0 ? false : item.role_module_status === 1 ? true : false,
 							'role_id'				: item.role_id,
 							'sub_modules' 			: [
 								{	'report_code'	: item.report_code,
@@ -129,8 +129,8 @@ const RoleUpdate = () => {
 					return acc
 				}, [])
 
-				let pwe = Object.values(bugal);
-				setState(pwe)
+				let foo = Object.values(prepedRoleDetails);
+				setState(foo)
 			})
 		}
 		// eslint-disable-next-line no-unused-expressions
@@ -195,6 +195,10 @@ const RoleUpdate = () => {
 		{/* <Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log("headerState",headerState)} >{'POKE ME'}</Typography> */}
 	</Grid>
 	);
+}
+
+RoleUpdate.defaultProps = {
+	role_code:''
 }
 
 export default RoleUpdate;

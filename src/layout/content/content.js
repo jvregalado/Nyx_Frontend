@@ -40,7 +40,6 @@ function Content() {
 			<Grid item xs={12}>
 				<Routes>
 					<Route exact path='/' element={<Default/>}/>
-					{/* <Route path='/administration/users' element={<Users />}/> */}
 					{
 						mainRoutes.map((route,i) => (
 							<Route path={route.route} key={i} element={<route.component/>}/>

@@ -16,7 +16,6 @@ function App() {
 		}
 	},[user_email, navigate])
 
-	// console.log('user_email', typeof(user_email), {"user_email" : user_email})
 	return (
 		<div>
 			<Routes>

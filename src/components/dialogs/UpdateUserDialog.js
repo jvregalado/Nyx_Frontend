@@ -22,16 +22,17 @@ const UpdateUserDialog = ({
 	const dispatch = useDispatch();
 
 	const [state, setState] = React.useState({
-		isNameError		:false,
-		user_first_name :'',
-		user_middle_name:'',
-		user_last_name	:'',
-		user_contact_no	:'',
-		user_status		:false,
-		role			:'',
-		whLocation		:'',
-		position		:'',
-		user_rank		:0
+		isNameError			:false,
+		user_first_name 	:'',
+		user_middle_name	:'',
+		user_last_name		:'',
+		user_contact_no		:'',
+		user_status			:false,
+		role				:'',
+		whLocation			:'',
+		position			:'',
+		user_rank			:0,
+		user_new_password	:'',
 	});
 
 	const handleUpdate = () => {
@@ -48,33 +49,35 @@ const UpdateUserDialog = ({
 			dispatch(patchUser({
 				route:'',
 				data:{
-					user_id			:state.user_id,
-					user_email		:state.user_email,
-					user_first_name	:state.user_first_name,
-					user_middle_name:state.user_middle_name,
-					user_last_name	:state.user_last_name,
-					user_contact_no	:state.user_contact_no,
-					user_status		:state.user_status,
-					role_id			:state.role?.value,
-					user_whLocation	:state.whLocation?.value,
-					user_position	:state.position?.value,
-					user_rank		:state.user_rank
+					user_id				:state.user_id,
+					user_email			:state.user_email,
+					user_first_name		:state.user_first_name,
+					user_middle_name	:state.user_middle_name,
+					user_last_name		:state.user_last_name,
+					user_contact_no		:state.user_contact_no,
+					user_status			:state.user_status,
+					role_id				:state.role?.value,
+					user_whLocation		:state.whLocation?.value,
+					user_position		:state.position?.value,
+					user_rank			:state.user_rank,
+					user_new_password	:state.user_new_password
 				}
 			}))
 
 			setState({
 				...state,
-				isNameError		:false,
-				user_email		:'',
-				user_first_name :'',
-				user_middle_name:'',
-				user_last_name	:'',
-				user_contact_no	:'',
-				user_status		:false,
-				role			:{value: '', label: ''},
-				whLocation		:{value: '', label: ''},
-				position		:{value: '', label: ''},
-				user_rank		:0
+				isNameError			:false,
+				user_email			:'',
+				user_first_name 	:'',
+				user_middle_name	:'',
+				user_last_name		:'',
+				user_contact_no		:'',
+				user_status			:false,
+				role				:{value: '', label: ''},
+				whLocation			:{value: '', label: ''},
+				position			:{value: '', label: ''},
+				user_rank			:0,
+				user_new_password	:''
 			})
 			toggle();
 		}
@@ -97,7 +100,7 @@ const UpdateUserDialog = ({
 	React.useEffect(()=>{
 		// console.log('user_email',user_email)
 
-		if(user_email) {
+		if(user_email !== null && user_email !== 'unknown email address') {
 			dispatch(getUserDetails({
 				route	: 'details',
 				filters	: {user_email}
@@ -117,7 +120,7 @@ const UpdateUserDialog = ({
 					},
 					position:{
 						value	:result.data[0].user_position_fk?.rc_id,
-						label	:result.data[0].user_position_fk?.rc_des
+						label	:result.data[0].user_position_fk?.rc_desc
 					}
 				})
 			})
@@ -162,7 +165,7 @@ const UpdateUserDialog = ({
 					<Grid item xs={12}>
 						<MasterSelect
 							fullWidth
-							placeholder='Position'
+							placeholder='Job Position'
 							label='Job Position'
 							name='position'
 							route='reasoncode'
@@ -235,6 +238,17 @@ const UpdateUserDialog = ({
 							variant='outlined'
 							label='Contact No.'
 							value={state.user_contact_no || ''}
+							onChange={handleChange}
+						/>
+					</Grid>
+					<Grid item container>
+						<TextField
+							required
+							fullWidth
+							name='user_new_password'
+							variant='outlined'
+							label='Reset Password'
+							value={state.user_new_password || ''}
 							onChange={handleChange}
 						/>
 					</Grid>

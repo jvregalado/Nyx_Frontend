@@ -77,7 +77,7 @@ const UpdateModuleDialog = ({
 	React.useEffect(()=>{
 		// console.log('module_code',module_code)
 
-		if(module_code) {
+		if(module_code !== null && module_code !== 'unknown module code') {
 			dispatch(getModuleDetails({
 				route	: 'details',
 				filters	: {module_code}
@@ -162,7 +162,7 @@ const UpdateModuleDialog = ({
 UpdateModuleDialog.defaultProps = {
 	isOpen		: false,
 	toggle		: false,
-	module_code	:'unknown module code'
+	module_code	: 'unknown module code'
 }
 
 export default UpdateModuleDialog;
