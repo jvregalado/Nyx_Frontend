@@ -28,7 +28,7 @@ const ChangePasswordDialog = ({
 		hasError			:false
 	})
 
-	const handleCreate = () => {
+	const handleUpdate = () => {
 		let isError = false
 
 		if(state.user_new_password1 !== state.user_new_password2){
@@ -122,9 +122,8 @@ const ChangePasswordDialog = ({
 		</DialogContent>
 		<DialogActions>
 			<Button variant='contained' onClick={toggle} color='secondary'>Cancel</Button>
-			<Button variant='contained' onClick={handleCreate}>Save</Button>
+			<Button variant='contained' onClick={handleUpdate}>Save</Button>
 		</DialogActions>
-		{/* <Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log("state",state)} >{'POKE ME'}</Typography> */}
 	</Dialog>
 	);
 }

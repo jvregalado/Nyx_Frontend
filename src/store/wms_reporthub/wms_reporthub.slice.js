@@ -1,21 +1,26 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {getReport} from './reporthub_wms.thunk';
+import {getReportCodes,getReport} from './wms_reporthub.thunk';
 
 const initialState = {
-	loading:false,
-	reportId:null,
-	whseLocation:null,
-	dateFrom:null,
-	dateTo:null
+	loading:false
 }
 
 const slice = createSlice({
-	name:'reporthub_wms',
+	name:'wms_reporthub',
 	initialState,
 	reducers:{
 		resetAction:()=>initialState
 	},
 	extraReducers:{
+		[getReportCodes.pending]:(state,action)=>{
+			state.loading=true
+		},
+		[getReportCodes.fulfilled]:(state,action)=>{
+			state.loading=false
+		},
+		[getReportCodes.rejected]:(state,action)=>{
+			state.loading=false
+		},
 		[getReport.pending]:(state,action)=>{
 			state.loading=true
 		},
@@ -28,5 +33,5 @@ const slice = createSlice({
 	}
 })
 
-export {getReport}
+export {getReportCodes,getReport}
 export default slice.reducer

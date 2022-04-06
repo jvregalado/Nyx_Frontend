@@ -41,6 +41,26 @@ export default createTheme({
 						},
 						color:'white',
 					}
+				},
+				{
+					props:{variant:'pdf'},
+					style:{
+						background:'#B92222',
+						'&:hover':{
+							background:'#800000'
+						},
+						color:'white',
+					}
+				},
+				{
+					props:{variant:'spreadsheet'},
+					style:{
+						background:'#099000',
+						'&:hover':{
+							background:'#006000'
+						},
+						color:'white',
+					}
 				}
 			]
 		},

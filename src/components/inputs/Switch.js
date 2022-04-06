@@ -7,7 +7,7 @@ const SwitchInput = ({label,name,handleChange,checked,isLabelVisible,isDisabled}
 	return (
 		<div style={{
 			display:'flex',
-			flexDirection:'column',   
+			flexDirection:'column',
 			paddingTop: isLabelVisible ? theme.spacing(0) : theme.spacing(1),
 			paddingLeft:theme.spacing(1),
 			paddingRight:theme.spacing(1)

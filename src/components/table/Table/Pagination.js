@@ -17,19 +17,19 @@ function TablePaginationActions(props) {
 	
 
 	const handleFirstPageButtonClick = (event) => {
-	  onPageChange(event, 0);
+		onPageChange(event, 0);
 	};
-  
+	
 	const handleBackButtonClick = (event) => {
-	  onPageChange(event, page - 1);
+		onPageChange(event, page - 1);
 	};
-  
+	
 	const handleNextButtonClick = (event) => {
-	  onPageChange(event, page + 1);
+		onPageChange(event, page + 1);
 	};
-  
+	
 	const handleLastPageButtonClick = (event) => {
-	  onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+		onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
 	};
 
 	const handlePageChange = (event) => {
@@ -41,8 +41,8 @@ function TablePaginationActions(props) {
 	}
 
 	return (
-	  <Box sx={{ flexShrink: 0, ml: 2.5 }}>
-			<TextField  
+		<Box sx={{ flexShrink: 0, ml: 2.5 }}>
+			<TextField	
 				disabled={count === 0}
 				placeholder='Go To Page'
 				type='number'
@@ -81,15 +81,15 @@ function TablePaginationActions(props) {
 			>
 			{theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
 			</IconButton>
-	  </Box>
+		</Box>
 	);
-  }
-  
-  TablePaginationActions.propTypes = {
+	}
+	
+	TablePaginationActions.propTypes = {
 	count: PropTypes.number.isRequired,
 	onPageChange: PropTypes.func.isRequired,
 	page: PropTypes.number.isRequired,
 	rowsPerPage: PropTypes.number.isRequired,
-  };
+	};
 
-  export default TablePaginationActions
+	export default TablePaginationActions

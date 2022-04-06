@@ -3,7 +3,8 @@ import { Role, RoleUpdate } from '../../views/administration-role';
 import { Module } from '../../views/administration-module';
 import { Report } from '../../views/administration-report';
 import { ReasonCode } from '../../views/administration-reasoncode';
-import { ReportHub_wms } from '../../views/reporthub/wms';
+
+import { KairosReporthub } from '../../views/wms';
 
 const routes = [
 	{
@@ -55,12 +56,12 @@ const routes = [
 		component:ReasonCode
 	},
 	{
-		name:'reporthub',
-		label:'Report Hub',
-		route:'/reporthub/wms',
-		module:'Report Hub',
-		subModule:'WMS',
-		component:ReportHub_wms
+		name:'kairos report hub',
+		label:'Kairos Report Hub',
+		route:'/wms/reporthub',
+		module:'Warehouse Management',
+		subModule:'kairos report hub',
+		component:KairosReporthub
 	},
 ]
 

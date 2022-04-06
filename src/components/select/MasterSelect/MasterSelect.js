@@ -5,16 +5,17 @@ import {getSelectData} from '../../../store/select/select.slice';
 import {useTheme,Typography} from '@mui/material';
 
 function MasterSelect({
-	type, /**type of dropdown (rc:Report Type, rc:Report System Type) */
 	route, /**masterdata or administration or reasoncode */
+	type, /**type of dropdown (rc:Report Type, rc:Report System Type) */
+	module_code, /**wms reporthub, wms converter, wms dashboard, wms interface, etc. */
 	name,
 	value,
-	isDisabled,
-	handleChange,
-	placeholder,
 	label,
+	handleChange,
+	isDisabled,
+	placeholder,
 	paddingLeft,
-	paddingRight
+	paddingRight,
 }) {
 	const theme = useTheme()
 	const [options,setOptions] = React.useState([])
@@ -33,9 +34,9 @@ function MasterSelect({
 	}
 
 	React.useEffect(()=>{
-		// console.log('type:', type, 'route:', route,)
+		// console.log('module_code:', module_code)
 
-		if(type === null || route === null){
+		if(type === null || route === null || (type === 'report' && module_code === '')){
 			return setOptions([{
 				label:'default',
 				value:'default'
@@ -45,6 +46,7 @@ function MasterSelect({
 			dispatch(getSelectData({
 				route, /**masterdata or administration or reasoncode */
 				type, /**type of dropdown */
+				module_code /**wms reporthub, wms converter, wms dashboard, wms interface, etc. */
 			}))
 			.unwrap()
 			.then(result => {
@@ -53,12 +55,13 @@ function MasterSelect({
 		}
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[type,route])
+	},[type, route])
 
 	return (
 		<div style={{
 			display:'flex',
 			flexDirection:'column',
+			paddingBottom:theme.spacing(1),
 			paddingLeft:theme.spacing(paddingLeft),
 			paddingRight:theme.spacing(paddingRight)
 		}}>
@@ -89,6 +92,7 @@ MasterSelect.defaultProps = {
 	label:'',
 	name:'',
 	value:'',
+	module_code:'',
 	isDisabled:false,
 	handleChange:()=>{},
 	paddingLeft:0,

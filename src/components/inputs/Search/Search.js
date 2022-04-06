@@ -40,7 +40,7 @@ function Search({
 	// const handleChange = (e)=> setState(e.target.value)
 
 	return (
-	   <div></div>
+		<div></div>
 	);
 }
 

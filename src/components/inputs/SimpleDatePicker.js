@@ -18,8 +18,8 @@ const SimpleDatePicker = ({label,name,size,handleChange,value,isLabelVisible,isD
 	return (
 		<Grid item xs={12} md={size} component='div' style={{
 			display:'flex',
-			flexDirection:'column',   
-			paddingTop: isLabelVisible ? theme.spacing(0) : theme.spacing(1),  
+			flexDirection:'column',
+			paddingTop: isLabelVisible ? theme.spacing(0) : theme.spacing(1),
 			paddingLeft:theme.spacing(1),
 			paddingRight:theme.spacing(1)
 		}}>

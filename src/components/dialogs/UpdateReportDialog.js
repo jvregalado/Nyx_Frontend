@@ -158,7 +158,7 @@ const UpdateReportDialog = ({
 							label='Module'
 							route='administration'
 							type='module'
-							value={state.module}
+							value={state.module || ''}
 							handleChange={handleSelectChange}
 						/>
 					</Grid>

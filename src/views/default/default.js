@@ -38,7 +38,7 @@ const Cards = ({
 }) => {
 	return (
 	<Grid component='div' item xs={3} style={{padding:'10px'}}>
-		<Card  variant='outlined'>
+		<Card variant='outlined'>
 			<CardContent>
 				<Typography variant='h5' gutterBottom>
 					{label}

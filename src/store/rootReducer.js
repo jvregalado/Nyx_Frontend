@@ -9,11 +9,8 @@ import reasoncode from './administration-reasoncode'
 
 import select from './select';
 
-import reporthub_wms from './reporthub_wms';
+import wms_reporthub from './wms_reporthub';
 // import filters from './filters';
-// import dataManagement from './data-management/data-management.slice';
-// import contractTariff from './contract-tariff/contract-tariff.slice';
-// import draftBill from './draft-bill/draft-bill.slice';
 // import dataUpload from './data-upload';
 // import dataDownload from './data-download';
 
@@ -28,13 +25,9 @@ const combinedReducers = combineReducers({
 
 	select			:	select,
 
-	reporthub_wms	:	reporthub_wms,
+	wms_reporthub	:	wms_reporthub
 	// dataManagement	:	dataManagement,
-	// contractTariff	:	contractTariff,
 	// filters			:	filters,
-	// draftBill,
-	// dataUpload,
-	// dataDownload
 })
 
 const rootReducer = (state,action) => {

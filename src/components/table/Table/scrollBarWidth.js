@@ -7,5 +7,5 @@ const scrollbarWidth = () => {
 	document.body.removeChild(scrollDiv)
 	return scrollbarWidth
 }
-  
+
 export default scrollbarWidth

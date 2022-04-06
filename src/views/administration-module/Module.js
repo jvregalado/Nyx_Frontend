@@ -36,18 +36,18 @@ const View = () => {
 						module_code:props.value})
 					toggleUpdateDialog()
 				}
-				return (<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}}  onClick={onClick} >{props.value}</Typography>)
+				return (<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={onClick} >{props.value}</Typography>)
 			}
 		},
 		{
 			Header:'Module Name',
 			accessor:'module_name',
-			width:270
+			width:200
 		},
 		{
 			Header:'Module System Type',
 			accessor:'module_system_type_fk.rc_desc',
-			width:150
+			width:250
 		},
 		{
 			Header:'Module Description',

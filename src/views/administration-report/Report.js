@@ -36,7 +36,7 @@ const View = () => {
 						report_code:props.value})
 					toggleUpdateDialog()
 				}
-				return (<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}}  onClick={onClick} >{props.value}</Typography>)
+				return (<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={onClick} >{props.value}</Typography>)
 			}
 		},
 		{
@@ -50,17 +50,12 @@ const View = () => {
 			width:270
 		},
 		{
-			Header:'Module Name',
-			accessor:'report_module_fk.module_name'
-		},
-		{
-			Header:'Report System Type',
-			accessor:'report_system_type_fk.rc_desc',
-			width:200
-		},
-		{
 			Header:'Report Type',
 			accessor:'report_type_fk.rc_desc'
+		},
+		{
+			Header:'Module Name',
+			accessor:'report_module_fk.module_name'
 		},
 		{
 			Header:'Report Description',

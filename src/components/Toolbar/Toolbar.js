@@ -8,12 +8,11 @@ function Toolbar({
 	onCreate,
 	isConfirm,
 	onConfirm,
-	isUpload,
-	uploadType,
-	isDownloadTemp,
-	isExport,
-	exportType,
-	label,
+	isDownloadExcel,
+	onDownloadExcel,
+	isDownloadPdf,
+	onDownloadPdf,
+	label
 }) {
 
 	return (
@@ -34,6 +33,12 @@ function Toolbar({
 					<Button sx={{ display: isConfirm ? 'visible' : 'none' }} variant='kerry' onClick={onConfirm}>
 						Confirm
 					</Button>
+					<Button sx={{ display: isDownloadExcel ? 'visible' : 'none' }} variant='spreadsheet' onClick={onDownloadExcel}>
+						Download Spreadsheet
+					</Button>
+					<Button sx={{ display: isDownloadPdf ? 'visible' : 'none' }} variant='pdf' onClick={onDownloadPdf}>
+						Download PDF
+					</Button>
 
 				</div>
 			</MUIToolbar>
@@ -42,16 +47,16 @@ function Toolbar({
 }
 
 Toolbar.defaultProps = {
-	isCancel:		false,
-	onCancel:		()=>{},
-	isCreate:		false,
-	onCreate:		()=>{},
-	isConfirm:		false,
-	onConfirm:		()=>{},
-	isUpload:		false,
-	uploadType:		'',
-	isDownloadTemp:	false,
-	isExport:		false
+	isCancel		: false,
+	onCancel		: ()=>{},
+	isCreate		: false,
+	onCreate		: ()=>{},
+	isConfirm		: false,
+	onConfirm		: ()=>{},
+	isDownloadExcel : false,
+	onDownloadExcel	: ()=>{},
+	isDownloadPdf	: false,
+	onDownloadPdf	: ()=>{}
 }
 
 export default Toolbar;

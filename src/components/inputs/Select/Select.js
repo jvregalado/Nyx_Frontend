@@ -36,7 +36,7 @@ function Select({label,name,size,handleChange,value}) {
 				variant='outlined'
 				onChange={handleChange}
 				value={value}
-			>   
+			>
 				{
 					state.map(item=>(
 						<MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>

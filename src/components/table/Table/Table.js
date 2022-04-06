@@ -97,7 +97,7 @@ function Table({
 	}
 
 	const filterValues = (data) => {
-	   
+
 		const initialValue={}
 		return data.reduce((obj,item)=> {
 			return {
@@ -112,9 +112,9 @@ function Table({
 		const data = filters.map(i => {
 			return {
 				[i.id]:i.value?.value || undefined
-			} 
-		})  
-	  
+			}
+		})
+
 		let filterVal = filterValues(data);
 
 		if(globalFilter){
@@ -217,7 +217,7 @@ function Table({
 					onRowsPerPageChange={handleChangeRowsPerPage}
 					ActionsComponent={TablePaginationAction}
 				/>
-				</Paper>		   
+				</Paper>
 			</Grid>
 		</Grid>
 	);

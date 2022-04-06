@@ -1,5 +1,5 @@
 import React from 'react';
-import {Paper,CssBaseline,Link,TextField,Grid, Button, Typography,Box} from '@mui/material';
+import {Paper,CssBaseline,TextField,Grid, Button, Typography,Box} from '@mui/material';
 import {createTheme,ThemeProvider} from '@mui/material/styles';
 import {blueGrey} from '@mui/material/colors';
 import {signIn} from '../../store/authentication/authentication.thunk';
@@ -96,11 +96,6 @@ function Login() {
 					>Sign In
 					</Button>
 					<Grid container>
-					{/* <Grid item xs>
-						<Link href="#" variant="body2">
-							Forgot password?
-						</Link>
-					</Grid> */}
 					</Grid>
 				</form>
 				</Box>

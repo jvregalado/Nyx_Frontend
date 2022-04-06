@@ -1,18 +1,45 @@
 const modules = [
 	{
-		name:'reporthub',
-		label:'Report hub',
-		route:'/reporthub',
+		name:'wms',
+		label:'Warehouse Management',
+		route:'/wms',
 		subModules:[
 			{
-				name:'WMS',
-				route:'/reporthub/wms',
-				label: 'WMS'
+				name:'kairos report hub',
+				route:'/wms/reporthub',
+				label: 'Kairos Report hub'
 			},
 			{
-				name:'TMS',
-				route:'/reporthub/tms',
-				label:'TMS'
+				name:'kairos converter hub',
+				route:'/wms/converter',
+				label: 'Kairos Converter hub'
+			},
+			{
+				name:'kairos dashboard',
+				route:'/wms/dashboard',
+				label:'Kairos Dashboard'
+			},
+			{
+				name:'kairos interface',
+				route:'/wms/interface',
+				label:'Kairos Interface'
+			},
+		]
+	},
+	{
+		name:'tms',
+		label:'Transport Management',
+		route:'/tms',
+		subModules:[
+			{
+				name:'nyke reporthub',
+				route:'/tms/reporthub',
+				label: 'Nyke Reporthub'
+			},
+			{
+				name:'nyke data sync',
+				route:'/tms/sync',
+				label:'Nyke Data Sync'
 			}
 		]
 	},
