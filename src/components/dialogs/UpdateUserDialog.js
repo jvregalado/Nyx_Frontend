@@ -217,7 +217,7 @@ const UpdateUserDialog = ({
 							label='Middle Name'
 							value={state.user_middle_name || ''}
 							onChange={handleChange}
-						 />
+						/>
 					</Grid>
 					<Grid item container>
 						<TextField
@@ -258,8 +258,8 @@ const UpdateUserDialog = ({
 		<DialogActions>
 			<Button variant='contained' onClick={toggle} color='secondary'>Cancel</Button>
 			<Button variant='contained' onClick={handleUpdate}>Save</Button>
-		 </DialogActions>
-	 </Dialog>
+		</DialogActions>
+	</Dialog>
 	);
 }
 

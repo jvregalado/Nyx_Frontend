@@ -180,8 +180,8 @@ const UpdateModuleDialog = ({
 		<DialogActions>
 			<Button variant='contained' onClick={toggle} color='secondary'>Cancel</Button>
 			<Button variant='contained' onClick={handleUpdate}>Save</Button>
-		 </DialogActions>
-	 </Dialog>
+		</DialogActions>
+	</Dialog>
 	);
 }
 

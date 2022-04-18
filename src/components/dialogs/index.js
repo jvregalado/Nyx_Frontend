@@ -14,3 +14,5 @@ export {default as CreateReasonCodeDialog} from './CreateReasonCodeDialog';
 export {default as UpdateReasonCodeDialog} from './UpdateReasonCodeDialog';
 
 export {default as ChangePasswordDialog} from './ChangePasswordDialog';
+
+export {default as UploadDialog} from './UploadDialog';

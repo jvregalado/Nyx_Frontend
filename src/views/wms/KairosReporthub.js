@@ -3,7 +3,9 @@
 import React from 'react';
 import Spinner from '../../components/spinner'
 import {Toolbar} from '../../components/toolbar';
-import {Grid,Paper,Typography} from '@mui/material';
+import {Grid,Paper
+	// ,Typography
+} from '@mui/material';
 import {useDispatch,useSelector} from 'react-redux';
 
 import {Input,DatePicker} from '../../components/inputs'
@@ -66,6 +68,10 @@ const View = () => {
 		}))
 	}
 
+	const handleUpload = () => {
+		//console.log(state)
+	}
+
 	React.useEffect(() => {
 		if(state.report !== '' && state.report !== null) {
 			dispatch(getReportCodes({
@@ -107,6 +113,8 @@ const View = () => {
 				onDownloadExcel={handleDownloadExcel}
 				isDownloadPdf={state?.source_code?.buttons?.isDownloadPdf || false}
 				onDownloadPdf={handleDownloadPdf}
+				isUpload={state?.source_code?.buttons?.isUpload || false}
+				onUpload={handleUpload}
 			/>
 		</Grid>
 		<Grid item md={5}>
