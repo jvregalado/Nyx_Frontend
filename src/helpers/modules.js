@@ -37,8 +37,13 @@ const modules = [
 				label: 'Nyke Reporthub'
 			},
 			{
+				name:'nyke converter',
+				route:'/tms/converter',
+				label:'Nyke Converter'
+			},
+			{
 				name:'nyke data sync',
-				route:'/tms/sync',
+				route:'/tms/datasync',
 				label:'Nyke Data Sync'
 			}
 		]

@@ -29,7 +29,8 @@ const UpdateReportDialog = ({
 		report_desc			:'',
 		report_min_access_wt:0,
 		report_status		:false,
-		report_remarks1		:''
+		report_remarks1		:'',
+		report_source_code	:''
 	});
 
 	const handleUpdate = () => {
@@ -54,7 +55,8 @@ const UpdateReportDialog = ({
 					report_desc			:state.report_desc,
 					report_status		:state.report_status,
 					report_min_access_wt:state.report_min_access_wt,
-					report_remarks1		:state.report_remarks1
+					report_remarks1		:state.report_remarks1,
+					report_source_code	:state.report_source_code
 				}
 			}))
 
@@ -68,6 +70,7 @@ const UpdateReportDialog = ({
 				report_desc			:'',
 				report_min_access_wt:0,
 				report_remarks1		:'',
+				report_source_code	:'',
 				report_status		:false
 			})
 			toggle();
@@ -203,6 +206,16 @@ const UpdateReportDialog = ({
 							variant='outlined'
 							label='Report Remarks'
 							value={state.report_remarks1}
+							onChange={handleChange}
+						/>
+					</Grid>
+					<Grid item container>
+						<TextField
+							fullWidth
+							name='report_source_code'
+							variant='outlined'
+							label='Report Source Code'
+							value={state.report_source_code}
 							onChange={handleChange}
 						/>
 					</Grid>

@@ -7,15 +7,18 @@ const headers = {
 	'Content-Type':'application/json',
 }
 
-const getReportCodes = createAsyncThunk('wms-reportCodes/get',
-	async({route,data},{rejectWithValue})=>{
+const getReportCodes = createAsyncThunk('wms-report-sourceCode/get',
+	async({route,report_id},{rejectWithValue})=>{
 		try{
+
 			const res = await API({
 				requestHeaders:{
 					...headers
 				}
-			}).get(`${baseURL}/${route}`,{
-				data
+			}).get(`${baseURL}/${route}/report-sourcecode`,{
+				params:{
+					report_id
+				}
 			})
 
 			return res
@@ -32,13 +35,19 @@ const getReportCodes = createAsyncThunk('wms-reportCodes/get',
 const getReport = createAsyncThunk('wms-report/post',
 	async({route,data},{rejectWithValue})=>{
 		try{
-			const res = await API({
-				requestHeaders:{
-					...headers
-				}
-			}).post(`${baseURL}/${route}`,{
-				data
-			})
+			let res;
+			if(data.report === null || typeof data.report.value !== 'string') {
+				toast.error('No report selected!')
+			}
+			else {
+				res = await API({
+					requestHeaders:{
+						...headers
+					}
+				}).post(`${baseURL}/${route}`,{
+					data
+				})
+			}
 
 			return res
 		}

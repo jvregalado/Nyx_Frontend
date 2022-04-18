@@ -5,6 +5,7 @@ import { Report } from '../../views/administration-report';
 import { ReasonCode } from '../../views/administration-reasoncode';
 
 import { KairosReporthub } from '../../views/wms';
+import { NykeDataSync } from '../../views/tms';
 
 const routes = [
 	{
@@ -62,6 +63,14 @@ const routes = [
 		module:'Warehouse Management',
 		subModule:'kairos report hub',
 		component:KairosReporthub
+	},
+	{
+		name:'nyke data sync',
+		label:'Nyke Data Sync',
+		route:'/tms/datasync',
+		module:'Transport Management',
+		subModule:'nyke data sync',
+		component:NykeDataSync
 	},
 ]
 

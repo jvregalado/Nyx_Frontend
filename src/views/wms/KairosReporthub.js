@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable dot-location */
 import React from 'react';
 import Spinner from '../../components/spinner'
 import {Toolbar} from '../../components/toolbar';
@@ -6,7 +8,7 @@ import {useDispatch,useSelector} from 'react-redux';
 
 import {Input,DatePicker} from '../../components/inputs'
 import {MasterSelect} from '../../components/select'
-import {getReport} from '../../store/wms_reporthub';
+import {getReport,getReportCodes} from '../../store/wms_reporthub';
 
 
 const KairosReporthub = ({routes}) => {
@@ -20,18 +22,15 @@ const View = () => {
 	const {loading} = useSelector(state => state.wms_reporthub)
 	const dispatch = useDispatch();
 	const [state,setState] = React.useState({
-		module		:'',
-		report		:'',
-		whseLocation:'',
-		principal	:'',
-		dateFrom	:'',
-		dateTo		:'',
-		status		:false,
-		refDoc1		:'',
-		refDoc2		:'',
-		refDoc3		:'',
-		refDoc4		:''
+		report		:''
 	})
+
+	const handleReportChange = (e,name) => {
+		/**Reset the state if report dropdown is changed */
+		setState({
+			[name]:e
+		})
+	}
 
 	const handleSelectChange = (e,name) => {
 		setState({
@@ -47,8 +46,8 @@ const View = () => {
 		})
 	}
 
-	const handleExcel = () => {
-		console.log(state)
+	const handleDownloadExcel = () => {
+		//console.log(state)
 		dispatch(getReport({
 			route:'reporthub',
 			data:{
@@ -57,16 +56,46 @@ const View = () => {
 		}))
 	}
 
-	// React.useEffect(() => {
-	// 	if(state.report !== '' && state.report !== null) {
-	// 		dispatch(getReportCodes({
-	// 			route:'reporthub',
-	// 			data:{
-	// 			}
-	// 		}))
-	// 	}
-	// // eslint-disable-next-line react-hooks/exhaustive-deps
-	// },[state.report])
+	const handleDownloadPdf = () => {
+		//console.log(state)
+		dispatch(getReport({
+			route:'reporthub',
+			data:{
+				...state
+			}
+		}))
+	}
+
+	React.useEffect(() => {
+		if(state.report !== '' && state.report !== null) {
+			dispatch(getReportCodes({
+				route:'reporthub',
+				report_id : state.report?.value
+			}))
+			.unwrap()
+			.then(result => {
+				/** Get the source code of the report (na string in json format) */
+				let report_source_code = result?.data?.data[0]?.report_source_code || 'pamparampampam';
+
+				/** Check if source code (na string) is JSON.parsable */
+				if(/^[\],:{}\s]*$/.test(report_source_code.replace(/\\["\\\/bfnrtu]/g, '@').
+					replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+					replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+						setState({
+							...state,
+							source_code : JSON.parse(report_source_code)
+						})
+					}
+				else{
+					setState({
+						...state,
+						source_code : {}
+					})
+				}
+			})
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[state.report])
 
 	return (
 	<Grid container rowSpacing={1}>
@@ -74,9 +103,10 @@ const View = () => {
 		<Grid item md={12}>
 			<Toolbar
 				label='Kairos Report Hub'
-				isDownloadExcel={true}
-				onDownloadExcel={handleExcel}
-				isDownloadPdf={true}
+				isDownloadExcel={state?.source_code?.buttons?.isDownloadExcel || false}
+				onDownloadExcel={handleDownloadExcel}
+				isDownloadPdf={state?.source_code?.buttons?.isDownloadPdf || false}
+				onDownloadPdf={handleDownloadPdf}
 			/>
 		</Grid>
 		<Grid item md={5}>
@@ -92,72 +122,67 @@ const View = () => {
 						route='administration'
 						type='report'
 						module_code='wms reporthub'
-						value={state.report}
-						handleChange={handleSelectChange}
+						value={state.report || ''}
+						handleChange={handleReportChange}
 					/>
 				</Grid>
-				<Input
-					size={12}
-					isLabelVisible={true}
-					required
-					fullWidth
-					name='refDoc1'
-					variant='outlined'
-					label='Primary Ref Doc1'
-					value={state.refDoc1}
-					handleChange={handleChange}
-				/>
-				<Input
-					size={12}
-					isLabelVisible={true}
-					required
-					fullWidth
-					name='refDoc2'
-					variant='outlined'
-					label='Primary Ref Doc2'
-					value={state.refDoc2}
-					handleChange={handleChange}
-				/>
-				<Input
-					size={12}
-					isLabelVisible={true}
-					required
-					fullWidth
-					name='refDoc3'
-					variant='outlined'
-					label='Primary Ref Doc3'
-					value={state.refDoc3}
-					handleChange={handleChange}
-				/>
-				<Input
-					size={12}
-					isLabelVisible={true}
-					required
-					fullWidth
-					name='refDoc4'
-					variant='outlined'
-					label='Primary Ref Doc4'
-					value={state.refDoc4}
-					handleChange={handleChange}
-				/>
-				<DatePicker
-					size={6}
-					isLabelVisible={true}
-					label={'Date From'}
-					name='date1'
-					variant='outlined'
-					value={state.dateFrom}
-					handleChange={handleChange}
-				/>
-				<DatePicker
-					size={6}
-					isLabelVisible={true}
-					label={'Date To'}
-					name='date2'
-					variant='outlined'
-					value={state.dateTo}
-					handleChange={handleChange}
-				/>
+
+				{/**Dynamically Generate Select Components */}
+				{	typeof state?.source_code?.dropdowns === 'object' ?
+					state?.source_code?.dropdowns.map((foo,i) => (
+						<Grid item md={12}>
+							<MasterSelect
+								key={i}
+								paddingLeft={1}
+								paddingRight={1}
+								fullWidth
+								label={foo.label}
+								placeholder={foo.placeholder}
+								name={foo.name}
+								route={foo.route}
+								type={foo.type}
+								module_code='wms reporthub'
+								value={state[foo.name]}
+								handleChange={handleSelectChange}
+							/>
+						</Grid>
+					)) : null
+				}
+
+				{/**Dynamically Generate Text Fields Components */}
+				{	typeof state?.source_code?.textfields === 'object' ?
+					state?.source_code?.textfields.map((foo,i) => (
+						<Input
+							key={i}
+							fullWidth
+							size={12}
+							variant='outlined'
+							isLabelVisible={true}
+							label={foo.label}
+							required={foo.isRequired}
+							name={foo.name}
+							value={state[foo.name]}
+							handleChange={handleChange}
+						/>
+					)) : null
+				}
+
+				{/**Dynamically Generate Dates Components */}
+				{	typeof state?.source_code?.datefields === 'object' ?
+					state?.source_code?.datefields.map((foo,i) => (
+						<DatePicker
+							key={i}
+							size={6}
+							variant='outlined'
+							isLabelVisible={true}
+							label={foo.label}
+							name={foo.name}
+							value={state[foo.name]}
+							handleChange={handleChange}
+						/>
+					)) : null
+				}
+
 			</Grid>
 		</Grid>
 		<Grid item md={7}>
@@ -165,7 +190,7 @@ const View = () => {
 				upload file goes here
 			</Grid>
 		</Grid>
-		<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log("state",state)} >{'POKE ME'}</Typography>
+		{/* <Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log("state",state)} >{'POKE ME'}</Typography> */}
 	</Grid>
 	)
 }
