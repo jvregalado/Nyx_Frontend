@@ -68,10 +68,7 @@ const View = () => {
 		}))
 	}
 
-	const handleUpload = () => {
-		//console.log(state)
-	}
-
+	/**Fetching the source code on the report*/
 	React.useEffect(() => {
 		if(state.report !== '' && state.report !== null) {
 			dispatch(getReportCodes({
@@ -113,8 +110,6 @@ const View = () => {
 				onDownloadExcel={handleDownloadExcel}
 				isDownloadPdf={state?.source_code?.buttons?.isDownloadPdf || false}
 				onDownloadPdf={handleDownloadPdf}
-				isUpload={state?.source_code?.buttons?.isUpload || false}
-				onUpload={handleUpload}
 			/>
 		</Grid>
 		<Grid item md={5}>
@@ -198,7 +193,6 @@ const View = () => {
 				upload file goes here
 			</Grid>
 		</Grid>
-		{/* <Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log("state",state)} >{'POKE ME'}</Typography> */}
 	</Grid>
 	)
 }

@@ -118,7 +118,7 @@ const View = () => {
 	}
 
 	return (
-		<Grid container rowSpacing={1}>
+	<Grid container rowSpacing={1}>
 		<Grid item md={12}>
 			<Toolbar
 				label='Modules'

@@ -10,6 +10,8 @@ import reasoncode from './administration-reasoncode'
 import select from './select';
 
 import wms_reporthub from './wms_reporthub';
+
+import tms_datasync from './tms_datasync';
 // import filters from './filters';
 // import dataUpload from './data-upload';
 // import dataDownload from './data-download';
@@ -25,7 +27,9 @@ const combinedReducers = combineReducers({
 
 	select			:	select,
 
-	wms_reporthub	:	wms_reporthub
+	wms_reporthub	:	wms_reporthub,
+
+	tms_datasync	:	tms_datasync
 	// dataManagement	:	dataManagement,
 	// filters			:	filters,
 })

@@ -23,6 +23,7 @@ const CreateReportDialog = ({
 		isReportError			:false,
 		report_code				:'',
 		report_name				:'',
+		module					:'',
 		report_type				:'',
 		report_desc				:'',
 		report_min_access_wt	:0,
@@ -46,6 +47,7 @@ const CreateReportDialog = ({
 				data:{
 					report_code			:state.report_code.replace(/\s\s+/g,' ').trim(),
 					report_name			:state.report_name.replace(/\s\s+/g,' ').trim(),
+					module_id			:state.module?.value,
 					report_type			:state.report_type?.value,
 					report_desc			:state.report_desc,
 					report_min_access_wt:state.report_min_access_wt,
@@ -58,6 +60,7 @@ const CreateReportDialog = ({
 				isReportError		:false,
 				report_code			:'',
 				report_name			:'',
+				module				:'',
 				report_type			:'',
 				report_desc			:'',
 				report_min_access_wt:0,
@@ -115,6 +118,19 @@ const CreateReportDialog = ({
 					<Grid item xs={12}>
 						<MasterSelect
 							fullWidth
+							label='Module'
+							placeholder='Module'
+							name='module'
+							route='administration'
+							type='module'
+							value={state.module || ''}
+							handleChange={handleSelectChange}
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<MasterSelect
+							fullWidth
+							label='Report Type'
 							placeholder='Report Type'
 							name='report_type'
 							route='reasoncode'
