@@ -1,10 +1,10 @@
 import React from 'react';
 import Spinner from '../../components/spinner/spinner'
-import {Toolbar} from '../../components/toolbar';
+import {Toolbar} from '../../components/Toolbar';
 import {Grid,Paper,Typography} from '@mui/material';
 import {useDispatch,useSelector} from 'react-redux';
 
-import {Input,DatePicker} from '../../components/inputs'
+//import {Input,DatePicker} from '../../components/inputs'
 import {MasterSelect} from '../../components/select'
 import {getReportCodes,getReport} from '../../store/wms_reporthub/wms_reporthub.slice';
 
@@ -39,12 +39,12 @@ const View = () => {
 		})
 	}
 
-	const handleChange = (e) => {
-		setState({
-			...state,
-			[e.target.name]:e.target.value
-		})
-	}
+	// const handleChange = (e) => {
+	// 	setState({
+	// 		...state,
+	// 		[e.target.name]:e.target.value
+	// 	})
+	// }
 
 	const handleExcel = () => {
 		//console.log(state)

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Toolbar} from '../../components/toolbar';
+import {Toolbar} from '../../components/Toolbar';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography'

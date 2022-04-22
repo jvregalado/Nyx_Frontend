@@ -5,7 +5,7 @@ import { Report } from '../../views/administration-report';
 import { ReasonCode } from '../../views/administration-reasoncode';
 
 import { KairosReporthub } from '../../views/wms';
-import { NykeDataSync } from '../../views/tms';
+import { NykeDataSync,NykeConverter } from '../../views/tms';
 
 const routes = [
 	{
@@ -71,6 +71,14 @@ const routes = [
 		module:'Transport Management',
 		subModule:'nyke data sync',
 		component:NykeDataSync
+	},
+	{
+		name:'nyke converter',
+		label:'Nyke Converter',
+		route:'/tms/converter',
+		module:'Transport Management',
+		subModule:'nyke converter',
+		component:NykeConverter
 	},
 ]
 

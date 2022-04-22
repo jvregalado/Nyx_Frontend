@@ -17,21 +17,17 @@ function Toolbar({
 	label,
 	isUpload,
 	onUpload,
-	uploadType
+	uploadType,
+	toggleUploadDialog,
+	isOpen,
+	isGenerate,
+	onGenerate
 }) {
 
-	const [controls,setControls] = React.useState({
-		uploadDialog:false,
-		exportDialog:false,
-		getInvoiceDialog:false
-	});
+	// const [controls,setControls] = React.useState({
+	// 	uploadDialog
+	// });
 
-	const toggleUploadDialog = () =>{
-		setControls({
-			...controls,
-			uploadDialog:!controls.uploadDialog
-		})
-	}
 
 	return (
 		<Paper elevation={0} variant='outlined' sx={{
@@ -60,20 +56,26 @@ function Toolbar({
 					<Button sx={{display: isUpload ? 'visible' : 'none'}} variant='kerry' onClick={toggleUploadDialog}>
 						Upload
 					</Button>
+					<Button sx={{display: isGenerate ? 'visible' : 'none'}} variant='spreadsheet' onClick={onGenerate}>
+						Generate
+					</Button>
 
 				</div>
 			</MUIToolbar>
 			<UploadDialog
 				name='file_upload'
 				type={uploadType}
-				isOpen={controls.uploadDialog}
+				isOpen={isOpen}
 				toggle={toggleUploadDialog}
+				onUpload={onUpload}
+				onConfirm={onConfirm}
 			/>
 		</Paper>
 	);
 }
 
 Toolbar.defaultProps = {
+	isOpen			: false,
 	isCancel		: false,
 	onCancel		: ()=>{},
 	isCreate		: false,
@@ -84,7 +86,10 @@ Toolbar.defaultProps = {
 	onDownloadExcel	: ()=>{},
 	isDownloadPdf	: false,
 	onDownloadPdf	: ()=>{},
-	uploadType		: ''
+	uploadType		: '',
+	onUpload		: ()=>{},
+	isGenerate	: false,
+	onGenerate	: ()=>{}
 }
 
 export default Toolbar;

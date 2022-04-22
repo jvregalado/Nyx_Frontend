@@ -1,19 +1,24 @@
+
 /* eslint-disable no-useless-escape */
 /* eslint-disable dot-location */
 import React from 'react';
-import Spinner from '../../components/spinner'
+import Spinner from '../../components/spinner/spinner'
 import {Toolbar} from '../../components/Toolbar';
 import {Grid,Paper
-	// ,Typography
+	 ,Typography
+	 //, Table
 } from '@mui/material';
 import {useDispatch,useSelector} from 'react-redux';
 
+import nodeDate from 'date-and-time';
+
+import {TableJSON} from '../../components/table';
 import {Input,DatePicker} from '../../components/inputs'
 import {MasterSelect} from '../../components/select'
-import {getReport,getReportCodes} from '../../store/wms_reporthub';
+import {getReportCodes, postUpload} from '../../store/tms_converter/tms_converter.slice';
 
 
-const KairosReporthub = ({routes}) => {
+const NykeConverter = ({routes}) => {
 	return (
 		<View/>
 	);
@@ -21,11 +26,55 @@ const KairosReporthub = ({routes}) => {
 
 const View = () => {
 
-	const {loading} = useSelector(state => state.wms_reporthub)
+	const {loading} = useSelector(state => state.tms_converter)
 	const dispatch = useDispatch();
 	const [state,setState] = React.useState({
 		report		:''
 	})
+
+	const [fetchDataState,setfetchDataState] = React.useState([])
+
+	
+	const [controls,setControls] = React.useState({
+		uploadDialog:false
+	});
+	
+	const toggleUploadDialog = () =>{
+		console.log(1,controls.uploadDialog)
+		setControls({
+			...controls,
+			uploadDialog:!controls.uploadDialog
+		})
+	}
+	
+	const columns = [
+		
+		{
+			label:'RTV',
+			name:'RTV'
+		},
+		{
+			label:'RTV Date',
+			name:'RTV Date'
+		},
+		{
+			label:'Site Code',
+			name:'Site Code'
+		},
+		{
+			label:'Site Name',
+			name:'Site Name'
+		},
+		{
+			label:'Site Address',
+			name:'Site Address'
+		},
+		{
+			label:'Status',
+			name:'Status'
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	]
 
 	const handleReportChange = (e,name) => {
 		/**Reset the state if report dropdown is changed */
@@ -48,34 +97,61 @@ const View = () => {
 		})
 	}
 
-	const handleDownloadExcel = () => {
-		//console.log(state)
-		dispatch(getReport({
-			route:'reporthub',
-			data:{
-				...state
-			}
-		}))
+	
+
+	/* upload start */
+	const [uploadState,setuploadState] = React.useState({
+        selectedFile: null,
+		loaded: 0
+	})
+
+	const handleUpload=(e)=>{
+		//console.log(e.target.files[0]);
+		setuploadState({
+		selectedFile: e.target.files[0],
+		loaded: 0,
+	 })
 	}
 
-	const handleDownloadPdf = () => {
-		//console.log(state)
-		dispatch(getReport({
-			route:'reporthub',
-			data:{
-				...state
-			}
-		}))
-	}
-
-	const handleUpload = () => {
-		//console.log(state)
+	const handleConfirm = () => {
+		var file = uploadState.selectedFile;
+		
+		//console.log(file)
+		const now = nodeDate.format(new Date(), 'MMDDYYYY-HHmmss');
+		if(file!=null){
+			var reader = new FileReader();
+			reader.onload = function() {
+	  		//console.log(state.value);
+	 		 	const data = reader.result;
+				  //console.log(data);
+				  dispatch(postUpload({
+					route:'converter',
+					data:{
+						file:data,
+						value:state,
+						id:now,
+						fileName:file.name
+					}
+				}))
+				.unwrap()
+				.then(result => {
+					if(result!=500)
+					{
+						toggleUploadDialog()
+						console.log("result.data.toExcel",result.data.toExcel)
+						setfetchDataState(JSON.parse(JSON.stringify(result.data.toExcel)))
+						console.log("result.data.toExcel",fetchDataState)
+					}
+				})
+			};
+			reader.readAsDataURL(file);
+		}
 	}
 
 	React.useEffect(() => {
 		if(state.report !== '' && state.report !== null) {
 			dispatch(getReportCodes({
-				route:'reporthub',
+				route:'converter',
 				report_id : state.report?.value
 			}))
 			.unwrap()
@@ -108,13 +184,12 @@ const View = () => {
 		<Spinner loading={loading}/>
 		<Grid item md={12}>
 			<Toolbar
-				label='Kairos Report Hub'
-				isDownloadExcel={state?.source_code?.buttons?.isDownloadExcel || false}
-				onDownloadExcel={handleDownloadExcel}
-				isDownloadPdf={state?.source_code?.buttons?.isDownloadPdf || false}
-				onDownloadPdf={handleDownloadPdf}
+				label='Nyke Converter'
 				isUpload={state?.source_code?.buttons?.isUpload || false}
 				onUpload={handleUpload}
+				onConfirm={handleConfirm}
+				toggleUploadDialog={toggleUploadDialog}
+				isOpen={controls.uploadDialog}
 			/>
 		</Grid>
 		<Grid item md={5}>
@@ -124,12 +199,12 @@ const View = () => {
 						paddingLeft={1}
 						paddingRight={1}
 						fullWidth
-						label='Report Name'
-						placeholder='Report Name'
+						label='Converter Name'
+						placeholder='Converter Name'
 						name='report'
 						route='administration'
 						type='report'
-						module_code='wms reporthub'
+						module_code='tms converter'
 						value={state.report || ''}
 						handleChange={handleReportChange}
 					/>
@@ -149,7 +224,7 @@ const View = () => {
 								name={foo.name}
 								route={foo.route}
 								type={foo.type}
-								module_code='wms reporthub'
+								module_code='tms converter'
 								value={state[foo.name]}
 								handleChange={handleSelectChange}
 							/>
@@ -194,13 +269,25 @@ const View = () => {
 			</Grid>
 		</Grid>
 		<Grid item md={7}>
-			<Grid container component={Paper} variant='container'>
-				upload file goes here
+		<Grid container component={Paper} variant='container'>
+				<TableJSON
+					data={fetchDataState}
+					columns={columns}
+					title={
+						uploadState?.selectedFile?.name ||
+						`Empty`}
+					filename={uploadState?.selectedFile?.name ||
+						`Empty`}
+					//fetchData={fetchDataState}
+				/>
 			</Grid>
+			{/* <Grid container component={Paper} variant='container'>
+				upload file goes here
+			</Grid> */}
 		</Grid>
-		{/* <Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log("state",state)} >{'POKE ME'}</Typography> */}
+		<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log("state",state)} >{'POKE ME'}</Typography>
 	</Grid>
 	)
 }
 
-export default KairosReporthub;
+export default NykeConverter;

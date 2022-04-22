@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import {Grid,
 	Paper,
 	Typography} from '@mui/material';
-import {Toolbar} from '../../components/toolbar';
+import {Toolbar} from '../../components/Toolbar';
 import {Input,Switch} from '../../components/inputs';
 import {Spinner} from '../../components';
 import {useDispatch,useSelector} from 'react-redux';
