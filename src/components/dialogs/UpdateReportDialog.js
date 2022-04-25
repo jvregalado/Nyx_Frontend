@@ -149,7 +149,7 @@ const UpdateReportDialog = ({
 							error={state.isReportError}
 							variant='outlined'
 							label='Report Name'
-							value={state.report_name}
+							value={state.report_name || ''}
 							onChange={handleChange}
 						/>
 					</Grid>
@@ -173,7 +173,7 @@ const UpdateReportDialog = ({
 							name='report_type'
 							route='reasoncode'
 							type='Report Type'
-							value={state.report_type}
+							value={state.report_type || ''}
 							handleChange={handleSelectChange}
 						/>
 					</Grid>
@@ -183,7 +183,7 @@ const UpdateReportDialog = ({
 							name='report_desc'
 							variant='outlined'
 							label='Report Description'
-							value={state.report_desc}
+							value={state.report_desc || ''}
 							onChange={handleChange}
 						/>
 					</Grid>
@@ -194,7 +194,7 @@ const UpdateReportDialog = ({
 							name='report_min_access_wt'
 							variant='outlined'
 							label='Report Minimum Access Weight'
-							value={state.report_min_access_wt}
+							value={state.report_min_access_wt || 0}
 							onChange={handleChange}
 							type='number'
 						/>
@@ -205,7 +205,7 @@ const UpdateReportDialog = ({
 							name='report_remarks1'
 							variant='outlined'
 							label='Report Remarks'
-							value={state.report_remarks1}
+							value={state.report_remarks1 || ''}
 							onChange={handleChange}
 						/>
 					</Grid>
@@ -215,7 +215,7 @@ const UpdateReportDialog = ({
 							name='report_source_code'
 							variant='outlined'
 							label='Report Source Code'
-							value={state.report_source_code}
+							value={state.report_source_code || ''}
 							onChange={handleChange}
 						/>
 					</Grid>
