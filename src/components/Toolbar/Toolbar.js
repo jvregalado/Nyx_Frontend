@@ -21,7 +21,9 @@ function Toolbar({
 	toggleUploadDialog,
 	isOpen,
 	isGenerate,
-	onGenerate
+	onGenerate,
+	isCheck,
+	onCheck
 }) {
 
 	// const [controls,setControls] = React.useState({
@@ -53,8 +55,11 @@ function Toolbar({
 					<Button sx={{ display: isDownloadPdf ? 'visible' : 'none' }} variant='pdf' onClick={onDownloadPdf}>
 						Download PDF
 					</Button>
-					<Button sx={{display: isUpload ? 'visible' : 'none'}} variant='kerry' onClick={toggleUploadDialog}>
+					<Button sx={{display: isUpload ? 'visible' : 'none'}} variant='upload' onClick={toggleUploadDialog}>
 						Upload
+					</Button>
+					<Button sx={{ display: isCheck ? 'visible' : 'none' }} variant='check' onClick={onCheck}>
+						Check
 					</Button>
 					<Button sx={{display: isGenerate ? 'visible' : 'none'}} variant='spreadsheet' onClick={onGenerate}>
 						Generate
@@ -89,7 +94,9 @@ Toolbar.defaultProps = {
 	uploadType		: '',
 	onUpload		: ()=>{},
 	isGenerate	: false,
-	onGenerate	: ()=>{}
+	onGenerate	: ()=>{},
+	isCheck	: false,
+	onCheck	: ()=>{}
 }
 
 export default Toolbar;

@@ -15,14 +15,15 @@ import nodeDate from 'date-and-time';
 import {TableJSON} from '../../components/table';
 import {Input,DatePicker} from '../../components/inputs'
 import {MasterSelect} from '../../components/select'
-import {getReportCodes, postUpload} from '../../store/tms_converter/tms_converter.slice';
-
+import {getReportCodes, postUpload,postGenerate} from '../../store/tms_converter/tms_converter.slice';
+import {downloadBase64File} from '../../helpers/buttons'
 
 const NykeConverter = ({routes}) => {
 	return (
 		<View/>
 	);
 }
+
 
 const View = () => {
 
@@ -32,49 +33,51 @@ const View = () => {
 		report		:''
 	})
 
-	const [fetchDataState,setfetchDataState] = React.useState([])
+	const [fetchDataState,setfetchDataState] = React.useState({})
 
 	
 	const [controls,setControls] = React.useState({
 		uploadDialog:false
 	});
 	
+	const handleDownload = () => {
+		//console.log(fetchDataState.filePath)
+		dispatch(postGenerate({
+			route:'converter/generate',
+			data:{
+				customerCode:fetchDataState.customerCode,
+				toExcel:fetchDataState.toExcel,
+				pdfFile:fetchDataState.pdfFile,
+				id:fetchDataState.id
+			}
+		}))
+		.unwrap()
+		.then(result => {	
+			
+			if(result!=500)
+			{
+				/** type format of Base64 */
+				const typeFormat = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+				/** Get the Base64 from backend */
+				const contentBase64=result.data.contents;
+				const fileName=`Generated${fetchDataState.selectedFile}.xlsx`;
+				downloadBase64File({
+					typeFormat:{typeFormat},
+					contentBase64,
+					fileName
+				})
+				setfetchDataState({})
+			}
+		})
+	}
+
 	const toggleUploadDialog = () =>{
-		console.log(1,controls.uploadDialog)
+		//console.log(1,controls.uploadDialog)
 		setControls({
 			...controls,
 			uploadDialog:!controls.uploadDialog
 		})
 	}
-	
-	const columns = [
-		
-		{
-			label:'RTV',
-			name:'RTV'
-		},
-		{
-			label:'RTV Date',
-			name:'RTV Date'
-		},
-		{
-			label:'Site Code',
-			name:'Site Code'
-		},
-		{
-			label:'Site Name',
-			name:'Site Name'
-		},
-		{
-			label:'Site Address',
-			name:'Site Address'
-		},
-		{
-			label:'Status',
-			name:'Status'
-		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	]
 
 	const handleReportChange = (e,name) => {
 		/**Reset the state if report dropdown is changed */
@@ -88,6 +91,12 @@ const View = () => {
 			...state,
 			[name]:e
 		})
+		/**reset setfetchDataState and  setuploadState if there is a change in dropdown*/
+		setfetchDataState({});
+		setuploadState({
+			selectedFile: null,
+			loaded: 0
+		})
 	}
 
 	const handleChange = (e) => {
@@ -97,8 +106,6 @@ const View = () => {
 		})
 	}
 
-	
-
 	/* upload start */
 	const [uploadState,setuploadState] = React.useState({
         selectedFile: null,
@@ -106,22 +113,56 @@ const View = () => {
 	})
 
 	const handleUpload=(e)=>{
-		//console.log(e.target.files[0]);
 		setuploadState({
+		
 		selectedFile: e.target.files[0],
 		loaded: 0,
-	 })
+	 	})
+	 	setfetchDataState({
+			 ...fetchDataState,
+			 /** getting file name then display to title */
+			 selectedFile:fetchDataState?.selectedFile||e.target.files[0].name
+		 })
 	}
+
+	/**check if file to see the status change */
+	const handleCheck = () => {
+		  dispatch(postUpload({
+			route:'converter',
+			data:{
+				file:null,
+				value:state,
+				id:fetchDataState?.id||null,
+				fileName:fetchDataState?.selectedFile||null,
+				JSONExcel:fetchDataState?.toExcel||null
+			}
+		}))
+		.unwrap()
+		.then(result => {
+			if(result!=500)
+			{
+				const toExcel=JSON.parse(JSON.stringify(result.data.toExcel))
+				setfetchDataState(
+					{
+						...fetchDataState,
+						toExcel,
+						ConversionCode:result.data.ConversionCode,
+						customerCode:result.data.customerCode,
+						pdfFile:result?.data?.pdfFile
+					}
+					)
+				//console.log("fetchDataState",result.data.toExcel)
+			}
+		})
+	}
+
 
 	const handleConfirm = () => {
 		var file = uploadState.selectedFile;
-		
-		//console.log(file)
 		const now = nodeDate.format(new Date(), 'MMDDYYYY-HHmmss');
 		if(file!=null){
 			var reader = new FileReader();
 			reader.onload = function() {
-	  		//console.log(state.value);
 	 		 	const data = reader.result;
 				  //console.log(data);
 				  dispatch(postUpload({
@@ -129,8 +170,9 @@ const View = () => {
 					data:{
 						file:data,
 						value:state,
-						id:now,
-						fileName:file.name
+						id:fetchDataState?.id||now,
+						fileName:file.name,
+						reupload:fetchDataState?.id||false
 					}
 				}))
 				.unwrap()
@@ -138,9 +180,18 @@ const View = () => {
 					if(result!=500)
 					{
 						toggleUploadDialog()
-						console.log("result.data.toExcel",result.data.toExcel)
-						setfetchDataState(JSON.parse(JSON.stringify(result.data.toExcel)))
-						console.log("result.data.toExcel",fetchDataState)
+						const toExcel=JSON.parse(JSON.stringify(result.data.toExcel))
+						setfetchDataState(
+							{
+								...fetchDataState,
+								toExcel,
+								pdfFile:result?.data?.pdfFile,
+								id:fetchDataState?.id||now,
+								ConversionCode:result?.data?.ConversionCode||null,
+								customerCode:result?.data?.customerCode||null
+							}
+							)
+						//console.log("fetchDataState",result.data.toExcel)
 					}
 				})
 			};
@@ -190,6 +241,10 @@ const View = () => {
 				onConfirm={handleConfirm}
 				toggleUploadDialog={toggleUploadDialog}
 				isOpen={controls.uploadDialog}
+				isCheck={state?.source_code?.buttons?.isCheck || false}
+				onCheck={handleCheck}
+				isGenerate={state?.source_code?.buttons?.isGenerate || false}
+				onGenerate={handleDownload}
 			/>
 		</Grid>
 		<Grid item md={5}>
@@ -271,12 +326,12 @@ const View = () => {
 		<Grid item md={7}>
 		<Grid container component={Paper} variant='container'>
 				<TableJSON
-					data={fetchDataState}
-					columns={columns}
+					data={fetchDataState?.toExcel||[]}
+					columns={state?.source_code?.columns || []}
 					title={
-						uploadState?.selectedFile?.name ||
+						fetchDataState?.selectedFile ||
 						`Empty`}
-					filename={uploadState?.selectedFile?.name ||
+					filename={fetchDataState?.selectedFile ||
 						`Empty`}
 					//fetchData={fetchDataState}
 				/>

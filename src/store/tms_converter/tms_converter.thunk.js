@@ -57,6 +57,32 @@ const getReport = createAsyncThunk('tms-converter/post',
 )
 
 
+const getRTVview = createAsyncThunk('rtv/get',
+	async({route,page,totalPage,orderBy,filters},{rejectWithValue})=>{
+		try{
+			const res = await API({
+				requestHeaders:{
+					...headers
+				}
+			}).get(`${baseURL}/${route}`,{
+				params:{
+					page,
+					totalPage,
+					orderBy,
+					...filters
+				}
+			})
+
+			return res.data
+		}
+		catch(e){
+			if(e.response && e.response.data){
+				toast.error(`${e.response.data.message}`)
+			}
+			return rejectWithValue(e)
+		}
+	}
+)
 
 const postUpload = createAsyncThunk('tms-converter/post',
 	async({route,data},{rejectWithValue})=>{
@@ -86,5 +112,41 @@ const postUpload = createAsyncThunk('tms-converter/post',
 		}
 	}
 )
+const postGenerate = createAsyncThunk('tms-converter/post',
+	async({route,data},{rejectWithValue})=>{
+		console.log(`${baseURL}/${route}`);
+		try{
+			const res = await API({
+				requestHeaders:{
+					...headers
+				}
+			}).post(`${baseURL}/${route}`,{
+				data
+			})
+			.then(result => {
+				return result
+			})
 
-export { getReportCodes, getReport, postUpload }
+			return res
+		}
+		catch(e){
+			// if(e.response && e.response.data){
+			// 	try{
+			// 		const m = String.fromCharCode.apply(null, new Uint8Array(e.response.data));
+			// 		const msg = JSON.parse(m);
+			// 		toast.error(`${msg.message}`);    }
+			// 		catch(e){
+			// 			toast.error(`${e}`);
+			// 		}
+			// }
+			// return rejectWithValue(e)
+			
+			if(e.response && e.response.data){
+				toast.error(`${e.response.data.message}`)
+			}
+			return rejectWithValue(e)
+		}
+	}
+)
+
+export { getReportCodes, getReport, postUpload,postGenerate,getRTVview }

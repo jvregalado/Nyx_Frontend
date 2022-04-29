@@ -61,6 +61,26 @@ export default createTheme({
 						},
 						color:'white',
 					}
+				},
+				{
+					props:{variant:'upload'},
+					style:{
+						background:'#146bf7',
+						'&:hover':{
+							background:'#0f4bab'
+						},
+						color:'white',
+					}
+				},
+				{
+					props:{variant:'check'},
+					style:{
+						background:'#eb3648',
+						'&:hover':{
+							background:'#b51626'
+						},
+						color:'white',
+					}
 				}
 			]
 		},

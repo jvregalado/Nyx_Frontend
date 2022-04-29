@@ -42,6 +42,11 @@ const modules = [
 				label:'Nyke Converter'
 			},
 			{
+				name:'nyke converter viewer',
+				route:'/tms/converterviewer',
+				label:'Nyke Converter Viewer'
+			},
+			{
 				name:'nyke data sync',
 				route:'/tms/datasync',
 				label:'Nyke Data Sync'
