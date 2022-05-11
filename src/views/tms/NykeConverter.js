@@ -120,7 +120,6 @@ const View = () => {
 	 	})
 	 	setfetchDataState({
 			 ...fetchDataState,
-			 /** getting file name then display to title */
 			 selectedFile:fetchDataState?.selectedFile||e.target.files[0].name
 		 })
 	}
@@ -155,7 +154,6 @@ const View = () => {
 			}
 		})
 	}
-
 
 	const handleConfirm = () => {
 		var file = uploadState.selectedFile;

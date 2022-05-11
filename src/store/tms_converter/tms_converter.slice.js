@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {getReportCodes,getReport, postUpload,postGenerate,getRTVview} from './tms_converter.thunk';
+import {getReportCodes,getReport, postUpload,postGenerate,getRTVview,getRTVDetails} from './tms_converter.thunk';
 
 const initialState = {
 	loading:false
@@ -42,5 +42,5 @@ const slice = createSlice({
 	}
 })
 
-export {getReportCodes,getReport,postUpload,postGenerate,getRTVview}
+export {getReportCodes,getReport,postUpload,postGenerate,getRTVview,getRTVDetails}
 export default slice.reducer

@@ -57,6 +57,31 @@ const getReport = createAsyncThunk('tms-converter/post',
 )
 
 
+
+const getRTVDetails = createAsyncThunk('rtv/getDetails',
+	async({route,filters},{rejectWithValue})=>{
+		try{
+			const res = await API({
+				requestHeaders:{
+					...headers
+				}
+			}).get(`${baseURL}/${route}`,{
+				params:{
+					...filters
+				}
+			})
+
+			return res.data
+		}
+		catch(e){
+			if(e.response && e.response.data){
+				toast.error(`${e.response.data.message}`)
+			}
+			return rejectWithValue(e)
+		}
+	}
+)
+
 const getRTVview = createAsyncThunk('rtv/get',
 	async({route,page,totalPage,orderBy,filters},{rejectWithValue})=>{
 		try{
@@ -149,4 +174,4 @@ const postGenerate = createAsyncThunk('tms-converter/post',
 	}
 )
 
-export { getReportCodes, getReport, postUpload,postGenerate,getRTVview }
+export { getReportCodes, getReport, postUpload,postGenerate,getRTVview,getRTVDetails }
