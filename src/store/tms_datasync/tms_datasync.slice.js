@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {getReportCodes,getReport,getDataSync} from './tms_datasync.thunk';
+import {getReportCodes,postSync,getDataSyncLog} from './tms_datasync.thunk';
 
 const initialState = {
 	loading:false
@@ -21,26 +21,26 @@ const slice = createSlice({
 		[getReportCodes.rejected]:(state,action)=>{
 			state.loading=false
 		},
-		[getReport.pending]:(state,action)=>{
+		[postSync.pending]:(state,action)=>{
 			state.loading=true
 		},
-		[getReport.fulfilled]:(state,action)=>{
+		[postSync.fulfilled]:(state,action)=>{
 			state.loading=false
 		},
-		[getReport.rejected]:(state,action)=>{
+		[postSync.rejected]:(state,action)=>{
 			state.loading=false
 		},
-		[getDataSync.pending]:(state,action)=>{
+		[getDataSyncLog.pending]:(state,action)=>{
 			state.loading=true
 		},
-		[getDataSync.fulfilled]:(state,action)=>{
+		[getDataSyncLog.fulfilled]:(state,action)=>{
 			state.loading=false
 		},
-		[getDataSync.rejected]:(state,action)=>{
+		[getDataSyncLog.rejected]:(state,action)=>{
 			state.loading=false
 		},
 	}
 })
 
-export {getReportCodes,getReport,getDataSync}
+export {getReportCodes,postSync,getDataSyncLog}
 export default slice.reducer

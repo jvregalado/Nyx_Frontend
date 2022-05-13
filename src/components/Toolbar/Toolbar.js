@@ -16,8 +16,9 @@ function Toolbar({
 	onDownloadPdf,
 	label,
 	isUpload,
-	onUpload,
-	uploadType
+	uploadType,
+	isSynchronize,
+	onSynchronize
 }) {
 
 	const [controls,setControls] = React.useState({
@@ -60,6 +61,9 @@ function Toolbar({
 					<Button sx={{display: isUpload ? 'visible' : 'none'}} variant='kerry' onClick={toggleUploadDialog}>
 						Upload
 					</Button>
+					<Button sx={{display: isSynchronize ? 'visible' : 'none'}} variant='synch' onClick={onSynchronize}>
+						Synchronize
+					</Button>
 
 				</div>
 			</MUIToolbar>
@@ -80,11 +84,13 @@ Toolbar.defaultProps = {
 	onCreate		: ()=>{},
 	isConfirm		: false,
 	onConfirm		: ()=>{},
-	isDownloadExcel : false,
+	isDownloadExcel	: false,
 	onDownloadExcel	: ()=>{},
 	isDownloadPdf	: false,
 	onDownloadPdf	: ()=>{},
-	uploadType		: ''
+	isUpload		: false,
+	isSynchronize	: false,
+	onSynchronize	: ()=>{}
 }
 
 export default Toolbar;

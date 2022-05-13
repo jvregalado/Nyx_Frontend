@@ -1,6 +1,7 @@
 /* eslint-disable dot-location */
 /* eslint-disable no-useless-escape */
 import React from 'react';
+import moment from 'moment'
 import Spinner from '../../components/spinner'
 import {Toolbar} from '../../components/toolbar';
 import {Grid,Paper
@@ -11,8 +12,7 @@ import {useDispatch,useSelector} from 'react-redux';
 import {Table} from '../../components/table';
 import {Input,DatePicker} from '../../components/inputs'
 import {MasterSelect} from '../../components/select'
-import {getReportCodes,getReport,getDataSync} from '../../store/tms_datasync';
-
+import {getReportCodes,postSync,getDataSyncLog} from '../../store/tms_datasync';
 
 const NykeDatasync = ({routes}) => {
 	return (
@@ -30,7 +30,7 @@ const View = () => {
 	const [trigger,setTrigger] = React.useState(false)
 
 	const handleReportChange = (e,name) => {
-		/**Reset the state if report dropdown is changed */
+		/**Reset the state if report dropdown is changed or cleared */
 		setState({
 			[name]:e
 		})
@@ -53,52 +53,53 @@ const View = () => {
 
 	const handleDownloadExcel = () => {
 		//console.log(state)
-		dispatch(getReport({
-			route:'datasync',
-			data:{
-				...state
-			}
-		}))
+		// dispatch(getReport({
+		// 	route:'datasync',
+		// 	data:{
+		// 		...state
+		// 	}
+		// }))
 	}
 
 	const handleDownloadPdf = () => {
 		//console.log(state)
-		dispatch(getReport({
+		// dispatch(getReport({
+		// 	route:'datasync',
+		// 	data:{
+		// 		...state
+		// 	}
+		// }))
+	}
+
+	const handleSynchronize = () => {
+		//console.log(state)
+		dispatch(postSync({
 			route:'datasync',
 			data:{
 				...state
 			}
-		}))
+		})).then(x => {
+			setTrigger(!trigger)
+		})
 	}
 
 	const columns = React.useMemo(()=>[
 		{
-			Header:'Server / App',
-			accessor:'module_code',
-			width:170,
+			Header:'Data Sync ID',
+			accessor:'datasync_id',
+			width:180
 		},
 		{
-			Header:'Data Type',
-			accessor:'module_name1',
-			width:150
-		},
-		{
-			Header:'Sync Date From',
-			accessor:'module_name2',
-			width:200
-		},
-		{
-			Header:'Sync Date To',
-			accessor:'module_desc',
-			width:200
-		},
-		{
-			Header:'Sync Status',
-			accessor:'status'
+			Header:'Target Sync Code',
+			accessor:'report_code'
 		},
 		{
 			Header:'Created Date',
-			accessor:'createdAt'
+			accessor:'createdAt',
+			width:100,
+			Cell:props => {
+				return props.value ? moment(props.value).format('YYYY-MM-DD HH:mm:ss') : ''
+			}
 		},
 		{
 			Header:'Created By',
@@ -106,7 +107,11 @@ const View = () => {
 		},
 		{
 			Header:'Updated Date',
-			accessor:'updatedAt'
+			accessor:'updatedAt',
+			width:100,
+			Cell:props => {
+				return props.value ? moment(props.value).format('YYYY-MM-DD HH:mm:ss') : ''
+			}
 		},
 		{
 			Header:'Updated By',
@@ -116,8 +121,8 @@ const View = () => {
 	],[])
 
 	const fetchData = React.useCallback(({pageIndex,pageSize,filters}, callBack) => {
-		dispatch(getDataSync({
-			route		:	'',
+		dispatch(getDataSyncLog({
+			route		:	'datasync',
 			page		:	pageIndex,
 			totalPage	:	pageSize,
 			orderBy		:	'createdAt,DESC',
@@ -172,16 +177,20 @@ const View = () => {
 				onDownloadExcel={handleDownloadExcel}
 				isDownloadPdf={state?.source_code?.buttons?.isDownloadPdf || false}
 				onDownloadPdf={handleDownloadPdf}
+				isSynchronize={state?.source_code?.buttons?.isSynchronize || false}
+				onSynchronize={handleSynchronize}
 			/>
 		</Grid>
-		<Grid item md={5}>
+		<Grid item md={5} sx={{
+			paddingTop:1
+		}}>
 			<Grid container component={Paper} variant='container'>
 				<Grid item md={12}>
 					<MasterSelect
 						paddingLeft={1}
 						paddingRight={1}
 						fullWidth
-						label='Data and Server to Sync'
+						label='System and Server to Sync'
 						placeholder='Target Data/Server'
 						name='report'
 						route='administration'
@@ -250,17 +259,21 @@ const View = () => {
 
 			</Grid>
 		</Grid>
-		<Grid item md={7}>
+		<Grid item md={7} sx={{
+			paddingLeft:1
+		}}>
 			<Grid container component={Paper} variant='container'>
-				Another column
+				Submodule details goes here...
 			</Grid>
 		</Grid>
 
-		<Grid container rowSpacing={1}>
+		<Grid container rowSpacing={1} sx={{
+			paddingTop:1
+		}}>
 			<Grid item md={12}>
-				<Grid container component={Paper} variant='container'>
+				<Grid container component={Paper}  variant='container'>
 					<Table
-						loading={loading}
+						//loading={loading}
 						columns={columns}
 						fetchData={fetchData}
 					/>
