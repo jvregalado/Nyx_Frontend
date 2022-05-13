@@ -61,6 +61,16 @@ export default createTheme({
 						},
 						color:'white',
 					}
+				},
+				{
+					props:{variant:'synch'},
+					style:{
+						background:'#CE24EE',
+						'&:hover':{
+							background:'#942FE1'
+						},
+						color:'white',
+					}
 				}
 			]
 		},
