@@ -11,6 +11,7 @@ import select from './select';
 
 import wms_reporthub from './wms_reporthub';
 import tms_converter from './tms_converter';
+import tms_reporthub from './tms_reporthub';
 // import filters from './filters';
 // import dataUpload from './data-upload';
 // import dataDownload from './data-download';
@@ -27,6 +28,7 @@ const combinedReducers = combineReducers({
 	select			:	select,
 
 	wms_reporthub	:	wms_reporthub,
+	tms_reporthub	:	tms_reporthub,
 	tms_converter	:	tms_converter
 	// dataManagement	:	dataManagement,
 	// filters			:	filters,

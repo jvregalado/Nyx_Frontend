@@ -125,15 +125,18 @@ const View = () => {
 		.unwrap()
 		.then(result => {
 			const details = result.data[0];
+			console.log("details",details)
 			setfetchDataState({
 				//...fetchDataState,
 				id:details.id,
 				selectedFile:details.uploaded_file_name,
 				rtvType:details.rtv_type,
-				uploadedStatus:details.c_status
-			})
-			handleCheck()
+				uploadedStatus:details.c_status,
+				c_status:details.c_status
+			},handleCheck())
+			//
 		})
+		
 	}
 	const handleConfirm = () => {
 		var file = uploadState.selectedFile;
@@ -149,7 +152,8 @@ const View = () => {
 						value:fetchDataState?.value||null,
 						id:fetchDataState?.id||null,
 						fileName:file.name,
-						reupload:fetchDataState?.id||false
+						reupload:fetchDataState?.id||false,
+						c_status:fetchDataState?.c_status||null
 					}
 				}))
 				.unwrap()
@@ -189,6 +193,8 @@ const View = () => {
 		 })
 	}
 	const handleCheck = () => {
+		
+		console.log("fetchDataState2",fetchDataState);
 		dispatch(postUpload({
 		  route:'converter',
 		  data:{
@@ -197,7 +203,8 @@ const View = () => {
 			  rtvType:fetchDataState.rtvType,
 			  id:fetchDataState?.id||null,
 			  fileName:`${fetchDataState?.id||null}.csv`,
-			  JSONExcel:fetchDataState?.toExcel||null
+			  JSONExcel:fetchDataState?.toExcel||null,
+			  c_status:fetchDataState?.c_status||null
 		  }
 	  }))
 	  .unwrap()
