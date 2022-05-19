@@ -15,7 +15,8 @@ const UploadDialog = ({
 	type,
 	isOpen,
 	toggle,
-	onConfirm
+	onConfirm,
+	onUpload
 }) => {
 	//const {loading} = useSelector(state => state.dataUpload)
 	//const [isLoading,setLoading] = React.useState(false);
@@ -45,7 +46,7 @@ const UploadDialog = ({
 						{/* <Typography variant='caption'>COUNT: {state.data.length}</Typography> */}
 					</Grid>
 					<Grid item xs={12}>
-						<TextField id={name} fullWidth type='file' onChange={onConfirm}/>
+						<TextField id={name} fullWidth type='file' onChange={onUpload}/>
 					</Grid>
 				</Grid>
 			<DialogActions>
@@ -56,4 +57,7 @@ const UploadDialog = ({
 	)
 }
 
+UploadDialog.defaultProps = {
+	onConfirm		: ()=>{}
+}
 export default UploadDialog

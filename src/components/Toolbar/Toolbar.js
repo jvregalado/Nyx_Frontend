@@ -15,24 +15,23 @@ function Toolbar({
 	isDownloadPdf,
 	onDownloadPdf,
 	label,
-	isUpload,
-	uploadType,
 	isSynchronize,
-	onSynchronize
+	onSynchronize,
+	uploadType,
+	isUpload,
+	onUpload,
+	toggleUploadDialog,
+	isOpen,
+	isGenerate,
+	onGenerate,
+	isCheck,
+	onCheck
 }) {
 
-	const [controls,setControls] = React.useState({
-		uploadDialog:false,
-		exportDialog:false,
-		getInvoiceDialog:false
-	});
+	// const [controls,setControls] = React.useState({
+	// 	uploadDialog
+	// });
 
-	const toggleUploadDialog = () =>{
-		setControls({
-			...controls,
-			uploadDialog:!controls.uploadDialog
-		})
-	}
 
 	return (
 		<Paper elevation={0} variant='outlined' sx={{
@@ -58,11 +57,17 @@ function Toolbar({
 					<Button sx={{ display: isDownloadPdf ? 'visible' : 'none' }} variant='pdf' onClick={onDownloadPdf}>
 						Download PDF
 					</Button>
-					<Button sx={{display: isUpload ? 'visible' : 'none'}} variant='kerry' onClick={toggleUploadDialog}>
+					<Button sx={{display: isUpload ? 'visible' : 'none'}} variant='upload' onClick={toggleUploadDialog}>
 						Upload
 					</Button>
 					<Button sx={{display: isSynchronize ? 'visible' : 'none'}} variant='synch' onClick={onSynchronize}>
 						Synchronize
+					</Button>
+					<Button sx={{ display: isCheck ? 'visible' : 'none' }} variant='check' onClick={onCheck}>
+						Check
+					</Button>
+					<Button sx={{display: isGenerate ? 'visible' : 'none'}} variant='spreadsheet' onClick={onGenerate}>
+						Generate
 					</Button>
 
 				</div>
@@ -70,14 +75,17 @@ function Toolbar({
 			<UploadDialog
 				name='file_upload'
 				type={uploadType}
-				isOpen={controls.uploadDialog}
+				isOpen={isOpen}
 				toggle={toggleUploadDialog}
+				onUpload={onUpload}
+				onConfirm={onConfirm}
 			/>
 		</Paper>
 	);
 }
 
 Toolbar.defaultProps = {
+	isOpen			: false,
 	isCancel		: false,
 	onCancel		: ()=>{},
 	isCreate		: false,
@@ -88,9 +96,15 @@ Toolbar.defaultProps = {
 	onDownloadExcel	: ()=>{},
 	isDownloadPdf	: false,
 	onDownloadPdf	: ()=>{},
-	isUpload		: false,
 	isSynchronize	: false,
-	onSynchronize	: ()=>{}
+	onSynchronize	: ()=>{},
+	uploadType		: '',
+	isUpload		: false,
+	onUpload		: ()=>{},
+	isGenerate		: false,
+	onGenerate		: ()=>{},
+	isCheck			: false,
+	onCheck			: ()=>{}
 }
 
 export default Toolbar;

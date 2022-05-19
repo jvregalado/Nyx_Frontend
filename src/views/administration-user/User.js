@@ -112,6 +112,7 @@ const View = () => {
 		}))
 		.unwrap()
 		.then(result => {
+			//console.log(callBack(result))
 			callBack(result)
 		})
 	// eslint-disable-next-line react-hooks/exhaustive-deps

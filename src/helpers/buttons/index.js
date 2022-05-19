@@ -1,0 +1,1 @@
+export {default as downloadBase64File} from './downloadBase64';

@@ -1,2 +1,3 @@
 import Table from './Table/Table';
-export {Table};
+import TableJSON from './Table/TableJSON';
+export {Table,TableJSON};
