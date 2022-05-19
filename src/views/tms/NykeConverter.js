@@ -52,7 +52,7 @@ const View = () => {
 		.unwrap()
 		.then(result => {	
 			
-			if(result!=500)
+			if(result!==500)
 			{
 				/** type format of Base64 */
 				const typeFormat = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
@@ -136,7 +136,7 @@ const View = () => {
 		}))
 		.unwrap()
 		.then(result => {
-			if(result!=500)
+			if(result!==500)
 			{
 				const toExcel=JSON.parse(JSON.stringify(result.data.toExcel))
 				setfetchDataState(
@@ -173,7 +173,7 @@ const View = () => {
 				}))
 				.unwrap()
 				.then(result => {
-					if(result!=500)
+					if(result!==500)
 					{
 						toggleUploadDialog()
 						const toExcel=JSON.parse(JSON.stringify(result.data.toExcel))

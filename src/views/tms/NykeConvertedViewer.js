@@ -5,9 +5,8 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography'
 import {Table,TableJSON} from '../../components/table';
 import {useDispatch,useSelector} from 'react-redux';
-import {CreateUserDialog,UpdateUserDialog} from '../../components/dialogs';
 import {getRTVview,postUpload,getRTVDetails} from '../../store/tms_converter/tms_converter.slice';
-import {downloadBase64File} from '../../helpers/buttons'
+// import {downloadBase64File} from '../../helpers/buttons'
 
 const NykeConvertedViewer = ({routes}) => {
 	return (
@@ -156,7 +155,7 @@ const View = () => {
 				}))
 				.unwrap()
 				.then(result => {
-					if(result!=500)
+					if(result!==500)
 					{
 						toggleUploadDialog()
 						const toExcel=JSON.parse(JSON.stringify(result.data.toExcel))
@@ -207,7 +206,7 @@ const View = () => {
 		}))
 		.unwrap()
 		.then(result => {
-			if(result!=500) {
+			if(result!==500) {
 				const toExcel=JSON.parse(JSON.stringify(result.data.toExcel))
 				setfetchDataState(
 					{
