@@ -58,7 +58,7 @@ const View = () => {
 		}))
 		.unwrap()
 		.then(result => {	
-				if(result!=500)
+				if(result!==500)
 					{
 						//console.log(result.data.data)
 						/** type format of Base64 */

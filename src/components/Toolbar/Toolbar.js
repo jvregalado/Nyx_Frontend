@@ -2,7 +2,6 @@ import React from 'react';
 import {Toolbar as MUIToolbar, Button, Paper, Typography} from '@mui/material';
 import {UploadDialog} from '../dialogs';
 
-
 function Toolbar({
 	isCancel,
 	onCancel,
