@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import {Toolbar} from '../../components/toolbar';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -85,7 +86,11 @@ const View = () => {
 		},
 		{
 			Header:'Created Date',
-			accessor:'createdAt'
+			accessor:'createdAt',
+			width:140,
+			Cell:props => {
+				return props.value ? moment(props.value).format('YYYY-MM-DD HH:mm:ss') : props.value
+			}
 		},
 		{
 			Header:'Created By',
@@ -93,7 +98,11 @@ const View = () => {
 		},
 		{
 			Header:'Updated Date',
-			accessor:'updatedAt'
+			accessor:'updatedAt',
+			width:140,
+			Cell:props => {
+				return props.value ? moment(props.value).format('YYYY-MM-DD HH:mm:ss') : props.value
+			}
 		},
 		{
 			Header:'Updated By',
