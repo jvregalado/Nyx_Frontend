@@ -38,7 +38,7 @@ function Toolbar({
 			paddingLeft:1,
 			paddingRight:1
 		}}>
-			<MUIToolbar >
+			<MUIToolbar>
 				<Typography variant='h6'>{label}</Typography>
 				<div style={{flexGrow: 1}}/>
 				<div >
@@ -60,7 +60,6 @@ function Toolbar({
 					<Button sx={{display: isUpload ? 'visible' : 'none'}} variant='kerry' onClick={toggleUploadDialog}>
 						Upload
 					</Button>
-
 				</div>
 			</MUIToolbar>
 			<UploadDialog

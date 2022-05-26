@@ -9,7 +9,7 @@ const headers = {
 }
 
 const signIn = createAsyncThunk('authentication/sign-in',
-	async({user_email,user_password}, {rejectWithValue}) => {
+	async({user_email,user_password,system}, {rejectWithValue}) => {
 		try{
 			const response = await API({
 				requestHeaders : {
@@ -17,13 +17,18 @@ const signIn = createAsyncThunk('authentication/sign-in',
 				}
 			}).post(`${baseURL}/token`,{
 				user_email,
-				user_password
+				user_password,
+				system
 			})
+
+			console.log(response)
 
 			return {
 				user_email	:user_email,
 				token		:response.data.token,
-				role		:response.data.role
+				role		:response.data.role,
+				has_wbs		:response.data.has_wbs,
+				system		:response.data.system
 			}
 		}
 		catch(e){

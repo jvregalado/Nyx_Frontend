@@ -91,7 +91,6 @@ const View = () => {
 
 	const toggleCreateDialog = () => {
 		setCreateDialog(!createDialog)
-
 		if(createDialog===true){
 			setTrigger(!trigger)
 		}

@@ -4,7 +4,9 @@ import {createTheme,ThemeProvider} from '@mui/material/styles';
 import {blueGrey} from '@mui/material/colors';
 import {signIn} from '../../store/authentication/authentication.thunk';
 import {Spinner} from '../../components';
+import {SystemSelect} from '../../components/select';
 import {useDispatch,useSelector} from 'react-redux';
+import {toast} from 'react-toastify'
 
 import kli_bg from '../../assets/kli_bg.png'
 
@@ -19,12 +21,15 @@ function Login() {
 		}),
 		[]
 	);
+
 	const dispatch = useDispatch();
 	const {loading} = useSelector(state => state.auth)
 	const [state,setState] = React.useState({
 		user_email:'',
 		user_password:''
 	})
+
+	const [system,selectedSystem] = React.useState('')
 
 	const handleChange = (e) => {
 		setState({
@@ -33,9 +38,23 @@ function Login() {
 		})
 	}
 
+	const handleSystemChange = (e) => {
+		selectedSystem(e.target.value)
+	}
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(signIn({user_email:state.user_email, user_password:state.user_password}))
+
+		if(system === ''){
+			return toast.error('Select System first!')
+		}
+		else{
+			dispatch(signIn({
+				user_email:state.user_email, 
+				user_password:state.user_password,
+				system
+			}))
+		}
 	}
 
 	return(
@@ -61,42 +80,47 @@ function Login() {
 					flexDirection: 'column',
 					alignItems: 'center',
 				}}>
-					<Typography component="h1" variant="h5">
+
+					<Typography component="h1" variant="h5" sx={{
+						marginBottom:2
+					}}>
 						Sign in
 					</Typography>
-				<form noValidate onSubmit={handleSubmit}>
-					<TextField
-						variant="outlined"
-						margin="normal"
-						required
-						fullWidth
-						id="user_email"
-						label="Email Address"
-						name="user_email"
-						autoComplete="user_email"
-						autoFocus
-						onChange={handleChange}
-					/>
-					<TextField
-						variant="outlined"
-						margin="normal"
-						required
-						fullWidth
-						name="user_password"
-						label="Password"
-						type="password"
-						id="user_password"
-						autoComplete="current-password"
-						onChange={handleChange}
-					/>
-					<Button
-						type="submit"
-						fullWidth
-						variant="contained"
-					>Sign In
-					</Button>
-					<Grid container>
-					</Grid>
+					<form noValidate onSubmit={handleSubmit}>
+						<SystemSelect
+							value={system}
+							handleChange={handleSystemChange}
+						/>
+						<TextField
+							variant="outlined"
+							margin="normal"
+							required
+							fullWidth
+							id="user_email"
+							label="Email Address"
+							name="user_email"
+							autoComplete="user_email"
+							autoFocus
+							onChange={handleChange}
+						/>
+						<TextField
+							variant="outlined"
+							margin="normal"
+							required
+							fullWidth
+							name="user_password"
+							label="Password"
+							type="password"
+							id="user_password"
+							autoComplete="current-password"
+							onChange={handleChange}
+						/>
+						<Button
+							type="submit"
+							fullWidth
+							variant="contained"
+						>Sign In
+						</Button>
 				</form>
 				</Box>
 			</Grid>

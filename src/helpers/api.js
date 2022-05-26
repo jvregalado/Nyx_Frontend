@@ -7,6 +7,7 @@ const API = ({
 	let headers = { }
 	const state = JSON.parse(localStorage.getItem('state'))
 	// console.log(state.auth.token.token)
+	
 	if(state.auth.token !== ''){
 		headers = {
 			...headers,
@@ -17,7 +18,7 @@ const API = ({
 	if(process.env.NODE_ENV === 'development'){
 		baseURL=process.env.REACT_APP_API_DEV
 	}
-	else {
+	else{
 		baseURL=process.env.REACT_APP_API
 	}
 
