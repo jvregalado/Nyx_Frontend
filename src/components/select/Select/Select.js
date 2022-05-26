@@ -1,9 +1,8 @@
 import React from 'react';
-// import * as constants from '../../../utils/constants/constants';
+import * as constants from '../../../utils/constants';
 import {Typography, useTheme} from '@mui/material';
 import ReactSelect from 'react-select/async';
  
-
 function Select({
 	label,
 	name,
@@ -24,7 +23,7 @@ function Select({
 	
 	React.useEffect(()=>{
 		if(type !== ''){
-			// setOptions(constants[type])
+			setOptions(constants[type])
 		}
 		else{
 			let data = [

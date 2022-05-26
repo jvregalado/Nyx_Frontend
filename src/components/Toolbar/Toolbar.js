@@ -37,7 +37,7 @@ function Toolbar({
 			paddingLeft:1,
 			paddingRight:1
 		}}>
-			<MUIToolbar >
+			<MUIToolbar>
 				<Typography variant='h6'>{label}</Typography>
 				<div style={{flexGrow: 1}}/>
 				<div >

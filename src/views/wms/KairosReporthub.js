@@ -3,8 +3,9 @@
 import React from 'react';
 import Spinner from '../../components/spinner'
 import {Toolbar} from '../../components/toolbar';
-import {Grid,Paper
-	// ,Typography
+import {
+	Grid,
+	Paper
 } from '@mui/material';
 import {useDispatch,useSelector} from 'react-redux';
 
@@ -28,7 +29,7 @@ const View = () => {
 	})
 
 	const handleReportChange = (e,name) => {
-		/**Reset the state if report dropdown is changed */
+		/**Reset the state if report dropdown is changed*/
 		setState({
 			[name]:e
 		})

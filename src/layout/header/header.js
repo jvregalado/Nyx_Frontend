@@ -6,7 +6,7 @@ import {AppBar,
 	Button
 } from '@mui/material';
 import {Menu as MenuIcon} from '@mui/icons-material';
-import {useSelector} from 'react-redux'
+import {useSelector} from 'react-redux';
 import {Sidebar} from '../../layout'
 import {Spinner} from '../../components';
 import UserMenu from './userMenu';

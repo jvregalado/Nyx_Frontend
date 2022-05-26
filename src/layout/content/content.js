@@ -42,7 +42,7 @@ function Content() {
 					<Route exact path='/' element={<Default/>}/>
 					{
 						mainRoutes.map((route,i) => (
-							<Route path={route.route} key={i} element={<route.component/>}/>
+							<Route path={route.path} key={i} element={<route.component/>}/>
 						))
 					}
 				</Routes>
