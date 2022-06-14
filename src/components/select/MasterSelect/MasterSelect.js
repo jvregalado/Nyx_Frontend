@@ -111,7 +111,7 @@ Select Types
 	tariff
 	geography
 	aggregation
-	quick-code 
+	quick-code
 		-SRV_TYP
 		-CLSOFSTR
 */

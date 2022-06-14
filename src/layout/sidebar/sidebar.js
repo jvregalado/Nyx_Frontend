@@ -71,9 +71,9 @@ function Sidebar({isOpen,toggle}) {
 								<Collapse in={item.isCollapse} timeout="auto" unmountOnExit>
 									{
 										item.subModules.map((sub,i) => {
-											return <ListItem 
+											return <ListItem
 												variant='drawerSubItem'
-												button 
+												button
 												onClick={toggle}
 												component={NavLink}
 												selected = {location.pathname === sub.route}

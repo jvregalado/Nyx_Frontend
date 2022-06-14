@@ -10,7 +10,6 @@ const headers = {
 const getReportCodes = createAsyncThunk('tms-report-sourceCode/get',
 	async({route,report_id},{rejectWithValue})=>{
 		try{
-			console.log(`${baseURL}/${route}/report-sourcecode`)
 			const res = await API({
 				requestHeaders:{
 					...headers

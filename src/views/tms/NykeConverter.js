@@ -4,9 +4,10 @@
 import React from 'react';
 import Spinner from '../../components/spinner/spinner'
 import {Toolbar} from '../../components/toolbar';
-import {Grid,Paper
-	 ,Typography
-	 //, Table
+import {Grid
+	,Paper
+	// ,Typography
+	// ,Table
 } from '@mui/material';
 import {useDispatch,useSelector} from 'react-redux';
 
@@ -50,8 +51,7 @@ const View = () => {
 			}
 		}))
 		.unwrap()
-		.then(result => {	
-			
+		.then(result => {
 			if(result!==500)
 			{
 				/** type format of Base64 */
@@ -89,7 +89,7 @@ const View = () => {
 			...state,
 			[name]:e
 		})
-		/**reset setfetchDataState and  setuploadState if there is a change in dropdown*/
+		/**reset setfetchDataState and setuploadState if there is a change in dropdown*/
 		setfetchDataState({});
 		setuploadState({
 			selectedFile: null,
@@ -124,7 +124,7 @@ const View = () => {
 
 	/**check if file to see the status change */
 	const handleCheck = () => {
-		  dispatch(postUpload({
+		dispatch(postUpload({
 			route:'converter',
 			data:{
 				file:null,
@@ -336,7 +336,6 @@ const View = () => {
 				upload file goes here
 			</Grid> */}
 		</Grid>
-		<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log("state",state)} >{'POKE ME'}</Typography>
 	</Grid>
 	)
 }

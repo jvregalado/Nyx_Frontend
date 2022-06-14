@@ -107,7 +107,7 @@ const View = () => {
 
 	const toggleUpdateDialog = () => {
 		setUpdateDialog(!updateDialog)
-		
+
 		if(updateDialog===true){
 			setTrigger(!trigger)
 			setSelectedRole({role_code:null})

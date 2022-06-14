@@ -14,7 +14,7 @@ function GlobalFilter({
 	const onChange = useAsyncDebounce(value => {
 		setGlobalFilter(value || undefined)
 	}, 200)
-	
+
 	return (
 		<StyledSearch>
 		<SearchIconWrapper>

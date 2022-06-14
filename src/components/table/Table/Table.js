@@ -78,7 +78,7 @@ function Table({
 	const handleChangePage = (event, newPage) => {
 		gotoPage(newPage)
 	}
-	
+
 	const handleChangeRowsPerPage = event => {
 		setPageSize(Number(event.target.value))
 	}
@@ -153,7 +153,7 @@ function Table({
 			<Spinner loading={loading}/>
 			<Grid item md={12}>
 				<div style={{display:'flex'}}>
-					<GlobalSearchFilter 
+					<GlobalSearchFilter
 						preGlobalFilteredRows={preGlobalFilteredRows}
 						globalFilter={globalFilter}
 						setGlobalFilter={setGlobalFilter}
@@ -161,7 +161,7 @@ function Table({
 					<div style={{flexGrow:1}}/>
 					<Typography variant='overline'>
 							Count: <strong>{state.pageCount}</strong>
-					</Typography> 
+					</Typography>
 				</div>
 			</Grid>
 			<Grid item md={12} >
@@ -198,11 +198,11 @@ function Table({
 						<Body page={page} prepareRow={prepareRow} getTableBodyProps={getTableBodyProps}/>
 						<TableFooter>
 							<TableRow>
-								
+
 							</TableRow>
 						</TableFooter>
 					</MUITable>
-				</TableContainer> 
+				</TableContainer>
 				<TablePagination
 					component='div'
 					rowsPerPageOptions={[5,10,20,25,50,100]}

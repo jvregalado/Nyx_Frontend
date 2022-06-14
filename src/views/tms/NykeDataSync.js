@@ -271,7 +271,7 @@ const View = () => {
 			paddingTop:1
 		}}>
 			<Grid item md={12}>
-				<Grid container component={Paper}  variant='container'>
+				<Grid container component={Paper} variant='container'>
 					<Table
 						//loading={loading}
 						columns={columns}
@@ -281,7 +281,6 @@ const View = () => {
 			</Grid>
 		</Grid>
 
-		<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log("state",state)} >{'POKE ME to print state'}</Typography>
 	</Grid>
 	)
 }

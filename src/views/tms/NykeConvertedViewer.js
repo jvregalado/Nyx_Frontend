@@ -26,12 +26,12 @@ const View = () => {
 		loaded: 0
 	})
 	const [fetchDataState,setfetchDataState] = React.useState({})
-	
+
 	const [controls,setControls] = React.useState({
 		uploadDialog:false
 	});
 
-	const columnsToExcel=[ { "label":"RTV", "name":"RTV" }, { "label":"RTV Date", "name":"RTV Date" }, { "label":"Site Code", "name":"Site Code" }, { "label":"Site Name", "name":"Site Name" }, { "label":"Site Address", "name":"Site Address" }, { "label":"Status", "name":"Status" }  ] 
+	const columnsToExcel=[ { "label":"RTV", "name":"RTV" }, { "label":"RTV Date", "name":"RTV Date" }, { "label":"Site Code", "name":"Site Code" }, { "label":"Site Name", "name":"Site Name" }, { "label":"Site Address", "name":"Site Address" }, { "label":"Status", "name":"Status" } ]
 
 	const columns = React.useMemo(()=>[
 		{
@@ -121,7 +121,6 @@ const View = () => {
 		.unwrap()
 		.then(result => {
 			const details = result.data[0];
-			console.log("details",details)
 			setfetchDataState({
 				//...fetchDataState,
 				id:details.id,
@@ -132,7 +131,7 @@ const View = () => {
 			},handleCheck())
 			//
 		})
-		
+
 	}
 
 	const handleConfirm = () => {
@@ -140,9 +139,8 @@ const View = () => {
 		if(file!=null){
 			var reader = new FileReader();
 			reader.onload = function() {
-	 		 	const data = reader.result;
-				  //console.log(data);
-				  dispatch(postUpload({
+				const data = reader.result;
+				dispatch(postUpload({
 					route:'converter',
 					data:{
 						file:data,
@@ -169,7 +167,6 @@ const View = () => {
 								customerCode:result?.data?.customerCode||null
 							}
 							)
-						//console.log("fetchDataState",result.data.toExcel)
 					}
 				})
 			};
@@ -179,19 +176,18 @@ const View = () => {
 
 	const handleUpload=(e)=>{
 		setuploadState({
-		
+
 		selectedFile: e.target.files[0],
 		loaded: 0,
-	 	})
-	 	setfetchDataState({
-			 ...fetchDataState,
-			 /** getting file name then display to title */
-			 selectedFile:fetchDataState?.selectedFile||e.target.files[0].name
-		 })
+		})
+		setfetchDataState({
+			...fetchDataState,
+			/** getting file name then display to title */
+			selectedFile:fetchDataState?.selectedFile||e.target.files[0].name
+		})
 	}
 
 	const handleCheck = () => {
-		console.log("fetchDataState2",fetchDataState);
 		dispatch(postUpload({
 			route:'converter',
 			data:{
@@ -217,7 +213,6 @@ const View = () => {
 						pdfFile:result?.data?.pdfFile
 					}
 				)
-				console.log("toExcel",toExcel)
 			}
 		})
 	}

@@ -111,7 +111,7 @@ const getRTVview = createAsyncThunk('rtv/get',
 
 const postUpload = createAsyncThunk('tms-converter/post',
 	async({route,data},{rejectWithValue})=>{
-		console.log(`${baseURL}/${route}`);
+		// console.log(`${baseURL}/${route}`);
 		try{
 			const res = await API({
 				requestHeaders:{
@@ -139,7 +139,7 @@ const postUpload = createAsyncThunk('tms-converter/post',
 )
 const postGenerate = createAsyncThunk('tms-converter/post',
 	async({route,data},{rejectWithValue})=>{
-		console.log(`${baseURL}/${route}`);
+		// console.log(`${baseURL}/${route}`);
 		try{
 			const res = await API({
 				requestHeaders:{
@@ -155,17 +155,7 @@ const postGenerate = createAsyncThunk('tms-converter/post',
 			return res
 		}
 		catch(e){
-			// if(e.response && e.response.data){
-			// 	try{
-			// 		const m = String.fromCharCode.apply(null, new Uint8Array(e.response.data));
-			// 		const msg = JSON.parse(m);
-			// 		toast.error(`${msg.message}`);}
-			// 		catch(e){
-			// 			toast.error(`${e}`);
-			// 		}
-			// }
-			// return rejectWithValue(e)
-			
+
 			if(e.response && e.response.data){
 				toast.error(`${e.response.data.message}`)
 			}

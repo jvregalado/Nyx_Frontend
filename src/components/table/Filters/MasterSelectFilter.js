@@ -1,8 +1,6 @@
 import React from 'react';
 import {useSelector,useDispatch} from 'react-redux';
-import {
-	 MasterSelect
-} from '../../select';
+import { MasterSelect } from '../../select';
 // import {setValue} from '../../../store/filters/filters.slice';
 
 const MasterSelectFilter = ({
@@ -14,7 +12,7 @@ const MasterSelectFilter = ({
 }) => {
 	// const dispatch = useDispatch()
 	const reducer = useSelector(state => state.filters)
-	
+
 	React.useEffect(()=>{
 		setFilter(reducer[variant] || undefined)
 	// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -29,10 +27,10 @@ const MasterSelectFilter = ({
 			value={reducer[variant] || filterValue}
 			handleChange={(e)=>{
 				setFilter(e || undefined)
-			//	dispatch(setValue({
-			//		 variant,
-			//		 value:e||undefined
-			//	}))
+				// dispatch(setValue({
+				// 	variant,
+				// 	value:e||undefined
+				// }))
 			}}
 		/>
 	)

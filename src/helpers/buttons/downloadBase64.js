@@ -10,7 +10,7 @@ const downloadBase64File = ({
 	downloadLink.href = linkSource;
 	downloadLink.target = '_self';
 	downloadLink.download = fileName;
-	downloadLink.click(); 
+	downloadLink.click();
 }
 
 export default downloadBase64File

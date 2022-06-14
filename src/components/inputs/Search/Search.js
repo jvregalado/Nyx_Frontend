@@ -12,31 +12,31 @@ function Search({
 	// // const classes = useStyles();
 	// const dispatch = useDispatch()
 	// const handleChange = (e) => {
-	//	 if(e.target.value === ''){
-	//		 dispatch(setValue({variant:'search',
-	//		 value:''}))
-	//	 }
+	//	if(e.target.value === ''){
+	//		dispatch(setValue({variant:'search',
+	//		value:''}))
+	//	}
 	// }
 
 	// const handleBlur = (e) => {
-	//	 dispatch(setValue({
-	//		 variant:'search',
-	//		 value:e.target.value
-	//	 }))
+	//	dispatch(setValue({
+	//		variant:'search',
+	//		value:e.target.value
+	//	}))
 	// }
 
 	// React.useEffect(()=>{
-	//	 return () => {
-	//		 dispatch(setValue({
-	//			 variant:'search',
-	//			 value:''
-	//		 }))
-	//	 }
+	//	return () => {
+	//		dispatch(setValue({
+	//			variant:'search',
+	//			value:''
+	//		}))
+	//	}
 	// // eslint-disable-next-line react-hooks/exhaustive-deps
 	// },[])
 
 	// const [state,setState] = React.useState('')
-	
+
 	// const handleChange = (e)=> setState(e.target.value)
 
 	return (

@@ -16,7 +16,7 @@ const MultiSelect = ({
 }) => {
 	const theme = useTheme();
 	const [options,setOptions] = React.useState([])
-	
+
 	const filterOptions = (inputValue) => {
 		// eslint-disable-next-line no-eval
 		return options.filter(i =>
@@ -41,7 +41,7 @@ const MultiSelect = ({
 			flexDirection:'column',
 			paddingLeft:theme.spacing(1),
 			paddingRight:theme.spacing(1)
-		}}> 
+		}}>
 			<Tooltip
 				title		={toolTip}
 				placement	='bottom-start'

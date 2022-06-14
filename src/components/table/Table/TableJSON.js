@@ -7,26 +7,25 @@ function TableJSON({
 	//options,
 	title,
 	filename
-})   {
-	
-//const data = custData.Data;
-const options = {
-filterType: "dropdown",
-responsive: "scroll",
-selectableRowsHeader: false,
-selectableRowsHideCheckboxes: true,
-print: false,
-pagination:false,
-downloadOptions:{filename: `${filename}.csv`, separator: ','}
-};
-return (
-<MUIDataTable
-title={title}
-data={data}
-columns={columns}
-options={options}
-/>
-);
+})	{
+
+	const options = {
+		filterType: "dropdown",
+		responsive: "scroll",
+		selectableRowsHeader: false,
+		selectableRowsHideCheckboxes: true,
+		print: false,
+		pagination:false,
+		downloadOptions:{filename: `${filename}.csv`, separator: ','}
+	};
+	return (
+		<MUIDataTable
+		title={title}
+		data={data}
+		columns={columns}
+		options={options}
+		/>
+	);
 }
 
 TableJSON.defaultProps = {
@@ -34,4 +33,5 @@ TableJSON.defaultProps = {
 	data:[],
 	title:''
 }
+
 export default TableJSON;

@@ -3,8 +3,9 @@
 import React from 'react';
 import Spinner from '../../components/spinner/spinner'
 import {Toolbar} from '../../components/toolbar';
-import {Grid,Paper
-	 ,Typography
+import {Grid
+	,Paper
+	// ,Typography
 } from '@mui/material';
 import {useDispatch,useSelector} from 'react-redux';
 
@@ -57,7 +58,7 @@ const View = () => {
 			}
 		}))
 		.unwrap()
-		.then(result => {	
+		.then(result => {
 				if(result!==500)
 					{
 						//console.log(result.data.data)
@@ -86,7 +87,6 @@ const View = () => {
 			.then(result => {
 				/** Get the source code of the report (na string in json format) */
 				let report_source_code = result?.data?.data[0]?.report_source_code || 'pamparampampam';
-				console.log(report_source_code,"report_source_code")
 				/** Check if source code (na string) is JSON.parsable */
 				if(/^[\],:{}\s]*$/.test(report_source_code.replace(/\\["\\\/bfnrtu]/g, '@').
 					replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
@@ -198,7 +198,7 @@ const View = () => {
 				upload file goes here
 			</Grid>
 		</Grid>
-		<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log("state",state.dateFrom)} >{'POKE ME'}</Typography>
+		{/* <Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log("state",state.dateFrom)} >{'POKE ME'}</Typography> */}
 	</Grid>
 	)
 }

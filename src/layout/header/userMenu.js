@@ -1,5 +1,5 @@
 import React from 'react';
-import {Menu, 
+import {Menu,
 	MenuItem,
 } from '@mui/material';
 import {signOut} from '../../store/authentication'

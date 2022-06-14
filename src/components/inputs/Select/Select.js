@@ -4,7 +4,7 @@ import {TextField,Grid,useTheme, MenuItem} from '@mui/material';
 function Select({label,name,size,handleChange,value}) {
 	const theme = useTheme()
 	const [state,setState] = React.useState([])
-	
+
 	React.useEffect(()=>{
 		if(name==='algo_type'){
 			setState([
@@ -20,7 +20,7 @@ function Select({label,name,size,handleChange,value}) {
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[])
-	
+
 	return (
 		<Grid item xs={12} md={size} component='div' style={{
 			paddingLeft:theme.spacing(1),
@@ -42,7 +42,7 @@ function Select({label,name,size,handleChange,value}) {
 						<MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>
 					))
 				}
-				
+
 			</TextField>
 
 		</Grid>

@@ -17,11 +17,11 @@ const DateFilter = ({
 
 
 	// const handleChange = useAsyncDebounce(value=>{
-	//	 setFilter({value} || undefined)
-	//	 dispatch(setValue({
-	//		 variant:'delivery_date',
-	//		 value:value || undefined
-	//	 }))
+	//	setFilter({value} || undefined)
+	//	dispatch(setValue({
+	//		variant:'delivery_date',
+	//		value:value || undefined
+	//	}))
 	// },200);
 
 	React.useEffect(()=>{
@@ -31,12 +31,12 @@ const DateFilter = ({
 	},[])
 
 	return (
-		<SimpleDatePicker 
-			isLabelVisible 
-			label={label} 
+		<SimpleDatePicker
+			isLabelVisible
+			label={label}
 			name={name}
-			size={12} 
-			value={reducer.delivery_date||state} 
+			size={12}
+			value={reducer.delivery_date||state}
 			handleChange={(e)=> {
 				// handleChange(e.target.value)
 				setState(e.target.value)

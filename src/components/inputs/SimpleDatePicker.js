@@ -5,14 +5,14 @@ import {TextField,Grid,Typography,useTheme} from '@mui/material';
 const SimpleDatePicker = ({label,name,size,handleChange,value,isLabelVisible,isDisabled}) => {
 	const theme = useTheme()
 	// const onChange = (value) => {
-	//	 const e = {
-	//		 target:{
-	//			 name:name,
-	//			 value:value
-	//		 }
-	//	 }
-	//	 console.log(value)
-	//	 handleChange(e)
+	// 	const e = {
+	// 		target:{
+	// 			name:name,
+	// 			value:value
+	// 		}
+	// 	}
+	// 	console.log(value)
+	// 	handleChange(e)
 	// }
 
 	return (
@@ -25,9 +25,9 @@ const SimpleDatePicker = ({label,name,size,handleChange,value,isLabelVisible,isD
 		}}>
 			<Typography sx={{
 					display:isLabelVisible ? 'visible' : 'none',
-				}} 
+				}}
 				variant='overline'>{label}</Typography>
-			<TextField 
+			<TextField
 				size='small'
 				type='date'
 				sx={{marginTop:0}}

@@ -37,7 +37,7 @@ const DateRangeFilter = ({
 		<Grid item container>
 			<SimpleDatePicker isLabelVisible label='From' name='from' size={6} value={state.from} handleChange={handleChange}/>
 			<SimpleDatePicker isLabelVisible label='to' name='to' size={6} value={state.to} handleChange={handleChange}/>
-			
+
 			{/* <DatePicker isLabelVisible label='To' name='to' size={6} value={state.to} handleChange={handleChange}/> */}
 		</Grid>
 	)
