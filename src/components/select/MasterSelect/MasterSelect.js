@@ -23,13 +23,14 @@ function MasterSelect({
 	const dispatch = useDispatch();
 
 	const filterInput = (inputValue) => {
-		// console.log(inputValue, options?.length, options)
+		console.log(inputValue, options?.length, options)
 		// eslint-disable-next-line no-eval
 		if(!options) {
 			return null
 		}
+		let input = inputValue.toLowerCase() ?? ''
 		return options.filter(i =>
-			i.label.toLowerCase().includes(inputValue.toLowerCase())
+			i.label.toLowerCase().includes(input)
 		)
 	}
 
@@ -72,7 +73,7 @@ function MasterSelect({
 				isDisabled={isDisabled}
 				styles={{menu: provided => ({...provided,zIndex: 9999})}}
 				placeholder={placeholder}
-				defaultOptions={[]}
+				defaultOptions={options ?? []}
 				loadOptions={(inputValue,callBack)=>{
 					setTimeout(() => {
 						callBack(filterInput(inputValue))

@@ -11,7 +11,6 @@ import {Spinner} from '..';
 import {Switch} from '../inputs';
 import {getReasonCodeDetails,patchReasonCode} from '../../store/administration-reasoncode/reasoncode.slice';
 
-
 const UpdateReasonCodeDialog = ({
 	isOpen,
 	toggle,

@@ -12,7 +12,6 @@ import {Switch} from '../../components/inputs';
 import {getUserDetails,patchUser} from '../../store/administration-user';
 import {MasterSelect} from '../../components/select';
 
-
 const UpdateUserDialog = ({
 	isOpen,
 	toggle,

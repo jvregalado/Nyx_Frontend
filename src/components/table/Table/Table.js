@@ -126,7 +126,6 @@ function Table({
 
 		// console.log(filterVal)
 
-
 		// console.log('fired twice')
 
 		const callBack = (result) => {

@@ -1,7 +1,6 @@
 import React from 'react'
 import {TextField,Grid,Typography,useTheme} from '@mui/material';
 
-
 const SimpleDatePicker = ({label,name,size,handleChange,value,isLabelVisible,isDisabled}) => {
 	const theme = useTheme()
 	// const onChange = (value) => {
@@ -56,6 +55,5 @@ SimpleDatePicker.defaultProps = {
 	value:null,
 	handleChange:()=>{}
 }
-
 
 export default SimpleDatePicker

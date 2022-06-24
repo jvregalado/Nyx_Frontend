@@ -4,9 +4,9 @@ import React from 'react';
 import moment from 'moment'
 import Spinner from '../../components/spinner'
 import {Toolbar} from '../../components/toolbar';
-import {Grid,Paper
-	,Typography
-} from '@mui/material';
+import {Grid
+	,Paper
+	,Typography } from '@mui/material';
 import {useDispatch,useSelector} from 'react-redux';
 
 import {Table} from '../../components/table';
@@ -156,7 +156,7 @@ const View = () => {
 							source_code : JSON.parse(report_source_code)
 						})
 					}
-				else{
+				else {
 					setState({
 						...state,
 						source_code : {}

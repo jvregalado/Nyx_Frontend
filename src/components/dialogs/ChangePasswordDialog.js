@@ -40,7 +40,7 @@ const ChangePasswordDialog = ({
 			hasError:isError
 		})
 
-		if(isError === false && state.user_new_password1.length > 6){
+		if(isError === false && state.user_new_password1.length >= 6){
 			dispatch(changePassword({
 				route:'password_change',
 				data:{
@@ -64,7 +64,7 @@ const ChangePasswordDialog = ({
 	const handleChange = (e) => {
 		setState({
 			...state,
-			[e.target.name]:e
+			[e.target.name]:e.target.value
 		})
 	}
 

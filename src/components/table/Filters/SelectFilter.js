@@ -3,7 +3,6 @@ import {Select} from '../../select'
 import {setValue} from '../../../store/filters';
 import {useSelector,useDispatch} from 'react-redux';
 
-
 const SelectFilter = ({
 	column:{filterValue, preFilteredRows, setFilter},
 	variant,

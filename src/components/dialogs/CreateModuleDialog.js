@@ -11,7 +11,6 @@ import {useDispatch} from 'react-redux';
 import {Spinner} from '..';
 import {postModule} from '../../store/administration-module';
 
-
 const CreateModuleDialog = ({
 	isOpen,
 	toggle

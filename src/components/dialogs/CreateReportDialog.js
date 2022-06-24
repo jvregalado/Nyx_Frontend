@@ -11,7 +11,6 @@ import {Spinner} from '..';
 import {postReport} from '../../store/administration-report';
 import {MasterSelect} from '../../components/select';
 
-
 const CreateReportDialog = ({
 	isOpen,
 	toggle

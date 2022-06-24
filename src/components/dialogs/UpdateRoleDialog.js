@@ -11,7 +11,6 @@ import {Spinner} from '..';
 import {Switch} from '../inputs';
 import {getRoleDetails,patchRole} from '../../store/administration-role';
 
-
 const UpdateRoleDialog = ({
 	isOpen,
 	toggle,

@@ -3,7 +3,6 @@ import * as constants from '../../utils/constants/constants';
 import {Typography, useTheme, Tooltip} from '@mui/material';
 import ReactSelect from 'react-select/async';
 
-
 const MultiSelect = ({
 	label,
 	name,
@@ -33,7 +32,6 @@ const MultiSelect = ({
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[type])
-
 
 	return (
 		<div style={{

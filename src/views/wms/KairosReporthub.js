@@ -5,14 +5,14 @@ import Spinner from '../../components/spinner'
 import {Toolbar} from '../../components/toolbar';
 import {
 	Grid,
-	Paper
+	Paper,
+	Typography
 } from '@mui/material';
 import {useDispatch,useSelector} from 'react-redux';
 
 import {Input,DatePicker} from '../../components/inputs'
 import {MasterSelect} from '../../components/select'
 import {getReport,getReportCodes} from '../../store/wms_reporthub';
-
 
 const KairosReporthub = ({routes}) => {
 	return (
@@ -43,6 +43,7 @@ const View = () => {
 	}
 
 	const handleChange = (e) => {
+		// console.log('e',e.target)
 		setState({
 			...state,
 			[e.target.name]:e.target.value
@@ -189,11 +190,26 @@ const View = () => {
 
 			</Grid>
 		</Grid>
-		<Grid item md={7}>
+		<Grid item md={7} sx={{ paddingLeft: 1 }}>
 			<Grid container component={Paper} variant='container'>
-				upload file goes here
+				<Grid item md={12}>
+
+					{/**Dynamically Generate the Report Details */}
+					{	typeof state?.source_code?.descriptions === 'object' ?
+						state?.source_code?.descriptions.map((foo,i) => (
+							<Grid item md={12}>
+								<Typography>
+									<Typography variant="button" display="block" sx={{ fontWeight: 'bold' }}>{Object.keys(foo)[0]}</Typography>
+										<Typography sx={{ paddingLeft: 2 }} variant='subtitle2' gutterBottom>{foo[Object.keys(foo)[0]]}</Typography>
+								</Typography>
+							</Grid>
+						)) : <Typography variant='body1' >No report selected</Typography>
+					}
+
+				</Grid>
 			</Grid>
 		</Grid>
+		<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log("state",state)} >{'POKE ME'}</Typography>
 	</Grid>
 	)
 }

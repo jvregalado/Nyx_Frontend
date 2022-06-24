@@ -18,7 +18,6 @@ function Button({
 	);
 }
 
-
 Button.defaultProps = {
 	label:'',
 	variant:'text',

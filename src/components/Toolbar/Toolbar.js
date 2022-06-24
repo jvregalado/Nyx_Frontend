@@ -31,7 +31,6 @@ function Toolbar({
 	// 	uploadDialog
 	// });
 
-
 	return (
 		<Paper elevation={0} variant='outlined' sx={{
 			paddingLeft:1,
