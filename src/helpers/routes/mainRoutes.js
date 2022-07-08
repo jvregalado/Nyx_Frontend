@@ -5,7 +5,12 @@ import { Report } from '../../views/administration-report';
 import { ReasonCode } from '../../views/administration-reasoncode';
 
 import { KairosReporthub } from '../../views/wms';
-import { NykeDataSync,NykeConverter,NykeConvertedViewer,NykeReporthub } from '../../views/tms';
+import { NykeDataSync,
+	NykeConverter,
+	NykeConvertedViewer,
+	NykeReporthub } from '../../views/tms';
+import { PlutusReporthub } from '../../views/fms';
+
 
 const routes = [
 	{
@@ -96,6 +101,15 @@ const routes = [
 		subModule:'nyke converter viewer',
 		component:NykeConvertedViewer
 	},
+	{
+		name:'plutus report hub',
+		label:'Plutus Report Hub',
+		route:'/fms/reporthub',
+		module:'Finance Management',
+		subModule:'plutus report hub',
+		component:PlutusReporthub
+	},
+	
 ]
 
 export default routes;

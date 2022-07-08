@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable dot-location */
 import React from 'react';
-import Spinner from '../../components/spinner'
+import Spinner from '../../components/spinner/spinner'
 import {Toolbar} from '../../components/toolbar';
 import {
 	Grid,
@@ -10,12 +10,11 @@ import {
 } from '@mui/material';
 import {useDispatch,useSelector} from 'react-redux';
 
-import {Input, DatePicker} from '../../components/inputs'
-import {downloadBase64File} from '../../helpers/buttons'
+import {Input,DatePicker} from '../../components/inputs'
 import {MasterSelect} from '../../components/select'
-import {getReport,getReportCodes} from '../../store/wms_reporthub';
+import {getReport,getReportCodes} from '../../store/wms_reporthub/wms_reporthub.slice';
 
-const KairosReporthub = ({routes}) => {
+const PlutusReporthub = ({routes}) => {
 	return (
 		<View/>
 	);
@@ -26,8 +25,7 @@ const View = () => {
 	const {loading} = useSelector(state => state.wms_reporthub)
 	const dispatch = useDispatch();
 	const [state,setState] = React.useState({
-		report		: '',
-		filters		: {}
+		report		:''
 	})
 
 	const handleReportChange = (e,name) => {
@@ -56,31 +54,16 @@ const View = () => {
 		//console.log(state)
 		dispatch(getReport({
 			route:'reporthub',
-			downloadType:'xlsx',
 			data:{
 				...state
 			}
 		}))
-		.unwrap()
-		.then(result => {
-			//## type format of Base64
-			const typeFormat = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-			const contentBase64 = result.data.contents;
-			const filename =`${result.data.filename}`;
-			downloadBase64File({
-				typeFormat : { typeFormat },
-				contentBase64,
-				filename
-			})
-			}
-		)
 	}
 
 	const handleDownloadPdf = () => {
 		//console.log(state)
 		dispatch(getReport({
 			route:'reporthub',
-			downloadType:'pdf',
 			data:{
 				...state
 			}
@@ -217,7 +200,7 @@ const View = () => {
 							<Grid item md={12}>
 								<Typography>
 									<Typography variant="button" display="block" sx={{ fontWeight: 'bold' }}>{Object.keys(foo)[0]}</Typography>
-										<Typography sx={{ paddingLeft: 2 }} variant='subtitle2' key={i} gutterBottom>{foo[Object.keys(foo)[0]]}</Typography>
+										<Typography sx={{ paddingLeft: 2 }} variant='subtitle2' gutterBottom>{foo[Object.keys(foo)[0]]}</Typography>
 								</Typography>
 							</Grid>
 						)) : <Typography variant='body1' >No report selected</Typography>
@@ -226,9 +209,8 @@ const View = () => {
 				</Grid>
 			</Grid>
 		</Grid>
-		<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log("state",state)} >{'POKE ME'}</Typography>
 	</Grid>
 	)
 }
 
-export default KairosReporthub;
+export default PlutusReporthub;

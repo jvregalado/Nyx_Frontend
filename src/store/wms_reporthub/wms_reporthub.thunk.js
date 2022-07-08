@@ -33,7 +33,7 @@ const getReportCodes = createAsyncThunk('wms-report-sourceCode/get',
 )
 
 const getReport = createAsyncThunk('wms-report/post',
-	async({route,data},{rejectWithValue})=>{
+	async({route,data,downloadType},{rejectWithValue})=>{
 		try{
 			let res;
 			if(data.report === null || typeof data.report.value !== 'string') {
@@ -44,7 +44,7 @@ const getReport = createAsyncThunk('wms-report/post',
 					requestHeaders:{
 						...headers
 					}
-				}).post(`${baseURL}/${route}`,{
+				}).post(`${baseURL}/${route}/${downloadType}`,{
 					data
 				})
 			}

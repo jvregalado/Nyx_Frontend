@@ -54,6 +54,18 @@ const modules = [
 		]
 	},
 	{
+		name:'fms',
+		label:'Finance Management',
+		route:'/fms',
+		subModules:[
+			{
+				name:'Plutus',
+				route:'/fms/reporthub',
+				label: 'Plutus Reporthub'
+			},
+		]
+	},
+	{
 		name:'administration',
 		label:'Administration',
 		route:'/administration',

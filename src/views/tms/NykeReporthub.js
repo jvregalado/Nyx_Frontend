@@ -66,7 +66,7 @@ const View = () => {
 						const typeFormat = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 						/** Get the Base64 from backend */
 						const contentBase64=result.data.data.contents;
-						const fileName=`Generated${result.data.data.fileName}`;
+						const fileName=`${result.data.data.fileName}`;
 						downloadBase64File({
 							typeFormat:{typeFormat},
 							contentBase64,
