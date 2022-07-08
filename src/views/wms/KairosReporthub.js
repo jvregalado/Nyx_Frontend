@@ -226,7 +226,7 @@ const View = () => {
 				</Grid>
 			</Grid>
 		</Grid>
-		<Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log("state",state)} >{'POKE ME'}</Typography>
+		{/* <Typography sx={{ color:'#CC6400' }} style={{cursor:"pointer"}} onClick={() => console.log("state",state)} >{'.'}</Typography> */}
 	</Grid>
 	)
 }
